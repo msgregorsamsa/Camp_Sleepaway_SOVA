@@ -1,6 +1,6 @@
 ﻿
 
-namespace Camp_Sleepaway_SOVA_A
+namespace Camp_Sleepaway_SOVA
 {
     public class Camper
     {
