@@ -5,8 +5,13 @@ namespace Camp_Sleepaway_SOVA
     {
         public int Id { get; set; }
 
+        public string Title { get; set; } //Åldersgrupp?
 
-        //Koppling till cabin
+        public string InChargeOf { get; set; } //Ansvarsområde
+
+        public bool OnCabinDuty { get; set; } //Det finns fler stugor än councelors, därav kommer vissa inte ha någon stuga att ansvara över
+
+        //Koppling till cabin_id
         //Koppling till campers ? Genom cabin?
     }
 }
