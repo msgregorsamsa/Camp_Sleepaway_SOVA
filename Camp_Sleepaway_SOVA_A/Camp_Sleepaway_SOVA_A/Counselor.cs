@@ -11,7 +11,11 @@ namespace Camp_Sleepaway_SOVA
 
         public bool OnCabinDuty { get; set; } //Det finns fler stugor än councelors, därav kommer vissa inte ha någon stuga att ansvara över
 
-        //Koppling till cabin_id
-        //Koppling till campers ? Genom cabin?
+        public int? CabinId { get; set; } // FK till Cabin, kan vara null om ledaren inte är knuten till en stuga
+
+        public virtual Cabin Cabin { get; set; } // Navigation property till Cabin
     }
+    //Koppling till cabin_id
+    //Koppling till campers ? Genom cabin?
 }
+
