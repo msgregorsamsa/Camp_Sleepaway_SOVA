@@ -5,6 +5,6 @@ namespace Camp_Sleepaway_SOVA
     {
         public int Id { get; set; }
 
-        // koppling till camper
+        // koppling till camper/s
     }
 }
