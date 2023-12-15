@@ -1,11 +1,10 @@
 ﻿
 namespace Camp_Sleepaway_SOVA
 {
-    public class Camper : Person
+    public class Cabin 
     {
         public int Id { get; set; }
-        
+        public int Beds { get; set; }
 
-        //koppling till cabin
     }
 }

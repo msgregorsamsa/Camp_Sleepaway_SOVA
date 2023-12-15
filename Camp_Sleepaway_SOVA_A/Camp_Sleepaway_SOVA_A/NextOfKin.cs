@@ -1,11 +1,10 @@
 ﻿
 namespace Camp_Sleepaway_SOVA
 {
-    public class Camper : Person
+    public class NextOfKin : Person
     {
         public int Id { get; set; }
-        
 
-        //koppling till cabin
+        // koppling till camper
     }
 }
