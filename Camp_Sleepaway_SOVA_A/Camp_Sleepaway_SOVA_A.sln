@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camp_Sleepaway_SOVA_A", "Camp_Sleepaway_SOVA_A\Camp_Sleepaway_SOVA_A.csproj", "{AD0B04AE-57BD-4EDD-9610-30502375B9CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD0B04AE-57BD-4EDD-9610-30502375B9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0B04AE-57BD-4EDD-9610-30502375B9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0B04AE-57BD-4EDD-9610-30502375B9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0B04AE-57BD-4EDD-9610-30502375B9CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B97DDA1-483C-4657-9C1D-4CB08E49613E}
+	EndGlobalSection
+EndGlobal
