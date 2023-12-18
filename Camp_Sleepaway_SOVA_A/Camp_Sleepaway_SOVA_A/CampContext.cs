@@ -6,10 +6,10 @@ namespace Camp_Sleepaway_SOVA;
 
 public class CampContext : DbContext
 {
-    public static DbSet<Cabin> Cabins { get; set; }
-    public static DbSet<Camper> Campers { get; set; }
-    public static DbSet<NextOfKin> NextOfKins { get; set; }
-    public static DbSet<Counselor> Counselors { get; set; }
+    public DbSet<Cabin> Cabins { get; set; }
+    public DbSet<Camper> Campers { get; set; }
+    public DbSet<NextOfKin> NextOfKins { get; set; }
+    public DbSet<Counselor> Counselors { get; set; }
 
     //add more if we have more tables
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

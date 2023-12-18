@@ -33,7 +33,12 @@ namespace Camp_Sleepaway_SOVA.Methods
                 LastName = "Svensson",
                 Phone = "07013371337"
             };
-            CampContext.Campers.Add(c);
+            using(var context = new CampContext())
+            {
+                context.Campers.Add(c);
+                context.SaveChanges();
+            }
+            
         }
 
         public static void DeleteInformation () //Lägg till metod för att ta bort med meny för val av vad man vill ta bort
