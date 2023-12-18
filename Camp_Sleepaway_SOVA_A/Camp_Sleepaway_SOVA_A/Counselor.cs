@@ -15,6 +15,5 @@ namespace Camp_Sleepaway_SOVA
 
         public virtual Cabin Cabin { get; set; } // Navigation property till Cabin
     }
-    //Koppling till campers ? Genom cabin?
 }
 

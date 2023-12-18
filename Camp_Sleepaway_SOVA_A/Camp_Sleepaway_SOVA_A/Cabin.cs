@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Camp_Sleepaway_SOVA
 {
     public class Cabin 
@@ -14,9 +17,9 @@ namespace Camp_Sleepaway_SOVA
 
         public List<Camper> Campers { get; set; } // ändrar till lista
 
-        public int? CounselorId { get; set; } // FK till ledare, kan vara null om ingen ledare är kopplad till stugan
-        public virtual Counselor Counselor { get; set; } // Navigation property till Counselor, virtual - men varför?
+       // public int? CounselorId { get; set; } // FK till ledare, kan vara null om ingen ledare är kopplad till stugan
 
+        public Counselor Counselor { get; set; } // Navigation property till Counselor, virtual - men varför?
 
 
         // Skapa koppling /public camper reference) till Camper - public  int Occupants { get; set; }
