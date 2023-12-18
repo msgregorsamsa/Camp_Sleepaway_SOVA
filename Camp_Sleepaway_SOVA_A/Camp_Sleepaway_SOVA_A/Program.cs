@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Camp_Sleepaway_SOVA.Methods;
+using System.Globalization;
 
 public class Program
 {
@@ -14,28 +15,30 @@ public class Program
                     "Lägg till",
                     "Ta bort",
                     "Ändra",
-                    "Visa rapport",
+                    "Visa rapport baserat på på stuga eller counselor",
+                    "Visa rapport för stugor som saknar councelor",
                     "Avsluta"
             });
 
-            if (option == 0) //Skapa en metod för Lägg till
+            if (option == 0) //Skapa en metod för Lägg till och anropa den
             {
-
+                CRUDMethods.AddInformation();
             }
-            else if (option == 1) //Skapa en metod för Ta bort
+            else if (option == 1) //Skapa en metod för Ta bort och anropa den
             {
-
+                CRUDMethods.DeleteInformation();
             }
             else if (option == 2)
             {
-         
+                CRUDMethods.Editinformation();
             }
             else if (option == 3)
             {
-               
+                CRUDMethods.ShowReportsForCampers();
             }
             else if (option == 4)
             {
+                CRUDMethods.ReportsForMissingCouncelor();
             }
             else
             {
@@ -67,7 +70,7 @@ public class Program
             // Start by highlighting the first option.
             if (i == 0)
             {
-                Console.BackgroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
@@ -104,7 +107,7 @@ public class Program
 
             // Finally highlight the new selected option.
             Console.CursorTop = top + selected;
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
             string newOption = options.ElementAt(selected);
             Console.Write("- " + newOption.PadRight(width));
