@@ -11,6 +11,7 @@ public class Program
         Filehandling.CamperCSV("CamperData.csv");
         Filehandling.NextOfKinCSV("NextOfKinData.csv");
         Filehandling.CounselorCSV("CounselorData.csv");
+        Filehandling.CabinCSV("CabinData.csv");
 
 
         bool running = true;

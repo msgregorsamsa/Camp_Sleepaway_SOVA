@@ -188,6 +188,55 @@ namespace Camp_Sleepaway_SOVA.Methods
                 return counselors;
             }
         }
+
+        public static void CabinCSV(string filepath)
+        {
+            var cabinFile = ReadCSV("CabinData.csv");
+
+            Console.WriteLine($"{cabinFile.Count} rader hittades i CSV-filen");
+
+            using var context = new CampContext();
+
+            foreach (var cabin in cabinFile)
+            {
+                context.Add(cabin);
+            }
+            context.SaveChanges();
+
+            static List<Cabin> ReadCSV(string filePath)
+            {
+                var cabins = new List<Cabin>();
+
+                using var reader = new StreamReader(filePath);
+
+                // Read the header line
+                var headerLine = reader.ReadLine();
+
+                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                {
+                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                    if (line == null)
+                    {
+                        break; //Loopen avbryts
+                    }
+
+                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                    //line.Split returnerar en array av strängar:
+                    if (values.Length == 1)
+                    {
+                        var name = values[0];
+
+                        var cabin = new Cabin
+                        {
+                            Name = name 
+                        };
+                        cabins.Add(cabin);
+                    }
+                }
+                return cabins;
+            }
+        }
     }
 }
 

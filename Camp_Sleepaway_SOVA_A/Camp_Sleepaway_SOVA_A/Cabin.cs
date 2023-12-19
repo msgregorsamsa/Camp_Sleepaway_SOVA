@@ -9,11 +9,9 @@ namespace Camp_Sleepaway_SOVA
         public int Id { get; set; }
         public string Name { get; set; } //Stugnamn
 
-        public int BedNumber { get; set; }
+       //public  DateTime Check_In { get; set; } 
 
-        public  DateTime Check_In { get; set; } 
-
-        public DateTime Check_Out { get; set; }
+        //public DateTime Check_Out { get; set; }
 
         public List<Camper> Campers { get; set; } // ändrar till lista
 
