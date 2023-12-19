@@ -33,7 +33,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                 LastName = "Svensson",
                 Phone = "07013371337"
             };
-            using(var context = new CampContext())
+
+            using (var context = new CampContext()) //Lägger till en ny camper
             {
                 context.Campers.Add(c);
                 context.SaveChanges();
@@ -76,7 +77,21 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             Console.Clear();
 
-            // SQL ska ersättas med LINQ i EF
+            /*using(var context = new CampContext()) //Work in progress!!
+{
+                // Hämta entiteten som ska uppdateras
+                var entitetAttUppdatera = context.Campers.FirstOrDefault(e => e.Id == söktId); 
+
+                if (entitetAttUppdatera != null)
+                {
+                    // Uppdatera egenskaper
+                    entitetAttUppdatera.Property1 = "Nytt värde för egenskap 1";
+                    entitetAttUppdatera.Property2 = "Nytt värde för egenskap 2";
+
+                    // Spara ändringar
+                    context.SaveChanges();
+                }
+            }*/
         }
 
         public static void ShowReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
