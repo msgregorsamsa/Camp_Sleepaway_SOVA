@@ -128,7 +128,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         public static void CounselorCSV(string filepath)
         {
-            var counselorFile = ReadCSV("NextOfKinData.csv");
+            var counselorFile = ReadCSV("CounselorData.csv");
 
             Console.WriteLine($"{counselorFile.Count} rader hittades i CSV-filen");
 
@@ -171,7 +171,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var title = values[6];
                         var onCabinDuty = values[7];
 
-                        var councelor = new Counselor
+                        var counselor = new Counselor
                         {
                             FirstName = firstName,
                             LastName = lastName,
@@ -182,7 +182,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Title = title,
                             OnCabinDuty = bool.Parse(onCabinDuty)
                         };
-                        counselors.Add(councelor);
+                        counselors.Add(counselor);
                     }
                 }
                 return counselors;
