@@ -8,7 +8,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 {
     public class Filehandling
     {
-        public static void CSVFile(string filepath)
+        public static void CamperCSV(string filepath)
         {
             var camperFile = ReadCSV("CamperData.csv");
 
@@ -22,9 +22,9 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             context.SaveChanges();
 
-            static List<Camper> ReadCSV(string filePath)
+            static List<NextOfKin> ReadCSV(string filePath)
             {
-                var campers = new List<Camper>();
+                var campers = new List<NextOfKin>();
 
                 using var reader = new StreamReader(filePath);
 
@@ -51,7 +51,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var email = values[4];
                         var address = values[5];
 
-                        var camper = new Camper
+                        var camper = new NextOfKin
                         {
                             FirstName = firstName,
                             LastName = lastName,
@@ -64,6 +64,65 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
                 }
                 return campers;
+            }
+        }
+
+        public static void NextOfKinCSV(string filepath)
+        {
+            var nextOfKinFile = ReadCSV("NextOfKinData.csv");
+
+            Console.WriteLine($"{nextOfKinFile.Count} rader hittades i CSV-filen");
+
+            using var context = new CampContext();
+
+            foreach (var nextofKin in nextOfKinFile)
+            {
+                context.Add(nextofKin);
+            }
+            context.SaveChanges();
+
+            static List<NextOfKin> ReadCSV(string filePath)
+            {
+                var nextOfKins = new List<NextOfKin>();
+
+                using var reader = new StreamReader(filePath);
+
+                // Read the header line
+                var headerLine = reader.ReadLine();
+
+                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                {
+                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                    if (line == null)
+                    {
+                        break; //Loopen avbryts
+                    }
+
+                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                    //line.Split returnerar en array av strängar:
+                    if (values.Length == 6)
+                    {
+                        var firstName = values[0];
+                        var lastName = values[1];
+                        var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                        var phone = values[3];
+                        var email = values[4];
+                        var address = values[5];
+
+                        var nextOfKin = new NextOfKin
+                        {
+                            FirstName = firstName,
+                            LastName = lastName,
+                            DateOfBirth = dateofbirth,
+                            Phone = phone,
+                            Email = email,
+                            Address = address
+                        };
+                        nextOfKins.Add(nextOfKin);
+                    }
+                }
+                return nextOfKins;
             }
         }
     }
