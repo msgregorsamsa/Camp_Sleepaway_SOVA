@@ -26,7 +26,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             Console.Clear();
 
             // SQL ska ersättas med LINQ i EF
-            NextOfKin c = new NextOfKin()
+            Camper c = new Camper()
             {
                 DateOfBirth = DateTime.Now,
                 FirstName = "Pelle",

@@ -4,6 +4,7 @@ using Camp_Sleepaway_SOVA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Camp_Sleepaway_SOVA.Migrations
 {
     [DbContext(typeof(CampContext))]
-    partial class CampContextModelSnapshot : ModelSnapshot
+    [Migration("20231219125809_sos")]
+    partial class sos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +156,9 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CabinId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -176,6 +182,8 @@ namespace Camp_Sleepaway_SOVA.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CabinId");
+
                     b.ToTable("NextOfKins");
                 });
 
@@ -197,7 +205,7 @@ namespace Camp_Sleepaway_SOVA.Migrations
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Camper", b =>
                 {
                     b.HasOne("Camp_Sleepaway_SOVA.Cabin", "Cabin")
-                        .WithMany("Campers")
+                        .WithMany()
                         .HasForeignKey("CabinId");
 
                     b.Navigation("Cabin");
@@ -210,6 +218,13 @@ namespace Camp_Sleepaway_SOVA.Migrations
                         .HasForeignKey("Camp_Sleepaway_SOVA.Counselor", "CabinId");
 
                     b.Navigation("Cabin");
+                });
+
+            modelBuilder.Entity("Camp_Sleepaway_SOVA.NextOfKin", b =>
+                {
+                    b.HasOne("Camp_Sleepaway_SOVA.Cabin", null)
+                        .WithMany("Campers")
+                        .HasForeignKey("CabinId");
                 });
 
             modelBuilder.Entity("CamperNextOfKin", b =>

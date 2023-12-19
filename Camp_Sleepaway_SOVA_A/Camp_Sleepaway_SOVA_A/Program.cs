@@ -9,9 +9,8 @@ public class Program
         Filehandling.CamperCSV("CamperData.csv");
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
-        Filehandling.CamperCSV("NextOfKinData.csv");
+        Filehandling.NextOfKinCSV("NextOfKinData.csv");
         
-
         bool running = true;
         while (running)
         {

@@ -4,6 +4,7 @@ using Camp_Sleepaway_SOVA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Camp_Sleepaway_SOVA.Migrations
 {
     [DbContext(typeof(CampContext))]
-    partial class CampContextModelSnapshot : ModelSnapshot
+    [Migration("20231219125344_ImLoosingIt")]
+    partial class ImLoosingIt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +156,12 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CabinId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CamperId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -170,34 +179,28 @@ namespace Camp_Sleepaway_SOVA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NextOfKinId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CabinId");
+
+                    b.HasIndex("CamperId");
+
+                    b.HasIndex("NextOfKinId");
+
                     b.ToTable("NextOfKins");
-                });
-
-            modelBuilder.Entity("CamperNextOfKin", b =>
-                {
-                    b.Property<int>("CampersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NextOfKinsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CampersId", "NextOfKinsId");
-
-                    b.HasIndex("NextOfKinsId");
-
-                    b.ToTable("CamperNextOfKin");
                 });
 
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Camper", b =>
                 {
                     b.HasOne("Camp_Sleepaway_SOVA.Cabin", "Cabin")
-                        .WithMany("Campers")
+                        .WithMany()
                         .HasForeignKey("CabinId");
 
                     b.Navigation("Cabin");
@@ -212,19 +215,19 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Navigation("Cabin");
                 });
 
-            modelBuilder.Entity("CamperNextOfKin", b =>
+            modelBuilder.Entity("Camp_Sleepaway_SOVA.NextOfKin", b =>
                 {
+                    b.HasOne("Camp_Sleepaway_SOVA.Cabin", null)
+                        .WithMany("Campers")
+                        .HasForeignKey("CabinId");
+
                     b.HasOne("Camp_Sleepaway_SOVA.Camper", null)
-                        .WithMany()
-                        .HasForeignKey("CampersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("NextOfKins")
+                        .HasForeignKey("CamperId");
 
                     b.HasOne("Camp_Sleepaway_SOVA.NextOfKin", null)
-                        .WithMany()
-                        .HasForeignKey("NextOfKinsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Campers")
+                        .HasForeignKey("NextOfKinId");
                 });
 
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Cabin", b =>
@@ -233,6 +236,16 @@ namespace Camp_Sleepaway_SOVA.Migrations
 
                     b.Navigation("Counselor")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Camp_Sleepaway_SOVA.Camper", b =>
+                {
+                    b.Navigation("NextOfKins");
+                });
+
+            modelBuilder.Entity("Camp_Sleepaway_SOVA.NextOfKin", b =>
+                {
+                    b.Navigation("Campers");
                 });
 #pragma warning restore 612, 618
         }

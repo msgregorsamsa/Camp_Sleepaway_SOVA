@@ -22,9 +22,9 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             context.SaveChanges();
 
-            static List<NextOfKin> ReadCSV(string filePath)
+            static List<Camper> ReadCSV(string filePath)
             {
-                var campers = new List<NextOfKin>();
+                var campers = new List<Camper>();
 
                 using var reader = new StreamReader(filePath);
 
@@ -51,7 +51,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var email = values[4];
                         var address = values[5];
 
-                        var camper = new NextOfKin
+                        var camper = new Camper
                         {
                             FirstName = firstName,
                             LastName = lastName,
