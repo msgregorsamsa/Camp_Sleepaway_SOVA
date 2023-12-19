@@ -6,6 +6,7 @@ public class Program
 {
     public static void Main()
     {
+        Filehandling.CSVFile("data.csv");
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
         bool running = true;

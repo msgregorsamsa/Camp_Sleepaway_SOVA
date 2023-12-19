@@ -8,7 +8,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 {
     public class Filehandling
     {
-        /*public static void CSVFile()
+        public static void CSVFile(string filepath)
         {
             var person = ReadCSV("data.csv");
 
@@ -20,7 +20,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Add(persons);
             }
-            context.SaveChanges(); */
+            context.SaveChanges();
 
             static List<Person> ReadCSV(string filePath)
             {
@@ -42,7 +42,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
 
                     //line.Split returnerar en array av strängar:
-                    if (values.Length == 5)
+                    if (values.Length == 6)
                     {
                         var firstName = values[0];
                         var lastName = values[1];
@@ -67,4 +67,5 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
     }
+}
 
