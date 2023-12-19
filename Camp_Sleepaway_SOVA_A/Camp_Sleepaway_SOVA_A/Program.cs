@@ -6,11 +6,13 @@ public class Program
 {
     public static void Main()
     {
-        Filehandling.CamperCSV("CamperData.csv");
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
+        Filehandling.CamperCSV("CamperData.csv");
         Filehandling.NextOfKinCSV("NextOfKinData.csv");
-        
+        Filehandling.CounselorCSV("CounselorData.csv");
+
+
         bool running = true;
         while (running)
         {
