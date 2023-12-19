@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Camp_Sleepaway_SOVA.CSVFiles
-{
-    class NextOfKinData
-    {
-    }
-}
+﻿First Name,Last Name,Date of Birth,Phone,Email,Address
+Emily,Adams,06/12/1990,1234567890,emily@example.com,123 Main St
+Daniel,Thomas,08/25/1985,2345678901,daniel@example.com,456 Elm St
+Grace,Clark,04/30/1988,3456789012,grace@example.com,789 Oak St
+Christopher,Wilson,09/17/1995,4567890123,chris@example.com,1011 Pine St
+Natalie,Evans,11/22/1986,5678901234,natalie@example.com,1213 Maple St
+Andrew,Johnson,03/05/1992,6789012345,andrew@example.com,1415 Cedar St
+Sophie,Martin,07/10/1993,7890123456,sophie@example.com,1617 Birch St
+David,Hall,05/15/1991,8901234567,david@example.com,1819 Spruce St
+Ava,Thompson,12/20/1987,9012345678,ava@example.com,2021 Ash St
+Ryan,Harris,02/08/1984,0123456789,ryan@example.com,2223 Oakwood St
+Madison,Young,09/14/1996,1234509876,madison@example.com,2425 Walnut St
+Justin,Hernandez,08/03/1982,2345098765,justin@example.com,2627 Magnolia St
+Alexis,King,04/29/1990,3450987654,alexis@example.com,2829 Cedarwood St
+Samuel,Wright,11/18/1983,4509876543,samuel@example.com,3031 Pinecrest St
+Brooklyn,Lewis,06/20/1994,5098765432,brooklyn@example.com,3233 Elmwood St
+Taylor,Scott,12/15/1989,0987654321,taylor@example.com,3435 Maplewood St
+Logan,Davis,07/05/1987,9876543210,logan@example.com,3637 Birchwood St
+Ella,Allen,09/10/1986,8765432109,ella@example.com,3839 Oakhill St
+Gabriel,Baker,03/25/1980,7654321098,gabriel@example.com,4041 Cedarhurst St
+Victoria,Ward,10/28/1981,6543210987,victoria@example.com,4243 Elmridge St
+Brandon,Carter,01/07/1988,5432109876,brandon@example.com,4445 Maplelane St
+Hannah,Griffin,08/11/1984,4321098765,hannah@example.com,4647 Birchlane St
+Zoe,Collins,05/19/1983,3210987654,zoe@example.com,4849 Oakridge St
+Austin,Rogers,02/02/1985,2109876543,austin@example.com,5051 Cedarway St
+Brianna,Morris,11/09/1982,1098765432,brianna@example.com,5253 Elmway St
