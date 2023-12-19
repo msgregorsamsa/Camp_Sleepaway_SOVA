@@ -10,21 +10,21 @@ namespace Camp_Sleepaway_SOVA.Methods
     {
         public static void CSVFile(string filepath)
         {
-            var person = ReadCSV("data.csv");
+            var camperFile = ReadCSV("data.csv");
 
-            Console.WriteLine($"{person.Count} rader hittades i CSV-filen");
+            Console.WriteLine($"{camperFile.Count} rader hittades i CSV-filen");
 
             using var context = new CampContext();
 
-            foreach (var persons in person)
+            foreach (var camper in camperFile)
             {
-                context.Add(persons);
+                context.Add(camper);
             }
             context.SaveChanges();
 
-            static List<Person> ReadCSV(string filePath)
+            static List<Camper> ReadCSV(string filePath)
             {
-                var persons = new List<Person>();
+                var campers = new List<Camper>();
 
                 using var reader = new StreamReader(filePath);
 
@@ -51,7 +51,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var email = values[4];
                         var address = values[5];
 
-                        var person = new Person
+                        var camper = new Camper
                         {
                             FirstName = firstName,
                             LastName = lastName,
@@ -60,10 +60,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Email = email,
                             Address = address
                         };
-                        persons.Add(person);
+                        campers.Add(camper);
                     }
                 }
-                return persons;
+                return campers;
             }
         }
     }
