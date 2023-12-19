@@ -8,7 +8,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 {
     public class Filehandling
     {
-        public void CSVFile()
+        /*public static void CSVFile()
         {
             var person = ReadCSV("data.csv");
 
@@ -20,8 +20,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Add(persons);
             }
-            context.SaveChanges();
-
+            context.SaveChanges(); */
 
             static List<Person> ReadCSV(string filePath)
             {
@@ -67,6 +66,5 @@ namespace Camp_Sleepaway_SOVA.Methods
                 return persons;
             }
         }
-
     }
-}
+

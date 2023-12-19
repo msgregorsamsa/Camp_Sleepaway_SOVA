@@ -50,7 +50,6 @@ public class Program
 
     }
 
-
         public static int ShowMenu(string prompt, IEnumerable<string> options)
         {
             if (options == null || options.Count() == 0)
