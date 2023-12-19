@@ -10,7 +10,7 @@ namespace Camp_Sleepaway_SOVA.Methods
     {
         public static void CSVFile(string filepath)
         {
-            var camperFile = ReadCSV("data.csv");
+            var camperFile = ReadCSV("CamperData.csv");
 
             Console.WriteLine($"{camperFile.Count} rader hittades i CSV-filen");
 
