@@ -66,7 +66,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else if (option == 1)
                 {
-                    //Metod för counselor
+                    CRUDMethods.DeleteCounselor();
                 }
                 else if (option == 2)
                 {

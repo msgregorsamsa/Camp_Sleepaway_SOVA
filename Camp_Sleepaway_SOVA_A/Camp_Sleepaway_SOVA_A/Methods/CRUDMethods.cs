@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Camp_Sleepaway_SOVA.Methods
 {
     public class CRUDMethods
-    {
-        
+    {   
+        //Samtliga Add-metoder
         public static void AddCamper()
 
         {
@@ -146,7 +146,8 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
-        public static void DeleteCamper() //Lägg till metod för att ta bort med meny för val av vad man vill ta bort
+        //Samtliga Delete-metoder
+        public static void DeleteCamper()
         {
             Console.WriteLine("Ange förnamn på camper att ta bort:");
             var firstName = Console.ReadLine();
@@ -173,8 +174,35 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
+        public static void DeleteCounselor()
+        {
+            Console.WriteLine("Ange förnamn på den counsolor du vill ta bort:");
+            var firstName = Console.ReadLine();
+
+            Console.WriteLine("Ange efternamn på den counsolor du vill ta bort:");
+            var lastName = Console.ReadLine();
+
+            using var context = new CampContext();
+
+            // Hitta campers baserat på förnamn och efternamn
+            var counselorToRemove = context.Counselors
+                .FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
+
+            if (counselorToRemove != null)
+            {
+                // Ta bort camper om den finns
+                context.Counselors.Remove(counselorToRemove);
+                context.SaveChanges();
+                Console.WriteLine($"Counselor {firstName} {lastName} har blivit borttagen.");
+            }
+            else
+            {
+                Console.WriteLine($"Counselor {firstName} {lastName} hittades inte.");
+            }
+        }
 
 
+        //Samtliga Edit-metoder
         public static void Editinformation() //Lägg till metod för att ändra, med menyval för vad man vill ändra
         {
 
@@ -265,6 +293,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         
         }
 
+        //Samtliga rapport-metoder
         public static void ShowReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
         {
             Console.WriteLine("");
