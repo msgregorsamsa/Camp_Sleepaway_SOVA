@@ -246,7 +246,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     // Lägg till i databasen
                     using (var context = new CampContext())
                     {
-                        context.Counselor.Add(newCounselor);
+                        context.Counselors.Add(newCounselor);
                         context.SaveChanges();
                     }
 
