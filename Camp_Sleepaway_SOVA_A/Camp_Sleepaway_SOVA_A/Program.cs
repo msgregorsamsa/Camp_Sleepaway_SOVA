@@ -25,8 +25,7 @@ public class Program
                     "Lägg till",
                     "Ta bort",
                     "Ändra",
-                    "Visa rapport baserat på på stuga eller counselor",
-                    "Visa rapport för stugor som saknar councelor",
+                    "Visa rapporter",
                     "Avsluta"
             });
 
@@ -34,24 +33,18 @@ public class Program
             {
                 //Console.Clear();
                 CRUDMethods.AddingOptions();
-                Console.WriteLine("Campern har blivit tillagd.");
             }
             else if (option == 1) //Skapa en metod för Ta bort och anropa den
             {
-                CRUDMethods.DeleteInformation();
-                Console.WriteLine("Campern har blivit borttagen.");
+                CRUDMethods.DeleteOptions();
             }
             else if (option == 2)
             {
-                CRUDMethods.Editinformation();
+                CRUDMethods.EditOptions();
             }
             else if (option == 3)
             {
-                CRUDMethods.ShowReportsForCampers();
-            }
-            else if (option == 4)
-            {
-                CRUDMethods.ReportsForMissingCouncelor();
+                CRUDMethods.ShowReportsOptions();
             }
             else
             {
