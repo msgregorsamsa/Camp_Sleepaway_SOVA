@@ -39,6 +39,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("ICE (In Case of Emergency): ");
                 var ice = Console.ReadLine();
 
+                if (string.IsNullOrWhiteSpace(ice))
+                {
+                    ice = null;
+                }
+
                 // Skapa en ny Camper-instans
                 var newCamper = new Camper
                 {
