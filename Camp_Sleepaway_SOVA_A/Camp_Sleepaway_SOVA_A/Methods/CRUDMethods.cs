@@ -7,58 +7,91 @@ using System.Threading.Tasks;
 
 namespace Camp_Sleepaway_SOVA.Methods
 {
-    public class CRUDMethods //Ärver från campcontext för att få åtkomst till connectionstringen?? 
+    public class CRUDMethods 
     {
-        public static void AddInformation() //Lägg till metod för att lägga till med meny för val av vad man vill lägga till
+        public static void AddingOptions()
         {
-            Console.WriteLine("");
-            string? Name = Console.ReadLine();
+            //Användaren får välja vad för object den vill lägga till.
+        }
+        public static void AddCamper()
 
-            Console.WriteLine("");
-            string? Example1 = Console.ReadLine();
+        {
+            Console.WriteLine("Lägg till en ny Camper:");
 
-            Console.WriteLine("");
-            string? Example2 = Console.ReadLine();
+            Console.Write("Förnamn: ");
+            var firstName = Console.ReadLine();
 
-            Console.WriteLine("");
-            string? Example3 = Console.ReadLine();
+            Console.Write("Efternamn: ");
+            var lastName = Console.ReadLine();
 
-            Console.Clear();
-
-            // SQL ska ersättas med LINQ i EF
-            Camper c = new Camper()
+            Console.Write("Födelsedatum (M/d/yyyy): ");
+            if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
             {
-                DateOfBirth = DateTime.Now,
-                FirstName = "Pelle",
-                LastName = "Svensson",
-                Phone = "07013371337"
-            };
+                Console.Write("Telefonnummer: ");
+                var phone = Console.ReadLine();
 
-            using (var context = new CampContext()) //Lägger till en ny camper
-            {
-                context.Campers.Add(c);
-                context.SaveChanges();
+                Console.Write("E-postadress: ");
+                var email = Console.ReadLine();
+
+                Console.Write("Adress: ");
+                var address = Console.ReadLine();
+
+                Console.Write("ICE (In Case of Emergency): ");
+                var ice = Console.ReadLine();
+
+                // Skapa en ny Camper-instans
+                var newCamper = new Camper
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateOfBirth = dateOfBirth,
+                    Phone = phone,
+                    Email = email,
+                    Address = address,
+                    ICE = ice
+                };
+
+                // Lägg till i databasen
+                using (var context = new CampContext())
+                {
+                    context.Campers.Add(newCamper);
+                    context.SaveChanges();
+                }
+
+                Console.WriteLine("Camper har lagts till i databasen.");
             }
-            
+            else
+            {
+                Console.WriteLine("Ogiltigt datumformat. Camper kunde inte läggas till.");
+            }
+
         }
 
-        public static void DeleteInformation () //Lägg till metod för att ta bort med meny för val av vad man vill ta bort
+        public static void DeleteInformation() //Lägg till metod för att ta bort med meny för val av vad man vill ta bort
         {
-            Console.WriteLine("");
-            string? Name = Console.ReadLine();
+            Console.WriteLine("Ange förnamn på camper att ta bort:");
+            var firstName = Console.ReadLine();
 
-            Console.WriteLine("");
-            string? Example1 = Console.ReadLine();
+            Console.WriteLine("Ange efternamn på camper att ta bort:");
+            var lastName = Console.ReadLine();
 
-            Console.WriteLine("");
-            string? Example2 = Console.ReadLine();
+            using var context = new CampContext();
 
-            Console.WriteLine("");
-            string? Example3 = Console.ReadLine();
+            // Hitta campers baserat på förnamn och efternamn
+            var camperToRemove = context.Campers
+                .FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
 
-            Console.Clear();
-
-            // SQL ska ersättas med LINQ i EF
+            if (camperToRemove != null)
+            {
+                // Ta bort camper om den finns
+                context.Campers.Remove(camperToRemove);
+                context.SaveChanges();
+                Console.WriteLine("Camper borttagen från databasen.");
+            }
+            else
+            {
+                Console.WriteLine("Camper med angivet förnamn och efternamn hittades inte.");
+            }
         }
 
         public static void Editinformation() //Lägg till metod för att ändra, med menyval för vad man vill ändra
