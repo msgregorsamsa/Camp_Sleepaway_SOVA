@@ -29,22 +29,24 @@ public class Program
                     "Avsluta"
             });
 
+            Console.Clear();
+
             if (option == 0) //Skapa en metod för Lägg till och anropa den
             {
                 //Console.Clear();
-                CRUDMethods.AddingOptions();
+                OptionMethods.AddingOptions();
             }
             else if (option == 1) //Skapa en metod för Ta bort och anropa den
             {
-                CRUDMethods.DeleteOptions();
+                OptionMethods.DeleteOptions();
             }
             else if (option == 2)
             {
-                CRUDMethods.EditOptions();
+                OptionMethods.EditOptions();
             }
             else if (option == 3)
             {
-                CRUDMethods.ShowReportsOptions();
+                OptionMethods.ShowReportsOptions();
             }
             else
             {
