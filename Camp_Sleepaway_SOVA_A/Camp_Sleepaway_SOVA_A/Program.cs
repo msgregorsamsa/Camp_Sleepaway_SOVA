@@ -12,6 +12,9 @@ public class Program
         Filehandling.NextOfKinCSV("NextOfKinData.csv");
         Filehandling.CounselorCSV("CounselorData.csv");
         Filehandling.CabinCSV("CabinData.csv");
+        Console.Clear();
+        Console.WriteLine("Inläsningen av datan är slutförd.");
+        Console.WriteLine();
 
 
         bool running = true;
@@ -29,11 +32,14 @@ public class Program
 
             if (option == 0) //Skapa en metod för Lägg till och anropa den
             {
-                CRUDMethods.AddInformation();
+                //Console.Clear();
+                CRUDMethods.AddingOptions();
+                Console.WriteLine("Campern har blivit tillagd.");
             }
             else if (option == 1) //Skapa en metod för Ta bort och anropa den
             {
                 CRUDMethods.DeleteInformation();
+                Console.WriteLine("Campern har blivit borttagen.");
             }
             else if (option == 2)
             {

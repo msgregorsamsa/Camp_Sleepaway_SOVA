@@ -12,7 +12,7 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             var camperFile = ReadCSV("CamperData.csv");
 
-            Console.WriteLine($"{camperFile.Count} rader hittades i CSV-filen");
+            //Console.WriteLine($"{camperFile.Count} rader hittades i CSV-filen");
 
             using var context = new CampContext();
 
@@ -74,7 +74,7 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             var nextOfKinFile = ReadCSV("NextOfKinData.csv");
 
-            Console.WriteLine($"{nextOfKinFile.Count} rader hittades i CSV-filen");
+            //Console.WriteLine($"{nextOfKinFile.Count} rader hittades i CSV-filen");
 
             using var context = new CampContext();
 
@@ -155,7 +155,7 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             var counselorFile = ReadCSV("CounselorData.csv");
 
-            Console.WriteLine($"{counselorFile.Count} rader hittades i CSV-filen");
+            //Console.WriteLine($"{counselorFile.Count} rader hittades i CSV-filen");
 
             using var context = new CampContext();
 
@@ -218,7 +218,7 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             var cabinFile = ReadCSV("CabinData.csv");
 
-            Console.WriteLine($"{cabinFile.Count} rader hittades i CSV-filen");
+            //Console.WriteLine($"{cabinFile.Count} rader hittades i CSV-filen");
 
             using var context = new CampContext();
 

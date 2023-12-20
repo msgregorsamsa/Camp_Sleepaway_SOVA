@@ -11,7 +11,7 @@ namespace Camp_Sleepaway_SOVA.Methods
     {
         public static void AddingOptions()
         {
-            //Användaren får välja vad för object den vill lägga till.
+            AddCamper();
         }
         public static void AddCamper()
 
@@ -58,11 +58,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                     context.SaveChanges();
                 }
 
-                Console.WriteLine("Camper har lagts till i databasen.");
+                Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
             }
             else
             {
-                Console.WriteLine("Ogiltigt datumformat. Camper kunde inte läggas till.");
+                Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
             }
 
         }
@@ -86,11 +86,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 // Ta bort camper om den finns
                 context.Campers.Remove(camperToRemove);
                 context.SaveChanges();
-                Console.WriteLine("Camper borttagen från databasen.");
+                Console.WriteLine($"Camper {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
-                Console.WriteLine("Camper med angivet förnamn och efternamn hittades inte.");
+                Console.WriteLine($"Camper {firstName} {lastName} hittades inte.");
             }
         }
 
