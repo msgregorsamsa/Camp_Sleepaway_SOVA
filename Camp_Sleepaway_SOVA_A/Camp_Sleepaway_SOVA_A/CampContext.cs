@@ -22,11 +22,8 @@ public class CampContext : DbContext
 
         var connectionString = configuration.GetConnectionString("local");
 
-        optionsBuilder.UseSqlServer(connectionString)
-            .LogTo(Console.WriteLine,
-            new[] { DbLoggerCategory.Database.Name },
-            LogLevel.Information)
-            .EnableSensitiveDataLogging();
+        optionsBuilder.UseSqlServer(connectionString);
+            
 
     }
 }  

@@ -200,6 +200,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     context.SaveChanges();
                 }
 
+                Console.Clear();
                 Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
             }
             else
@@ -232,6 +233,28 @@ namespace Camp_Sleepaway_SOVA.Methods
                     Console.Write("Adress: ");
                     var address = Console.ReadLine();
 
+                    Console.Write("Title: ");
+                    var title = Console.ReadLine();
+
+                    Console.Write("On duty: Yes/No");
+                    string dutyInput = Console.ReadLine().ToLower(); // Läser in användarens inmatning
+
+                    bool onCabinDuty = false; // Förvalt värde
+
+                    if (dutyInput == "yes")
+                    {
+                        onCabinDuty = true;
+                    }
+                    else if (dutyInput == "no")
+                    {
+                        onCabinDuty = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ogiltig inmatning. Ange antingen 'Yes' eller 'No'.");
+                        
+                    }
+
                     // Skapa en ny Councelor-instans
                     var newCounselor = new Counselor
                     {
@@ -241,6 +264,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
+                        Title = title,
+                        OnCabinDuty = onCabinDuty
                     };
 
                     // Lägg till i databasen
@@ -250,6 +275,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         context.SaveChanges();
                     }
 
+                    Console.Clear();
                     Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
                 }
                 else
