@@ -209,6 +209,57 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         }
 
+        public static void AddCounselor()
+        {
+            {
+                Console.WriteLine("Lägg till en ny Camper:");
+
+                Console.Write("Förnamn: ");
+                var firstName = Console.ReadLine();
+
+                Console.Write("Efternamn: ");
+                var lastName = Console.ReadLine();
+
+                Console.Write("Födelsedatum (M/d/yyyy): ");
+                if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                {
+                    Console.Write("Telefonnummer: ");
+                    var phone = Console.ReadLine();
+
+                    Console.Write("E-postadress: ");
+                    var email = Console.ReadLine();
+
+                    Console.Write("Adress: ");
+                    var address = Console.ReadLine();
+
+                    // Skapa en ny Councelor-instans
+                    var newCounselor = new Counselor
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateOfBirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address,
+                    };
+
+                    // Lägg till i databasen
+                    using (var context = new CampContext())
+                    {
+                        context.Counselor.Add(newCounselor);
+                        context.SaveChanges();
+                    }
+
+                    Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
+                }
+                else
+                {
+                    Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
+                }
+
+            }
+        }
+
         public static void DeleteCamper() //Lägg till metod för att ta bort med meny för val av vad man vill ta bort
         {
             Console.WriteLine("Ange förnamn på camper att ta bort:");
