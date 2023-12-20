@@ -22,6 +22,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             context.SaveChanges();
 
+
             static List<Camper> ReadCSV(string filePath)
             {
                 var campers = new List<Camper>();
@@ -67,6 +68,8 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
+
+
         public static void NextOfKinCSV(string filepath)
         {
             var nextOfKinFile = ReadCSV("NextOfKinData.csv");
@@ -81,9 +84,11 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             context.SaveChanges();
 
+
             static List<NextOfKin> ReadCSV(string filePath)
             {
                 var nextOfKins = new List<NextOfKin>();
+                var campers = new List<Camper>();
 
                 using var reader = new StreamReader(filePath);
 
@@ -101,7 +106,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
 
                     //line.Split returnerar en array av strängar:
-                    if (values.Length == 6)
+                    if (values.Length == 7)
                     {
                         var firstName = values[0];
                         var lastName = values[1];
@@ -109,6 +114,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var phone = values[3];
                         var email = values[4];
                         var address = values[5];
+                        var campersId = values[6].Split(';');
 
                         var nextOfKin = new NextOfKin
                         {
@@ -120,7 +126,26 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Address = address
                         };
                         nextOfKins.Add(nextOfKin);
+
+
+                        //foreach (var camperId in campersId)
+                        //{
+                        //    var camper = campers.Find(c => c.Id == int.Parse(camperId));
+
+                        //    if (camper is null)
+                        //    {
+                        //        camper = new Camper
+                        //        { 
+                        //            Id = int.Parse(camperId) 
+                        //        };
+
+                        //        campers.Add(camper);
+                        //    }
+
+                        //    nextOfKin.Campers.Add(camper);
+                        //}
                     }
+
                 }
                 return nextOfKins;
             }
@@ -229,7 +254,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                         var cabin = new Cabin
                         {
-                            Name = name 
+                            Name = name
                         };
                         cabins.Add(cabin);
                     }
