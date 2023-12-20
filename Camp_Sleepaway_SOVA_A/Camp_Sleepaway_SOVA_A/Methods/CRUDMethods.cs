@@ -176,6 +176,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("ICE (In Case of Emergency): ");
                 var ice = Console.ReadLine();
 
+                if (string.IsNullOrWhiteSpace(ice))
+                {
+                    ice = null;
+                }
+
                 // Skapa en ny Camper-instans
                 var newCamper = new Camper
                 {
@@ -231,37 +236,96 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
+
+
         public static void Editinformation() //Lägg till metod för att ändra, med menyval för vad man vill ändra
         {
-            Console.WriteLine("");
-            string? Name = Console.ReadLine();
 
-            Console.WriteLine("");
-            string? Example1 = Console.ReadLine();
+            Console.WriteLine("Ange ID för den camper du vill ändra:");
+            int id = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("");
-            string? Example2 = Console.ReadLine();
+            using var context = new CampContext();
 
-            Console.WriteLine("");
-            string? Example3 = Console.ReadLine();
+            var camper = context.Campers
+                .FirstOrDefault(c => c.Id == id);
 
-            Console.Clear();
+            if (camper != null)
+            {
+                Console.WriteLine($"Du ändrar nu: {camper.FirstName} {camper.LastName}, " +
+                    $"{camper.DateOfBirth}, {camper.Phone}, {camper.Email}, {camper.Address}, " +
+                    $"{camper.ICE}."
 
-            /*using(var context = new CampContext()) //Work in progress!!
-{
-                // Hämta entiteten som ska uppdateras
-                var entitetAttUppdatera = context.Campers.FirstOrDefault(e => e.Id == söktId); 
+                    );
 
-                if (entitetAttUppdatera != null)
+                Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+
+                Console.WriteLine("Ange nytt förnamn:");
+                string newFirstName = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newFirstName))
                 {
-                    // Uppdatera egenskaper
-                    entitetAttUppdatera.Property1 = "Nytt värde för egenskap 1";
-                    entitetAttUppdatera.Property2 = "Nytt värde för egenskap 2";
-
-                    // Spara ändringar
-                    context.SaveChanges();
+                    camper.FirstName = newFirstName;
                 }
-            }*/
+
+                Console.WriteLine("Ange nytt efternamn:");
+                string newLastName = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newLastName))
+                {
+                    camper.LastName = newLastName;
+                }
+
+                Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
+                string newDateOfBirthInput = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
+                {
+                    if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                    {
+                        camper.DateOfBirth = newDateOfBirth;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ogiltigt datumformat, födelsedatum inte uppdaterat");
+                    }
+                }
+
+                Console.WriteLine("Ange nytt telefonnummer:");
+                string newPhone = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newPhone))
+                {
+                    camper.Phone = newPhone;
+                }
+
+                Console.WriteLine("Ange ny emailadress:");
+                string newEmail = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newEmail))
+                {
+                    camper.Email = newEmail;
+                }
+
+                Console.WriteLine("Ange ny adress:");
+                string newAddress = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newAddress))
+                {
+                    camper.Address = newAddress;
+                }
+
+                //Console.WriteLine("Ange ny ICE-kontakt (id):");
+                //string newIce = Console.ReadLine();
+                //if (!string.IsNullOrWhiteSpace(newIce))
+                //{
+                //    camper.ICE = newIce;
+                //}
+
+                context.SaveChanges();
+                Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine("Tryck på enter för att återgå till menyn...");
+                Console.ReadLine();
+
+            }
+            else
+            {
+                Console.WriteLine("Det finns ingen camper med det ID du angivit.");
+            }
+                        
         }
 
         public static void ShowReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
