@@ -28,15 +28,15 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else if (option == 1)
                 {
-                    //Metod för counselor
+                    CRUDMethods.AddCounselor();
                 }
                 else if (option == 2)
                 {
-                    //Metod för Next Of Kin
+                    CRUDMethods.AddNextOfKin();
                 }
                 else if (option == 3)
                 {
-                    //Metod för cabin
+                    CRUDMethods.AddCabin();
                 }
                 else
                 {
@@ -70,11 +70,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else if (option == 2)
                 {
-                    //Metod för Next Of Kin
+                    CRUDMethods.DeleteNextOfKin();
                 }
                 else if (option == 3)
                 {
-                    //Metod för cabin
+                    CRUDMethods.DeleteCabin();
                 }
                 else
                 {

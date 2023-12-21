@@ -72,7 +72,7 @@ namespace Camp_Sleepaway_SOVA.Methods
         public static void AddCounselor()
         {
             {
-                Console.WriteLine("Lägg till en ny Camper:");
+                Console.WriteLine("Lägg till en ny Counselor:");
 
                 Console.Write("Förnamn: ");
                 var firstName = Console.ReadLine();
@@ -95,7 +95,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     Console.Write("Title: ");
                     var title = Console.ReadLine();
 
-                    Console.Write("On duty: Yes/No");
+                    Console.WriteLine("On duty: Yes/No");
                     string dutyInput = Console.ReadLine().ToLower(); // Läser in användarens inmatning
 
                     bool onCabinDuty = false; // Förvalt värde
@@ -135,11 +135,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
 
                     Console.Clear();
-                    Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
+                    Console.WriteLine($"Counselor {firstName} {lastName} har lagts till i databasen.");
                 }
                 else
                 {
-                    Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
+                    Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
                 }
 
             }
@@ -204,7 +204,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     context.SaveChanges();
                 }
 
-                Console.WriteLine("NextOfKin har lagts till i databasen.");
+                Console.WriteLine($"NextOfKin {firstName} {lastName} har lagts till i databasen.");
             }
             else
             {
@@ -234,21 +234,19 @@ namespace Camp_Sleepaway_SOVA.Methods
         //Samtliga Delete-metoder
         public static void DeleteCamper()
         {
-            Console.WriteLine("Ange förnamn på camper att ta bort:");
+            Console.WriteLine("Ange förnamn på camper du vill ta bort:");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på camper att ta bort:");
+            Console.WriteLine("Ange efternamn på camper du vill ta bort:");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
 
-            // Hitta campers baserat på förnamn och efternamn
             var camperToRemove = context.Campers
                 .FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
 
             if (camperToRemove != null)
             {
-                // Ta bort camper om den finns
                 context.Campers.Remove(camperToRemove);
                 context.SaveChanges();
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit borttagen.");
@@ -269,13 +267,11 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             using var context = new CampContext();
 
-            // Hitta campers baserat på förnamn och efternamn
             var counselorToRemove = context.Counselors
                 .FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
 
             if (counselorToRemove != null)
             {
-                // Ta bort camper om den finns
                 context.Counselors.Remove(counselorToRemove);
                 context.SaveChanges();
                 Console.WriteLine($"Counselor {firstName} {lastName} har blivit borttagen.");
@@ -286,6 +282,52 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
+        public static void DeleteNextOfKin()
+        {
+            Console.WriteLine("Ange förnamn på den Next of Kin du vill ta bort:");
+            var firstName = Console.ReadLine();
+
+            Console.WriteLine("Ange efternamn på den Next of Kin du vill ta bort:");
+            var lastName = Console.ReadLine();
+
+            using var context = new CampContext();
+
+            var nextOfKinToRemove = context.NextOfKins
+                .FirstOrDefault(n => n.FirstName == firstName && n.LastName == lastName);
+
+            if (nextOfKinToRemove != null)
+            {
+                context.NextOfKins.Remove(nextOfKinToRemove);
+                context.SaveChanges();
+                Console.WriteLine($"Next Of Kin {firstName} {lastName} har blivit borttagen.");
+            }
+            else
+            {
+                Console.WriteLine($"Next Of Kin {firstName} {lastName} hittades inte.");
+            }
+        }
+
+        public static void DeleteCabin()
+        {
+            Console.WriteLine("Ange namn på den cabin du vill ta bort:");
+            var cabinName = Console.ReadLine();
+            using var context = new CampContext();
+
+            var cabinToRemove = context.Cabins
+                .FirstOrDefault(c => c.Name == cabinName);
+
+            if (cabinToRemove != null)
+            {
+                // Ta bort camper om den finns
+                context.Cabins.Remove(cabinToRemove);
+                context.SaveChanges();
+                Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
+            }
+            else
+            {
+                Console.WriteLine($"Cabin {cabinName} hittades inte.");
+            }
+        }
 
         //Samtliga Edit-metoder
         public static void Editinformation() //Lägg till metod för att ändra, med menyval för vad man vill ändra
