@@ -22,14 +22,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                     "Avsluta"
                 });
 
-                Console.Clear();
-
                 if (option == 0)
                 {
-                    
                     CRUDMethods.AddCamper();
                 }
-
                 else if (option == 1)
                 {
                     //Metod för counselor
@@ -70,7 +66,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else if (option == 1)
                 {
-                    //Metod för counselor
+                    CRUDMethods.DeleteCounselor();
                 }
                 else if (option == 2)
                 {
@@ -104,7 +100,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 if (option == 0)
                 {
-                    //Metod för camper
+                    CRUDMethods.EditCamper();
                 }
                 else if (option == 1)
                 {
