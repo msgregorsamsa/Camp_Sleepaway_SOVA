@@ -8,13 +8,13 @@ public class Program
     {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
-        Filehandling.CamperCSV("CamperData.csv");
-        Filehandling.NextOfKinCSV("NextOfKinData.csv");
-        Filehandling.CounselorCSV("CounselorData.csv");
-        Filehandling.CabinCSV("CabinData.csv");
-        Console.Clear();
-        Console.WriteLine("Inläsningen av datan är slutförd.");
-        Console.WriteLine();
+        //Filehandling.CamperCSV("CamperData.csv");
+        //Filehandling.NextOfKinCSV("NextOfKinData.csv");
+        //Filehandling.CounselorCSV("CounselorData.csv");
+        //Filehandling.CabinCSV("CabinData.csv");
+        //Console.Clear();
+        //Console.WriteLine("Inläsningen av datan är slutförd.");
+        //Console.WriteLine();
 
 
         bool running = true;
@@ -51,7 +51,6 @@ public class Program
             else
             {
                 running = false;
-                Console.WriteLine("Hejdå");
             }
         }
 

@@ -4,6 +4,7 @@ using Camp_Sleepaway_SOVA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Camp_Sleepaway_SOVA.Migrations
 {
     [DbContext(typeof(CampContext))]
-    partial class CampContextModelSnapshot : ModelSnapshot
+    [Migration("20231221124409_CamperNextOfKinTest")]
+    partial class CamperNextOfKinTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace Camp_Sleepaway_SOVA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NextOfKinId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -82,21 +82,6 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.HasIndex("CabinId");
 
                     b.ToTable("Campers");
-                });
-
-            modelBuilder.Entity("Camp_Sleepaway_SOVA.CamperNextOfKin", b =>
-                {
-                    b.Property<int>("CamperId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NextOfKinId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CamperId", "NextOfKinId");
-
-                    b.HasIndex("NextOfKinId");
-
-                    b.ToTable("CamperNextOfKins");
                 });
 
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Counselor", b =>
@@ -158,9 +143,6 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CamperId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -187,6 +169,21 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.ToTable("NextOfKins");
                 });
 
+            modelBuilder.Entity("CamperNextOfKin", b =>
+                {
+                    b.Property<int>("CampersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NextOfKinsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CampersId", "NextOfKinsId");
+
+                    b.HasIndex("NextOfKinsId");
+
+                    b.ToTable("CamperNextOfKin");
+                });
+
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Camper", b =>
                 {
                     b.HasOne("Camp_Sleepaway_SOVA.Cabin", "Cabin")
@@ -194,25 +191,6 @@ namespace Camp_Sleepaway_SOVA.Migrations
                         .HasForeignKey("CabinId");
 
                     b.Navigation("Cabin");
-                });
-
-            modelBuilder.Entity("Camp_Sleepaway_SOVA.CamperNextOfKin", b =>
-                {
-                    b.HasOne("Camp_Sleepaway_SOVA.Camper", "Camper")
-                        .WithMany("CamperNextOfKins")
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Camp_Sleepaway_SOVA.NextOfKin", "NextOfKin")
-                        .WithMany("CamperNextOfKins")
-                        .HasForeignKey("NextOfKinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Camper");
-
-                    b.Navigation("NextOfKin");
                 });
 
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Counselor", b =>
@@ -224,22 +202,27 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Navigation("Cabin");
                 });
 
+            modelBuilder.Entity("CamperNextOfKin", b =>
+                {
+                    b.HasOne("Camp_Sleepaway_SOVA.Camper", null)
+                        .WithMany()
+                        .HasForeignKey("CampersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Camp_Sleepaway_SOVA.NextOfKin", null)
+                        .WithMany()
+                        .HasForeignKey("NextOfKinsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Camp_Sleepaway_SOVA.Cabin", b =>
                 {
                     b.Navigation("Campers");
 
                     b.Navigation("Counselor")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Camp_Sleepaway_SOVA.Camper", b =>
-                {
-                    b.Navigation("CamperNextOfKins");
-                });
-
-            modelBuilder.Entity("Camp_Sleepaway_SOVA.NextOfKin", b =>
-                {
-                    b.Navigation("CamperNextOfKins");
                 });
 #pragma warning restore 612, 618
         }
