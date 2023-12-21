@@ -100,15 +100,15 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 if (option == 0)
                 {
-                    //Metod för camper
+                    CRUDMethods.EditCamper();
                 }
                 else if (option == 1)
                 {
-                    //Metod för counselor
+                    CRUDMethods.EditCounselor();
                 }
                 else if (option == 2)
                 {
-                    //Metod för Next Of Kin
+                    CRUDMethods.EditNextOfKin();
                 }
                 else if (option == 3)
                 {
