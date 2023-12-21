@@ -30,7 +30,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             Console.Write("Adress: ");
             var address = Console.ReadLine();
 
-            Console.Write("ICE (In Case of Emergency): ");
+            Console.Write("ICE (In Case of Emergency) Tryck 'ENTER' om du ej har någon ICE: ");
             var ice = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(ice))
