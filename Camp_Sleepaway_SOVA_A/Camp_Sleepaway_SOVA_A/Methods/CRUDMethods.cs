@@ -96,22 +96,22 @@ namespace Camp_Sleepaway_SOVA.Methods
                     Console.Write("Title: ");
                     var title = Console.ReadLine();
 
-                    Console.Write("On duty: Yes/No");
+                    Console.Write("I tjänst: Ja/Nej");
                     string dutyInput = Console.ReadLine().ToLower(); // Läser in användarens inmatning
 
                     bool onCabinDuty = false; // Förvalt värde
 
-                    if (dutyInput == "yes")
+                    if (dutyInput == "Ja")
                     {
                         onCabinDuty = true;
                     }
-                    else if (dutyInput == "no")
+                    else if (dutyInput == "Nej")
                     {
                         onCabinDuty = false;
                     }
                     else
                     {
-                        Console.WriteLine("Ogiltig inmatning. Ange antingen 'Yes' eller 'No'.");
+                        Console.WriteLine("Ogiltig inmatning. Ange antingen 'Ja' eller 'Nej'.");
                         
                     }
 
@@ -143,6 +143,74 @@ namespace Camp_Sleepaway_SOVA.Methods
                     Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
                 }
 
+            }
+        }
+
+        public static void AddNextOfKin()
+        {
+            Console.WriteLine("Lägg till en ny NextOfKin:");
+
+            Console.Write("Förnamn: ");
+            string firstName = Console.ReadLine();
+
+            Console.Write("Efternamn: ");
+            string lastName = Console.ReadLine();
+
+            Console.Write("Födelsedatum (M/d/yyyy): ");
+            if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime dateOfBirth))
+            {
+                Console.Write("Telefonnummer: ");
+                string phone = Console.ReadLine();
+
+                Console.Write("E-postadress: ");
+                string email = Console.ReadLine();
+
+                Console.Write("Adress: ");
+                string address = Console.ReadLine();
+
+                Console.Write("Är du en nödkontakt: Ja/Nej");
+                string input = Console.ReadLine().ToLower(); // Läser in användarens inmatning
+
+                bool emergencyContact = false; // Förvalt värde
+
+                if (input == "Ja")
+                {
+                    emergencyContact = true;
+                }
+                else if (input == "Nej")
+                {
+                    emergencyContact = false;
+                }
+                else
+                {
+                    Console.WriteLine("Ogiltig inmatning. Ange antingen 'Ja' eller 'Nej'.");
+
+                }
+
+                // Skapa ett nytt NextOfKin-objekt
+                var nextOfKin = new NextOfKin
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateOfBirth = dateOfBirth,
+                    Phone = phone,
+                    Email = email,
+                    Address = address,
+                    IsICE = emergencyContact
+                };
+
+                // Lägg till NextOfKin i databasen med Entity Framework
+                using (var context = new CampContext())
+                {
+                    context.NextOfKins.Add(nextOfKin);
+                    context.SaveChanges();
+                }
+
+                Console.WriteLine("NextOfKin har lagts till i databasen.");
+            }
+            else
+            {
+                Console.WriteLine("Ogiltigt datumformat. NextOfKin lades inte till.");
             }
         }
 
