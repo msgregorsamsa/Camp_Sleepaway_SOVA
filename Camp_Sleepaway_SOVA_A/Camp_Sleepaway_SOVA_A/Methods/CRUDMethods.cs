@@ -69,7 +69,6 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
 
         }
-
         public static void AddCounselor()
         {
             {
@@ -145,9 +144,6 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             }
         }
-
-<<<<<<< Updated upstream
-=======
         public static void AddNextOfKin()
         {
             Console.WriteLine("Lägg till en ny NextOfKin:");
@@ -215,8 +211,26 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.WriteLine("Ogiltigt datumformat. NextOfKin lades inte till.");
             }
         }
+        public static void AddCabin()
+        {
+            Console.Write("Ange stugnamn: ");
+            string cabinName = Console.ReadLine();
 
->>>>>>> Stashed changes
+            var newCabin = new Cabin
+            {
+                Name = cabinName
+            };
+
+            using (var context = new CampContext())
+            {
+                context.Cabins.Add(newCabin);
+                context.SaveChanges();
+            }
+
+            Console.Clear();
+            Console.WriteLine($"{cabinName} har lagts till i databasen.");
+        }
+
         //Samtliga Delete-metoder
         public static void DeleteCamper()
         {
