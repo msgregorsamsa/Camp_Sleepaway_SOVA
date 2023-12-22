@@ -7,10 +7,11 @@ public class Program
 {
     public static void ReadData()
     {
-        Filehandling.CamperCSV("CamperData.csv");
-        Filehandling.NextOfKinCSV("NextOfKinData.csv");
-        Filehandling.CounselorCSV("CounselorData.csv");
-        Filehandling.CabinCSV("CabinData.csv");
+        //Filehandling.CamperCSV("CamperData.csv");
+        //Filehandling.NextOfKinCSV("NextOfKinData.csv");
+        //Filehandling.CounselorCSV("CounselorData.csv");
+        //Filehandling.CabinCSV("CabinData.csv");
+        Filehandling.ReadAllCSVFiles();
         Console.Clear();
         Console.WriteLine("Inläsningen av datan är slutförd.");
         Console.WriteLine();

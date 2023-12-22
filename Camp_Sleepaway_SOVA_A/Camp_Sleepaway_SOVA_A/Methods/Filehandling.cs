@@ -8,264 +8,214 @@ namespace Camp_Sleepaway_SOVA.Methods
 {
     public class Filehandling
     {
-        public static void CamperCSV(string filepath)
+        static List<Camper> ReadCampers(string filePath)
         {
-            var camperFile = ReadCSV("CamperData.csv");
+            var campers = new List<Camper>();
 
-            //Console.WriteLine($"{camperFile.Count} rader hittades i CSV-filen");
+            using var reader = new StreamReader(filePath);
 
-            using var context = new CampContext();
+            // Read the header line
+            var headerLine = reader.ReadLine();
 
-            foreach (var camper in camperFile)
+            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
             {
-                context.Add(camper);
-            }
-            context.SaveChanges();
-
-
-            static List<Camper> ReadCSV(string filePath)
-            {
-                var campers = new List<Camper>();
-
-                using var reader = new StreamReader(filePath);
-
-                // Read the header line
-                var headerLine = reader.ReadLine();
-
-                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                if (line == null)
                 {
-                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
-                    if (line == null)
-                    {
-                        break; //Loopen avbryts
-                    }
-
-                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
-
-                    //line.Split returnerar en array av strängar:
-                    if (values.Length == 6)
-                    {
-                        var firstName = values[0];
-                        var lastName = values[1];
-                        var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
-                        var phone = values[3];
-                        var email = values[4];
-                        var address = values[5];
-                        int nextOfKin = int.Parse(values[6]);
-
-                        var camper = new Camper
-                        {
-                            FirstName = firstName,
-                            LastName = lastName,
-                            DateOfBirth = dateofbirth,
-                            Phone = phone,
-                            Email = email,
-                            Address = address,
-                            NextOfKinId = nextOfKin
-                        };
-                        campers.Add(camper);
-                    }
+                    break; //Loopen avbryts
                 }
-                return campers;
+
+                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                //line.Split returnerar en array av strängar:
+                if (values.Length == 7)
+                {
+                    var firstName = values[0];
+                    var lastName = values[1];
+                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var phone = values[3];
+                    var email = values[4];
+                    var address = values[5];
+                    int nextOfKin = int.Parse(values[6]);
+
+                    var camper = new Camper
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateofbirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address,
+                        NextOfKinId = nextOfKin
+                    };
+                    campers.Add(camper);
+                }
             }
+            return campers;
         }
 
-
-
-        public static void NextOfKinCSV(string filepath)
+        static List<NextOfKin> ReadNOK(string filePath)
         {
-            var nextOfKinFile = ReadCSV("NextOfKinData.csv");
+            var nextOfKins = new List<NextOfKin>();
+            var campers = new List<Camper>();
 
-            //Console.WriteLine($"{nextOfKinFile.Count} rader hittades i CSV-filen");
+            using var reader = new StreamReader(filePath);
 
-            using var context = new CampContext();
+            // Read the header line
+            var headerLine = reader.ReadLine();
 
-            foreach (var nextofKin in nextOfKinFile)
+            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
             {
-                context.Add(nextofKin);
-            }
-            context.SaveChanges();
-
-
-            static List<NextOfKin> ReadCSV(string filePath)
-            {
-                var nextOfKins = new List<NextOfKin>();
-                var campers = new List<Camper>();
-
-                using var reader = new StreamReader(filePath);
-
-                // Read the header line
-                var headerLine = reader.ReadLine();
-
-                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                if (line == null)
                 {
-                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
-                    if (line == null)
-                    {
-                        break; //Loopen avbryts
-                    }
-
-                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
-
-                    //line.Split returnerar en array av strängar:
-                    if (values.Length == 7)
-                    {
-                        var firstName = values[0];
-                        var lastName = values[1];
-                        var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
-                        var phone = values[3];
-                        var email = values[4];
-                        var address = values[5];
-                        int campersId = int.Parse(values[6]);
-
-                        var nextOfKin = new NextOfKin
-                        {
-                            FirstName = firstName,
-                            LastName = lastName,
-                            DateOfBirth = dateofbirth,
-                            Phone = phone,
-                            Email = email,
-                            Address = address,
-                            CamperId = campersId
-                           
-                        };
-                        nextOfKins.Add(nextOfKin);
-
-
-                        //foreach (var camperId in campersId)
-                        //{
-                        //    var camper = campers.Find(c => c.Id == int.Parse(camperId));
-
-                        //    if (camper is null)
-                        //    {
-                        //        camper = new Camper
-                        //        { 
-                        //            Id = int.Parse(camperId) 
-                        //        };
-
-                        //        campers.Add(camper);
-                        //    }
-
-                        //    nextOfKin.Campers.Add(camper);
-                        //}
-                    }
-
+                    break; //Loopen avbryts
                 }
-                return nextOfKins;
+
+                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                //line.Split returnerar en array av strängar:
+                if (values.Length == 7)
+                {
+                    var firstName = values[0];
+                    var lastName = values[1];
+                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var phone = values[3];
+                    var email = values[4];
+                    var address = values[5];
+                    int campersId = int.Parse(values[6]);
+
+                    var nextOfKin = new NextOfKin
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateofbirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address,
+                        CamperId = campersId
+
+                    };
+                    nextOfKins.Add(nextOfKin);
+                }
+
             }
+            return nextOfKins;
         }
 
-        public static void CounselorCSV(string filepath)
+        static List<Counselor> ReadCounselor(string filePath)
         {
-            var counselorFile = ReadCSV("CounselorData.csv");
+            var counselors = new List<Counselor>();
 
-            //Console.WriteLine($"{counselorFile.Count} rader hittades i CSV-filen");
+            using var reader = new StreamReader(filePath);
 
-            using var context = new CampContext();
+            // Read the header line
+            var headerLine = reader.ReadLine();
 
-            foreach (var counselor in counselorFile)
+            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
             {
-                context.Add(counselor);
-            }
-            context.SaveChanges();
-
-            static List<Counselor> ReadCSV(string filePath)
-            {
-                var counselors = new List<Counselor>();
-
-                using var reader = new StreamReader(filePath);
-
-                // Read the header line
-                var headerLine = reader.ReadLine();
-
-                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                if (line == null)
                 {
-                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
-                    if (line == null)
-                    {
-                        break; //Loopen avbryts
-                    }
-
-                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
-
-                    //line.Split returnerar en array av strängar:
-                    if (values.Length == 8)
-                    {
-                        var firstName = values[0];
-                        var lastName = values[1];
-                        var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
-                        var phone = values[3];
-                        var email = values[4];
-                        var address = values[5];
-                        var title = values[6];
-                        var onCabinDuty = values[7];
-
-                        var counselor = new Counselor
-                        {
-                            FirstName = firstName,
-                            LastName = lastName,
-                            DateOfBirth = dateofbirth,
-                            Phone = phone,
-                            Email = email,
-                            Address = address,
-                            Title = title,
-                            OnCabinDuty = bool.Parse(onCabinDuty)
-                        };
-                        counselors.Add(counselor);
-                    }
+                    break; //Loopen avbryts
                 }
-                return counselors;
+
+                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                //line.Split returnerar en array av strängar:
+                if (values.Length == 8)
+                {
+                    var firstName = values[0];
+                    var lastName = values[1];
+                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var phone = values[3];
+                    var email = values[4];
+                    var address = values[5];
+                    var title = values[6];
+                    var onCabinDuty = values[7];
+
+                    var counselor = new Counselor
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateofbirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address,
+                        Title = title,
+                        OnCabinDuty = bool.Parse(onCabinDuty)
+                    };
+                    counselors.Add(counselor);
+                }
             }
+            return counselors;
         }
 
-        public static void CabinCSV(string filepath)
+        static List<Cabin> ReadCabin(string filePath)
         {
-            var cabinFile = ReadCSV("CabinData.csv");
+            var cabins = new List<Cabin>();
 
-            //Console.WriteLine($"{cabinFile.Count} rader hittades i CSV-filen");
+            using var reader = new StreamReader(filePath);
 
-            using var context = new CampContext();
+            // Read the header line
+            var headerLine = reader.ReadLine();
 
-            foreach (var cabin in cabinFile)
+            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
             {
-                context.Add(cabin);
-            }
-            context.SaveChanges();
-
-            static List<Cabin> ReadCSV(string filePath)
-            {
-                var cabins = new List<Cabin>();
-
-                using var reader = new StreamReader(filePath);
-
-                // Read the header line
-                var headerLine = reader.ReadLine();
-
-                while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                if (line == null)
                 {
-                    var line = reader.ReadLine(); //Läser nästa rad i csv-filen
-                    if (line == null)
-                    {
-                        break; //Loopen avbryts
-                    }
-
-                    var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
-
-                    //line.Split returnerar en array av strängar:
-                    if (values.Length == 1)
-                    {
-                        var name = values[0];
-
-                        var cabin = new Cabin
-                        {
-                            Name = name
-                        };
-                        cabins.Add(cabin);
-                    }
+                    break; //Loopen avbryts
                 }
-                return cabins;
+
+                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+
+                //line.Split returnerar en array av strängar:
+                if (values.Length == 1)
+                {
+                    var name = values[0];
+
+                    var cabin = new Cabin
+                    {
+                        Name = name
+                    };
+                    cabins.Add(cabin);
+                }
+            }
+            return cabins;
+        }
+
+        public static void ReadAllCSVFiles()
+        {
+            var camperFile = ReadCampers("CamperData.csv");
+            var nextOfKinFile = ReadNOK("NextOfKinData.csv");
+            var counselorFile = ReadCounselor("CounselorData.csv");
+            var cabinFile = ReadCabin("CabinData.csv");
+
+            using (var context = new CampContext())
+            {
+                foreach (var camper in camperFile)
+                {
+                    context.Campers.Add(camper);
+                }
+
+                foreach (var nextofKin in nextOfKinFile)
+                {
+                    context.NextOfKins.Add(nextofKin);
+                }
+
+                foreach (var counselor in counselorFile)
+                {
+                    context.Counselors.Add(counselor);
+                }
+
+                foreach (var cabin in cabinFile)
+                {
+                    context.Cabins.Add(cabin);
+                }
+
+                context.SaveChanges();
             }
         }
     }
 }
-

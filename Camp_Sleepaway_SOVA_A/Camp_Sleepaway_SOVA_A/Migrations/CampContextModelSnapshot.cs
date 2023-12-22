@@ -53,10 +53,10 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<int?>("CabinId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Check_In")
+                    b.Property<DateTime?>("Check_In")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Check_Out")
+                    b.Property<DateTime?>("Check_Out")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
