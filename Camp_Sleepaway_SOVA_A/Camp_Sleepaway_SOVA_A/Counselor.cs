@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Camp_Sleepaway_SOVA
 {
     public class Counselor : Person
@@ -12,6 +14,15 @@ namespace Camp_Sleepaway_SOVA
         public int? CabinId { get; set; } // FK till Cabin, kan vara null om ledaren inte är knuten till en stuga
 
         public virtual Cabin Cabin { get; set; } // Navigation property till Cabin
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public DateTime Check_In { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public DateTime Check_Out { get; set; }
+
     }
 }
 

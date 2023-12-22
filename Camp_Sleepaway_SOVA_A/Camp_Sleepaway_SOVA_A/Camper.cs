@@ -1,4 +1,6 @@
-﻿namespace Camp_Sleepaway_SOVA
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Camp_Sleepaway_SOVA
 {
     public class Camper : Person
     {
@@ -10,7 +12,15 @@
         public int? CabinId { get; set; } //FK får lov att vara null om det inte finns tillräckligt med stugor?
 
         public List<NextOfKin> NextOfKins { get; set; } = new(); //Skapar en N-N relation med NextOfKin 
-        //eftersom en camper kan ha många nextofkin och en nextofkin kan ha många campers
+                                                                 //eftersom en camper kan ha många nextofkin och en nextofkin kan ha många campers
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public  DateTime Check_In { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public DateTime Check_Out { get; set; }
 
     }
 }
