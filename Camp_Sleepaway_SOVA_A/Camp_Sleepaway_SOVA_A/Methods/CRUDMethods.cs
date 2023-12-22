@@ -202,61 +202,43 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
-                        IsICE = emergencyContact,
+                        IsICE = emergencyContact                        
                     };
 
-                    var camper = new Camper();
+                    Console.WriteLine("Ange Camper ID för att länka NextOfKin: ");
+                    int camperId = int.Parse(Console.ReadLine());
 
-                    // Lägg till NextOfKin i databasen med Entity Framework
                     using (var context = new CampContext())
                     {
-                        context.NextOfKins.Add(nextOfKin);
-                        context.SaveChanges();
-                    }
+                        var camper = context.Campers.Find(camperId);
 
-                    Console.Clear();
-                    Console.WriteLine($"NextOfKin {firstName} {lastName} har lagts till i databasen.");
-                    break;
+                        if (camper != null)
+                        {
+                            context.NextOfKins.Add(nextOfKin);
+
+                            // Länka NextOfKin till Camper
+                            nextOfKin.Campers.Add(camper);
+
+                            context.SaveChanges();
+
+                            Console.Clear();
+                            Console.WriteLine($"NextOfKin {firstName} {lastName} har lagts till och länkats till Camper ID: {camperId} i databasen.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Camper ID hittades inte. NextOfKin lades inte till eller länkades.");
+                        }
+                    }
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("Ogiltigt datumformat. NextOfKin lades inte till.");
-                    break;
                 }
             }
         }
 
-        public static void AddCamperWithNextOfKin()
-        {
-            Console.WriteLine("Camper Name:");
-            int camperId = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Next Of Kin ID:");
-            int nextOfKinId = int.Parse(Console.ReadLine());
-
-            using (var context = new CampContext())
-            {
-                var camper = new Camper { Id = camperId };
-                var nextOfKin = context.NextOfKins.Find(nextOfKinId);
-
-                if (nextOfKin != null)
-                {
-                    // Lägg till den nya Camper i Next Of Kins lista över Campers
-
-                    nextOfKin.Campers.Add(camper);
-
-                    context.SaveChanges();
-                }
-                else
-                {
-                    Console.WriteLine("Next Of Kin ID not found.");
-                }
-            }
-        }
-
-
-
+       
         public static void AddCabin()
         {
             Console.Write("Ange stugnamn: ");
