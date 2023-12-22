@@ -15,6 +15,9 @@ namespace Camp_Sleepaway_SOVA
 
         public Counselor Counselor { get; set; } // Navigation property till Counselor, virtual - men varför?
 
+        public List<Stay> Stays { get; set; } = new();
+
+
 
         // Skapa koppling /public camper reference) till Camper - public  int Occupants { get; set; }
 

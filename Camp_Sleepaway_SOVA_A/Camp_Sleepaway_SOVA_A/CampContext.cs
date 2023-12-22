@@ -10,6 +10,7 @@ public class CampContext : DbContext
     public DbSet<Camper> Campers { get; set; }
     public DbSet<NextOfKin> NextOfKins { get; set; }
     public DbSet<Counselor> Counselors { get; set; }
+    public DbSet<Stay> Stays { get; set; }
 
 
     //add more if we have more tables

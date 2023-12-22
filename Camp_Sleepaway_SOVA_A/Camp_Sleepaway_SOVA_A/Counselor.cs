@@ -15,6 +15,9 @@ namespace Camp_Sleepaway_SOVA
 
         public virtual Cabin Cabin { get; set; } // Navigation property till Cabin
 
+        public List<Stay> Stays { get; set; } = new();
+
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime Check_In { get; set; }

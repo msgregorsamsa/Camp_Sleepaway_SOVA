@@ -14,6 +14,8 @@ namespace Camp_Sleepaway_SOVA
         public List<NextOfKin> NextOfKins { get; set; } = new(); //Skapar en N-N relation med NextOfKin 
                                                                  //eftersom en camper kan ha många nextofkin och en nextofkin kan ha många campers
 
+        public List<Stay> Stays { get; set; } = new();
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public  DateTime Check_In { get; set; }
