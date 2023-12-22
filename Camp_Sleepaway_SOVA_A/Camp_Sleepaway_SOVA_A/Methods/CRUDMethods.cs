@@ -1,9 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Camp_Sleepaway_SOVA.Migrations;
+using System.Net;
+using System.Numerics;
 
 namespace Camp_Sleepaway_SOVA.Methods
 {
@@ -204,8 +202,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
-                        IsICE = emergencyContact
+                        IsICE = emergencyContact,
                     };
+
+                    var camper = new Camper();
 
                     // Lägg till NextOfKin i databasen med Entity Framework
                     using (var context = new CampContext())
@@ -226,6 +226,37 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
             }
         }
+
+        public static void AddCamperWithNextOfKin()
+        {
+            Console.WriteLine("Camper Name:");
+            int camperId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Next Of Kin ID:");
+            int nextOfKinId = int.Parse(Console.ReadLine());
+
+            using (var context = new CampContext())
+            {
+                var camper = new Camper { Id = camperId };
+                var nextOfKin = context.NextOfKins.Find(nextOfKinId);
+
+                if (nextOfKin != null)
+                {
+                    // Lägg till den nya Camper i Next Of Kins lista över Campers
+
+                    nextOfKin.Campers.Add(camper);
+
+                    context.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Next Of Kin ID not found.");
+                }
+            }
+        }
+
+
+
         public static void AddCabin()
         {
             Console.Write("Ange stugnamn: ");
@@ -614,6 +645,43 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 Console.WriteLine("Det finns ingen närstående med det ID du angivit.");
             }
+        }
+
+        public static void EditCabin()
+        {
+            Console.WriteLine("Ange ID för den stuga du vill ändra:");
+            int id = int.Parse(Console.ReadLine());
+
+            using var context = new CampContext();
+
+            var cabin = context.Cabins
+                .FirstOrDefault(c => c.Id == id);
+
+            if (cabin != null)
+            {
+                Console.WriteLine($"Du ändrar nu: {cabin.Name} med cabinID: {cabin.Id}."
+                    );
+
+                Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+
+                Console.WriteLine("Ange nytt namn på stugan: ");
+                string newName = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    cabin.Name = newName;
+                }
+                
+                context.SaveChanges();
+                Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine("Tryck på enter för att återgå till menyn...");
+                Console.ReadLine();
+
+            }
+            else
+            {
+                Console.WriteLine("Det finns ingen närstående med det ID du angivit.");
+            }
+
         }
 
 

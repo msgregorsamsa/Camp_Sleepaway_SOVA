@@ -24,7 +24,13 @@ public class CampContext : DbContext
         var connectionString = configuration.GetConnectionString("local");
 
         optionsBuilder.UseSqlServer(connectionString);
-            
+    }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Camper>()
+            .HasMany(c => c.NextOfKins)
+            .WithMany(n => n.Campers)
+            .UsingEntity(junction => junction.ToTable("Campers_NextOfKins"));
     }
 }  

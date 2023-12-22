@@ -46,7 +46,9 @@ public class Program
             }
             else if (option == 3)
             {
-                OptionMethods.ShowReportsOptions();
+                //OptionMethods.ShowReportsOptions();
+                CRUDMethods.AddCamperWithNextOfKin();
+
             }
             else
             {
