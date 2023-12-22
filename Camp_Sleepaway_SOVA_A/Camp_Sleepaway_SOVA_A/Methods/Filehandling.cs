@@ -51,6 +51,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var phone = values[3];
                         var email = values[4];
                         var address = values[5];
+                        int nextOfKin = int.Parse(values[6]);
 
                         var camper = new Camper
                         {
@@ -59,7 +60,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                             DateOfBirth = dateofbirth,
                             Phone = phone,
                             Email = email,
-                            Address = address
+                            Address = address,
+                            NextOfKinId = nextOfKin
                         };
                         campers.Add(camper);
                     }
@@ -114,7 +116,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         var phone = values[3];
                         var email = values[4];
                         var address = values[5];
-                        var campersId = values[6].Split(';');
+                        int campersId = int.Parse(values[6]);
 
                         var nextOfKin = new NextOfKin
                         {
@@ -123,7 +125,9 @@ namespace Camp_Sleepaway_SOVA.Methods
                             DateOfBirth = dateofbirth,
                             Phone = phone,
                             Email = email,
-                            Address = address
+                            Address = address,
+                            CamperId = campersId
+                           
                         };
                         nextOfKins.Add(nextOfKin);
 
