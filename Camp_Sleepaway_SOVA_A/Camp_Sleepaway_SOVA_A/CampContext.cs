@@ -33,4 +33,5 @@ public class CampContext : DbContext
             .WithMany(n => n.Campers)
             .UsingEntity(junction => junction.ToTable("Campers_NextOfKins"));
     }
+
 }  

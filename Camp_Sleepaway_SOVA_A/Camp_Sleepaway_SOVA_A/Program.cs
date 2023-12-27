@@ -44,7 +44,6 @@ public class Program
             else if (option == 1) // Meny för att lägga till
             {
                 OptionMethods.AddingOptions();
-
             }
             else if (option == 2) //Meny för att ta bort
             {
