@@ -28,16 +28,18 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
 
                 //line.Split returnerar en array av strängar:
-                if (values.Length == 8)
+                if (values.Length == 10)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];
                     int nextOfKin = int.Parse(values[6]);
                     var cabinName = values[7];
+                    var checkIn = DateOnly.ParseExact(values[8], "M/d/yyyy", null);
+                    var checkOut = DateOnly.ParseExact(values[9], "M/d/yyyy", null);
 
                     var camper = new Camper
                     {
@@ -48,7 +50,9 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Email = email,
                         Address = address,
                         NextOfKinId = nextOfKin,
-                        CabinName  = cabinName
+                        CabinName  = cabinName,
+                        Check_In = checkIn,
+                        Check_Out = checkOut
                     };
 
                     campers.Add(camper);
@@ -82,7 +86,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];
@@ -130,7 +134,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateTime.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];

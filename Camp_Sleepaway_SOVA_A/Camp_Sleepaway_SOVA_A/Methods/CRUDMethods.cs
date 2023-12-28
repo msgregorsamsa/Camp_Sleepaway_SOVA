@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Numerics;
 
@@ -34,7 +35,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.WriteLine($"Camper {firstName} {lastName} har tilldelats stuga {choice.Name}");
 
                 Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
 
                     // Skapa en ny Camper-instans
@@ -109,7 +110,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
 
                     Console.Write("Födelsedatum (M/d/yyyy): ");
-                    if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                    if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                     {
 
                         // Skapa en ny Councelor-instans
@@ -167,7 +168,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             while (true)
             {
                 Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime dateOfBirth))
+                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
                 {
 
                     // Skapa ett nytt NextOfKin-objekt
@@ -375,7 +376,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     string newDateOfBirthInput = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                     {
-                        if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                        if (DateOnly.TryParse(newDateOfBirthInput, out DateOnly newDateOfBirth))
                         {
                             camper.DateOfBirth = newDateOfBirth;
                         }
@@ -454,7 +455,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
-                    if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                    if (DateOnly.TryParse(newDateOfBirthInput, out DateOnly newDateOfBirth))
                     {
                         nextOfKin.DateOfBirth = newDateOfBirth;
                     }
@@ -535,7 +536,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
-                    if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                    if (DateOnly.TryParse(newDateOfBirthInput, out DateOnly newDateOfBirth))
                     {
                         counselor.DateOfBirth = newDateOfBirth;
                     }
@@ -633,21 +634,26 @@ namespace Camp_Sleepaway_SOVA.Methods
         //Samtliga rapport-metoder
         public static void ShowReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
         {
-            Console.WriteLine("");
-            string? Name = Console.ReadLine();
+            CampContext context = new CampContext();
 
-            Console.WriteLine("");
-            string? Example1 = Console.ReadLine();
+            var campersWithNextOfKin = context.Campers
+                .Include(c => c.NextOfKins)
+                .Where(c => c.NextOfKins.Any())
+                .OrderBy(c => c.CabinId)
+                .ToList();
 
-            Console.WriteLine("");
-            string? Example2 = Console.ReadLine();
+            foreach (var camper in campersWithNextOfKin)
+            {
+                Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}, Cabin: {camper.CabinId}");
+                Console.WriteLine("Next of Kin:");
 
-            Console.WriteLine("");
-            string? Example3 = Console.ReadLine();
-
-            Console.Clear();
-
-            // SQL ska ersättas med LINQ i EF
+                foreach (var nextOfKin in camper.NextOfKins)
+                {
+                    Console.WriteLine($"- Name: {nextOfKin.FirstName} {nextOfKin.LastName}");
+                    //Vi kan skriva ut mer info om NOK om vi vill
+                    Console.WriteLine("______________________________");
+                }
+            }
         }
 
         public static void ReportsForMissingCouncelor() //Lägg till metod som varnar om en stuga saknar councelors

@@ -22,11 +22,11 @@ namespace Camp_Sleepaway_SOVA
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
-        public DateTime Check_In { get; set; }
+        public DateOnly Check_In { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
-        public DateTime Check_Out { get; set; }
+        public DateOnly Check_Out { get; set; }
 
     }
 }

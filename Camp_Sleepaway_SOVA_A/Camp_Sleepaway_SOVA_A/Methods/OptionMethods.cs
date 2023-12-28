@@ -138,30 +138,11 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 if (option == 0)
                 {
-                    CampContext context = new CampContext();
-
-                    var campersWithNextOfKin = context.Campers
-                        .Include(c => c.NextOfKins)
-                        .Where(c => c.NextOfKins.Any())
-                        .OrderBy(c => c.CabinId)
-                        .ToList();
-
-                    foreach (var camper in campersWithNextOfKin)
-                    {
-                        Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}, Cabin: {camper.CabinId}");
-                        Console.WriteLine("Next of Kin:");
-
-                        foreach (var nextOfKin in camper.NextOfKins)
-                        {
-                            Console.WriteLine($"- Name: {nextOfKin.FirstName} {nextOfKin.LastName}");
-                            //Vi kan skriva ut mer info om NOK om vi vill
-                            Console.WriteLine("______________________________");
-                        }
-                    }
+                    CRUDMethods.ShowReportsForCampers();
                 }
                 else if (option == 1)
                 {
-                    //Metod för counselor
+                    CRUDMethods.ReportsForMissingCouncelor();
                 }
                 else
                 {
