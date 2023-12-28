@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -130,14 +131,33 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 int option = Program.ShowMenu("Vilken rapport vill du få ut?", new[]
                 {
-                    "Camper baserat på stuga eller counselor",
+                    "Visa alla campers",
                     "Varningar för stugor utan counselors",
                     "Avsluta"
                 });
 
                 if (option == 0)
                 {
-                    //Metod för camper
+                    CampContext context = new CampContext();
+
+                    var campersWithNextOfKin = context.Campers
+                        .Include(c => c.NextOfKins)
+                        .Where(c => c.NextOfKins.Any())
+                        .OrderBy(c => c.CabinId)
+                        .ToList();
+
+                    foreach (var camper in campersWithNextOfKin)
+                    {
+                        Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}, Cabin: {camper.CabinId}");
+                        Console.WriteLine("Next of Kin:");
+
+                        foreach (var nextOfKin in camper.NextOfKins)
+                        {
+                            Console.WriteLine($"- Name: {nextOfKin.FirstName} {nextOfKin.LastName}");
+                            //Vi kan skriva ut mer info om NOK om vi vill
+                            Console.WriteLine("______________________________");
+                        }
+                    }
                 }
                 else if (option == 1)
                 {
