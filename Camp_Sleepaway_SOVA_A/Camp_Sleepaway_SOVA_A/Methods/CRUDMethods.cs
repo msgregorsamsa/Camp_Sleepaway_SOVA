@@ -31,8 +31,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Adress: ");
                 var address = Console.ReadLine();
 
-                var choice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
-                Console.WriteLine($"Camper {firstName} {lastName} har tilldelats stuga {choice.Name}");
+                var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                Console.WriteLine($"Camper {firstName} {lastName} har tilldelats stuga {cabinChoice.Name}");
 
                 Console.Write("Födelsedatum (M/d/yyyy): ");
                 if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
@@ -46,7 +46,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         DateOfBirth = dateOfBirth,
                         Phone = phone,
                         Email = email,
-                        Address = address
+                        Address = address,
+                        CabinName = cabinChoice.Name
                     };
 
                     Console.Clear();
@@ -64,9 +65,10 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
 
         }
-    
+
         public static void AddCounselor()
         {
+            using (var context = new CampContext())
             {
                 Console.WriteLine("Lägg till en ny Counselor:");
 
@@ -76,7 +78,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Efternamn: ");
                 var lastName = Console.ReadLine();
 
-
                 Console.Write("Telefonnummer: ");
                 var phone = Console.ReadLine();
 
@@ -85,6 +86,9 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 Console.Write("Adress: ");
                 var address = Console.ReadLine();
+
+                var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                Console.WriteLine($"Counselor {firstName} {lastName} har tilldelats stuga {cabinChoice.Name}");
 
                 Console.Write("Title: ");
                 var title = Console.ReadLine();
@@ -122,19 +126,17 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Phone = phone,
                             Email = email,
                             Address = address,
+                            CabinName = cabinChoice.Name,
                             Title = title,
                             OnCabinDuty = onCabinDuty
                         };
 
-                        // Lägg till i databasen
-                        using (var context = new CampContext())
-                        {
-                            context.Counselors.Add(newCounselor);
-                            context.SaveChanges();
-                        }
-
                         Console.Clear();
                         Console.WriteLine($"Counselor {firstName} {lastName} har lagts till i databasen.");
+
+                        context.Counselors.Add(newCounselor);
+                        context.SaveChanges(); // Lägg till i databasen
+
                         break;
                     }
                     else
@@ -143,10 +145,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
                         break;
                     }
-
                 }
             }
         }
+
         public static void AddNextOfKin()
         {
             Console.WriteLine("Lägg till en ny NextOfKin:");
@@ -179,7 +181,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         DateOfBirth = dateOfBirth,
                         Phone = phone,
                         Email = email,
-                        Address = address                     
+                        Address = address
                     };
 
                     Console.WriteLine("Ange Camper ID för att länka NextOfKin: ");
@@ -215,7 +217,6 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
         }
 
-       
         public static void AddCabin()
         {
             Console.Write("Ange stugnamn: ");
@@ -235,6 +236,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             Console.Clear();
             Console.WriteLine($"{cabinName} har lagts till i databasen.");
         }
+
 
         //Samtliga Delete-metoder
         public static void DeleteCamper()
@@ -368,10 +370,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                         camper.LastName = newLastName;
                     }
 
-                    Console.WriteLine("Välj en ny stuga");
-                    var choice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
-                    Console.WriteLine($"Camper {camper.FirstName} {camper.LastName} har tilldelats stuga {choice.Name}");
-
                     Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
                     string newDateOfBirthInput = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
@@ -406,6 +404,15 @@ namespace Camp_Sleepaway_SOVA.Methods
                     {
                         camper.Address = newAddress;
                     }
+
+                    Console.WriteLine("Välj en ny stuga");
+                    var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                    Console.WriteLine($"Camper {camper.FirstName} {camper.LastName} har bytt till stuga {cabinChoice.Name}");
+
+                    /*if (!string.IsNullOrWhiteSpace(cabinChoice)) //Hur sparar vi förändringen /Sanna??
+                    {
+                        camper.Cabin = newCabinChoice;
+                    }*/
 
                     context.SaveChanges();
                     Console.WriteLine("Informationen är uppdaterad!");
@@ -567,12 +574,14 @@ namespace Camp_Sleepaway_SOVA.Methods
                     counselor.Address = newAddress;
                 }
 
-                Console.WriteLine("Ange ny titel:");
-                string newTitle = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newTitle))
-                {
-                    counselor.Title = newTitle;
-                }
+                Console.WriteLine("Välj en ny stuga");
+                var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} har bytt till stuga {cabinChoice.Name}");
+
+                /*if (!string.IsNullOrWhiteSpace(cabinChoice)) //Hur sparar vi förändringen /Sanna??
+                   {
+                       counselor.Cabin = newCabinChoice;
+                   }*/
 
                 //Console.WriteLine("Ange om personen är ansvarig för någon stuga:");
                 //string newCabinDuty = Console.ReadLine();
@@ -616,7 +625,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     cabin.Name = newName;
                 }
-                
+
                 context.SaveChanges();
                 Console.WriteLine("Informationen är uppdaterad!");
                 Console.WriteLine("Tryck på enter för att återgå till menyn...");
