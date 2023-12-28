@@ -6,6 +6,15 @@ namespace Camp_Sleepaway_SOVA;
 
 public class CampContext : DbContext
 {
+    public CampContext() : base()
+    {
+        foreach(var counselor in Counselors.ToList())
+        {
+            var cabin = Cabins.Where(c => c.Name == counselor.CabinName).FirstOrDefault();
+            cabin.Counselor = counselor;
+        }
+    }
+
     public DbSet<Cabin> Cabins { get; set; }
     public DbSet<Camper> Campers { get; set; }
     public DbSet<NextOfKin> NextOfKins { get; set; }

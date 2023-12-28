@@ -128,26 +128,28 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             bool running = true;
             while (running)
+
             {
                 int option = Program.ShowMenu("Vilken rapport vill du få ut?", new[]
                 {
-                    "Visa alla campers",
-                    "Varningar för stugor utan counselors",
-                    "Avsluta"
+                    "Rapport för campers - Tryck 'Enter' för fler valmöjligheter",
+                    "Rapport för campers med NextOfKins",
+                    "Återgå till huvudmeny"
                 });
 
                 if (option == 0)
                 {
-                    CRUDMethods.ShowReportsForCampers();
+                    CRUDMethods.ReportsForCampers();
+                    Console.Clear();
                 }
                 else if (option == 1)
                 {
-                    CRUDMethods.ReportsForMissingCouncelor();
+                    CRUDMethods.ReportForCampersWithNOK();
+                    Console.Clear();
                 }
                 else
                 {
                     running = false;
-                    Console.WriteLine("Hejdå");
                 }
             }
         }

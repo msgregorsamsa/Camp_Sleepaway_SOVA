@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Net;
 using System.Numerics;
 
@@ -589,8 +590,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                     Console.WriteLine("Välj en ny stuga");
                     var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
 
-                    counselor.Cabin = cabinChoice;  
-                    
+                    counselor.Cabin = cabinChoice;
+
                     Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} har bytt till stuga {cabinChoice.Name}");
                 }
 
@@ -657,7 +658,116 @@ namespace Camp_Sleepaway_SOVA.Methods
 
 
         //Samtliga rapport-metoder
-        public static void ShowReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
+        public static void ReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
+        {
+            Console.Clear();
+
+            using (var context = new CampContext())
+            {
+                bool running = true;
+                while (running)
+                {
+                    int option = Program.ShowMenu("Välj en sökkriterie för din rapport:", new[]
+                    {
+                    "Sortera rapport baserat på Cabin",
+                    "Sortera rapport baserat på Counselor",
+                    "Återgå"
+                    });
+
+                    //Console.Clear();
+
+                    if (option == 0) //Visa campers baserat på cabin
+                    {
+                        Console.WriteLine("Ange stugnamn för att visa campers:");
+                        string cabinName = (Console.ReadLine());
+
+                        var campersInCabin = context.Campers
+                            .Where(c => c.CabinName == cabinName)
+                            .ToList();
+
+                        if (campersInCabin.Any())
+                        {
+                            foreach (var camper in campersInCabin)
+                            {
+                                Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
+                            }
+                            Console.WriteLine(); //Blankrad
+                        }
+                        else
+                        {
+                            Console.WriteLine("Inga campers hittades i den angivna stugan.");
+                        }
+                    }
+
+                    else if (option == 1) //Visa campers baserat på counselor
+                    {
+                        Console.WriteLine("Ange förnamn på önskad stugansvarig för att visa campers:");
+                        string counselorFirstName = Console.ReadLine();
+
+                        Console.WriteLine("Ange efternamn på önskad stugansvarig för att visa campers:");
+                        string counselorLastName = Console.ReadLine();
+
+                        Counselor? counselor = context.Counselors.Where(c => c.FirstName == counselorFirstName && c.LastName == counselorLastName).FirstOrDefault();
+
+                        if (counselor == null)
+                        {
+                            Console.WriteLine("Det finns ingen stugansvarig med angivet namn.");
+                            return;
+                        }
+
+                        var counselorsCabin = counselor.CabinName;
+                        if (counselorsCabin == null)
+                        {
+                            Console.WriteLine($"Stugansvarig med namn {counselorFirstName} {counselorLastName} är för tillfället inte tilldelad någon stuga");
+                            return;
+                        }
+
+                        var campersWithCounselor = context.Campers.Where(c => c.CabinName == counselorsCabin).ToList();
+                        if (!campersWithCounselor.Any())
+                        {
+                            Console.WriteLine("Angiven stugansvarig är tilldelad en stuga men stugan innehåller inte några campers.");
+                            return;
+                        }
+
+                        foreach (var camper in campersWithCounselor)
+                        {
+                            Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
+                        }
+
+                        //var cabinsWithoutCounselor = context.Cabins.Where(cabin => cabin.Counselor == null).ToList();
+
+                        List<Cabin> cabinsWithoutCounselor = new List<Cabin>();
+                        foreach (var cabin in context.Cabins)
+                        {
+                            if (cabin.Counselor == null)
+                            {
+                                cabinsWithoutCounselor.Add(cabin);
+                            }
+                        }
+
+                        if (cabinsWithoutCounselor.Any())
+                        {
+                            //Skapar en röd varningstext
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Varning! Följande stugor saknar en stugansvarig:");
+                            foreach (var cabin in cabinsWithoutCounselor)
+                            {
+                                Console.WriteLine($"Stuga ID: {cabin.Id} - Namn: {cabin.Name}");
+                            }
+                            Console.ResetColor();
+                        }
+                    }
+                    else
+                    {
+                        running = false; //Återgår till föregående meny
+                    }
+                }
+            }
+        }
+
+
+        public static void ReportForCampersWithNOK()
         {
             CampContext context = new CampContext();
 
@@ -675,29 +785,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 foreach (var nextOfKin in camper.NextOfKins)
                 {
                     Console.WriteLine($"- Name: {nextOfKin.FirstName} {nextOfKin.LastName}");
-                    //Vi kan skriva ut mer info om NOK om vi vill
+                    // Vi kan skriva ut mer info om NOK om vi vill
                     Console.WriteLine("______________________________");
                 }
             }
         }
 
-        public static void ReportsForMissingCouncelor() //Lägg till metod som varnar om en stuga saknar councelors
-        {
-            Console.WriteLine("");
-            string? Name = Console.ReadLine();
-
-            Console.WriteLine("");
-            string? Example1 = Console.ReadLine();
-
-            Console.WriteLine("");
-            string? Example2 = Console.ReadLine();
-
-            Console.WriteLine("");
-            string? Example3 = Console.ReadLine();
-
-            Console.Clear();
-
-            // SQL ska ersättas med LINQ i EF
-        }
     }
 }

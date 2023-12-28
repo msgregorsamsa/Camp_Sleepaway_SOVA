@@ -13,7 +13,7 @@ namespace Camp_Sleepaway_SOVA
 
         //public int? CounselorId { get; set; } // FK till ledare, kan vara null om ingen ledare är kopplad till stugan
 
-        public Counselor Counselor { get; set; } // Navigation property till Counselor, virtual - men varför?
+        public Counselor? Counselor { get; set; } = null; // Navigation property till Counselor, virtual - men varför?
 
         public List<Stay> Stays { get; set; } = new();
 
