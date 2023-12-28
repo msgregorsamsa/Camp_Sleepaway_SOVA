@@ -414,7 +414,12 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                         camper.Cabin = cabinChoice;
 
-                        Console.WriteLine($"Counselor {camper.FirstName} {camper.LastName} har bytt till stuga {cabinChoice.Name}");
+                        Console.WriteLine($"Camper {camper.FirstName} {camper.LastName} har bytt till stuga {cabinChoice.Name}");
+                    }
+
+                    else if (changeCabinChoice == "Nej" || changeCabinChoice == "nej")
+                    {
+                        Console.WriteLine($"Camper {camper.FirstName} {camper.LastName} bor kvar i samma stuga");
                     }
 
                     context.SaveChanges();
@@ -581,19 +586,18 @@ namespace Camp_Sleepaway_SOVA.Methods
                 string changeCabinChoice = Console.ReadLine();
                 if (changeCabinChoice == "Ja" || changeCabinChoice == "ja")
                 {
-                Console.WriteLine("Välj en ny stuga");
-                var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                    Console.WriteLine("Välj en ny stuga");
+                    var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
 
-                counselor.Cabin = cabinChoice;  
+                    counselor.Cabin = cabinChoice;  
                     
-                Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} har bytt till stuga {cabinChoice.Name}");
+                    Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} har bytt till stuga {cabinChoice.Name}");
                 }
-                
 
-                /*if (!string.IsNullOrWhiteSpace(cabinChoice)) //Hur sparar vi förändringen /Sanna??
-                   {
-                       counselor.Cabin = newCabinChoice;
-                   }*/
+                else if (changeCabinChoice == "Nej" || changeCabinChoice == "nej")
+                {
+                    Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} bor kvar i samma stuga");
+                }
 
                 //Console.WriteLine("Ange om personen är ansvarig för någon stuga:");
                 //string newCabinDuty = Console.ReadLine();
@@ -610,7 +614,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             else
             {
-                Console.WriteLine("Det finns ingen närstående med det ID du angivit.");
+                Console.WriteLine("Det finns ingen counselor med det namn du angivit.");
             }
         }
 
