@@ -13,6 +13,8 @@ namespace Camp_Sleepaway_SOVA
 
         public int? CabinId { get; set; } // FK till Cabin, kan vara null om ledaren inte är knuten till en stuga
 
+        public string CabinName { get; set; }
+
         public virtual Cabin Cabin { get; set; } // Navigation property till Cabin
 
         public List<Stay> Stays { get; set; } = new();

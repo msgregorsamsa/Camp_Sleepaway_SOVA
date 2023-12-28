@@ -11,7 +11,7 @@ namespace Camp_Sleepaway_SOVA
 
         public List<Camper> Campers { get; set; } // ändrar till lista
 
-       // public int? CounselorId { get; set; } // FK till ledare, kan vara null om ingen ledare är kopplad till stugan
+        //public int? CounselorId { get; set; } // FK till ledare, kan vara null om ingen ledare är kopplad till stugan
 
         public Counselor Counselor { get; set; } // Navigation property till Counselor, virtual - men varför?
 

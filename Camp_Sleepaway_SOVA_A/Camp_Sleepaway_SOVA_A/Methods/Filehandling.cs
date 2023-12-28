@@ -28,7 +28,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
 
                 //line.Split returnerar en array av strängar:
-                if (values.Length == 7)
+                if (values.Length == 8)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -37,6 +37,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var email = values[4];
                     var address = values[5];
                     int nextOfKin = int.Parse(values[6]);
+                    var cabinName = values[7];
 
                     var camper = new Camper
                     {
@@ -46,8 +47,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
-                        NextOfKinId = nextOfKin
+                        NextOfKinId = nextOfKin,
+                        CabinName  = cabinName
                     };
+
                     campers.Add(camper);
                 }
             }
@@ -123,7 +126,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
 
                 //line.Split returnerar en array av strängar:
-                if (values.Length == 8)
+                if (values.Length == 9)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -133,6 +136,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var address = values[5];
                     var title = values[6];
                     var onCabinDuty = values[7];
+                    var cabinName = values[8];
 
                     var counselor = new Counselor
                     {
@@ -143,7 +147,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Email = email,
                         Address = address,
                         Title = title,
-                        OnCabinDuty = bool.Parse(onCabinDuty)
+                        OnCabinDuty = bool.Parse(onCabinDuty),
+                        CabinName = cabinName
                     };
                     counselors.Add(counselor);
                 }

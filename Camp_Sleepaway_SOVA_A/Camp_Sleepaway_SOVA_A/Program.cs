@@ -57,7 +57,7 @@ public class Program
             {
                 OptionMethods.ShowReportsOptions();
             }
-            else if (option == 5) //lekstuga
+            /*else if (option == 5) //lekstuga
             {
                 using (var context = new CampContext())
                 {
@@ -73,7 +73,7 @@ public class Program
                         Console.WriteLine("Går inte att koppla, FEL");
                     }
                 }
-            }
+            }*/
             else
             {
                 running = false;

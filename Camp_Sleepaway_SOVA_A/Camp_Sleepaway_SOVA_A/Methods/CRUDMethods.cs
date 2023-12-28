@@ -12,62 +12,58 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             Console.WriteLine("Lägg till en ny Camper:");
 
-            Console.Write("Förnamn: ");
-            var firstName = Console.ReadLine();
-
-            Console.Write("Efternamn: ");
-            var lastName = Console.ReadLine();
-
-            Console.Write("Telefonnummer: ");
-            var phone = Console.ReadLine();
-
-            Console.Write("E-postadress: ");
-            var email = Console.ReadLine();
-
-            Console.Write("Adress: ");
-            var address = Console.ReadLine();
-
-            Console.Write("ICE (In Case of Emergency) Tryck 'ENTER' om du ej har någon ICE: ");
-            var ice = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(ice))
-            {
-                ice = null;
-            }
-
-            Console.Write("Födelsedatum (M/d/yyyy): ");
-            if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+            using (var context = new CampContext())
             {
 
-                // Skapa en ny Camper-instans
-                var newCamper = new Camper
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    DateOfBirth = dateOfBirth,
-                    Phone = phone,
-                    Email = email,
-                    Address = address,
-                    ICE = ice
-                };
+                Console.Write("Förnamn: ");
+                var firstName = Console.ReadLine();
 
-                // Lägg till i databasen
-                using (var context = new CampContext())
+                Console.Write("Efternamn: ");
+                var lastName = Console.ReadLine();
+
+                Console.Write("Telefonnummer: ");
+                var phone = Console.ReadLine();
+
+                Console.Write("E-postadress: ");
+                var email = Console.ReadLine();
+
+                Console.Write("Adress: ");
+                var address = Console.ReadLine();
+
+                var choice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                Console.WriteLine($"Camper {firstName} {lastName} har tilldelats stuga {choice.Name}");
+
+                Console.Write("Födelsedatum (M/d/yyyy): ");
+                if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
-                    context.Campers.Add(newCamper);
+
+                    // Skapa en ny Camper-instans
+                    var newCamper = new Camper
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateOfBirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address
+                    };
+
+                    Console.Clear();
+                    Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
+
+                    context.Campers.Add(newCamper);// Lägg till i databasen
                     context.SaveChanges();
                 }
 
-                Console.Clear();
-                Console.WriteLine($"Camper {firstName} {lastName} har lagts till i databasen.");
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Ogiltigt datumformat. Camper {firstName} {lastName} kunde inte läggas till.");
+                }
             }
 
         }
+    
         public static void AddCounselor()
         {
             {
@@ -170,24 +166,6 @@ namespace Camp_Sleepaway_SOVA.Methods
             string address = Console.ReadLine();
             while (true)
             {
-                Console.Write("Är du en nödkontakt; Ja/Nej: ");
-                string input = Console.ReadLine(); // Läser in användarens inmatning
-
-                bool emergencyContact = false; // Förvalt värde
-
-                if (input == "Ja")
-                {
-                    emergencyContact = true;
-                }
-                else if (input == "Nej")
-                {
-                    emergencyContact = false;
-                }
-                else
-                {
-                    Console.WriteLine("Ogiltig inmatning. Ange antingen: 'Ja' eller 'Nej'.");
-
-                }
                 Console.Write("Födelsedatum (M/d/yyyy): ");
                 if (DateTime.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime dateOfBirth))
                 {
@@ -200,8 +178,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         DateOfBirth = dateOfBirth,
                         Phone = phone,
                         Email = email,
-                        Address = address,
-                        IsICE = emergencyContact                        
+                        Address = address                     
                     };
 
                     Console.WriteLine("Ange Camper ID för att länka NextOfKin: ");
@@ -360,90 +337,86 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         public static void EditCamper()
         {
-            Console.WriteLine("Ange ID för den camper du vill ändra:");
-            int id = int.Parse(Console.ReadLine());
 
             using var context = new CampContext();
-
-            var camper = context.Campers
-                .FirstOrDefault(c => c.Id == id);
-
-            if (camper != null)
             {
-                Console.WriteLine($"Du ändrar nu: {camper.FirstName} {camper.LastName}, " +
-                    $"{camper.DateOfBirth}, {camper.Phone}, {camper.Email}, {camper.Address}, " +
-                    $"{camper.ICE}."
-                    );
+                Console.WriteLine("Ange ID för den camper du vill ändra:");
+                int id = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+                var camper = context.Campers
+                    .FirstOrDefault(c => c.Id == id);
 
-                Console.WriteLine("Ange nytt förnamn:");
-                string newFirstName = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newFirstName))
+                if (camper != null)
                 {
-                    camper.FirstName = newFirstName;
-                }
+                    Console.WriteLine($"Du ändrar nu: {camper.FirstName} {camper.LastName}, " +
+                        $"{camper.DateOfBirth}, {camper.Phone}, {camper.Email}, {camper.Address}");
 
-                Console.WriteLine("Ange nytt efternamn:");
-                string newLastName = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newLastName))
-                {
-                    camper.LastName = newLastName;
-                }
+                    Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
 
-                Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
-                string newDateOfBirthInput = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
-                {
-                    if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                    Console.WriteLine("Ange nytt förnamn:");
+                    string newFirstName = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newFirstName))
                     {
-                        camper.DateOfBirth = newDateOfBirth;
+                        camper.FirstName = newFirstName;
                     }
-                    else
+
+                    Console.WriteLine("Ange nytt efternamn:");
+                    string newLastName = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newLastName))
                     {
-                        Console.WriteLine("Ogiltigt datumformat, födelsedatum inte uppdaterat");
+                        camper.LastName = newLastName;
                     }
-                }
 
-                Console.WriteLine("Ange nytt telefonnummer:");
-                string newPhone = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newPhone))
+                    Console.WriteLine("Välj en ny stuga");
+                    var choice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
+                    Console.WriteLine($"Camper {camper.FirstName} {camper.LastName} har tilldelats stuga {choice.Name}");
+
+                    Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
+                    string newDateOfBirthInput = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
+                    {
+                        if (DateTime.TryParse(newDateOfBirthInput, out DateTime newDateOfBirth))
+                        {
+                            camper.DateOfBirth = newDateOfBirth;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ogiltigt datumformat, födelsedatum inte uppdaterat");
+                        }
+                    }
+
+                    Console.WriteLine("Ange nytt telefonnummer:");
+                    string newPhone = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newPhone))
+                    {
+                        camper.Phone = newPhone;
+                    }
+
+                    Console.WriteLine("Ange ny emailadress:");
+                    string newEmail = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newEmail))
+                    {
+                        camper.Email = newEmail;
+                    }
+
+                    Console.WriteLine("Ange ny adress:");
+                    string newAddress = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newAddress))
+                    {
+                        camper.Address = newAddress;
+                    }
+
+                    context.SaveChanges();
+                    Console.WriteLine("Informationen är uppdaterad!");
+                    Console.WriteLine("Tryck på enter för att återgå till menyn...");
+                    Console.ReadLine();
+
+                }
+                else
                 {
-                    camper.Phone = newPhone;
+                    Console.WriteLine("Det finns ingen camper med det ID du angivit.");
                 }
-
-                Console.WriteLine("Ange ny emailadress:");
-                string newEmail = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newEmail))
-                {
-                    camper.Email = newEmail;
-                }
-
-                Console.WriteLine("Ange ny adress:");
-                string newAddress = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newAddress))
-                {
-                    camper.Address = newAddress;
-                }
-
-                Console.WriteLine("Ange ny ICE-kontakt (id):");
-                string newIce = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(newIce))
-                {
-                    camper.ICE = newIce;
-                }
-
-                context.SaveChanges();
-                Console.WriteLine("Informationen är uppdaterad!");
-                Console.WriteLine("Tryck på enter för att återgå till menyn...");
-                Console.ReadLine();
-
             }
-            else
-            {
-                Console.WriteLine("Det finns ingen camper med det ID du angivit.");
-            }
-
         }
 
         public static void EditNextOfKin()
@@ -459,9 +432,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             if (nextOfKin != null)
             {
                 Console.WriteLine($"Du ändrar nu: {nextOfKin.FirstName} {nextOfKin.LastName}, " +
-                    $"{nextOfKin.DateOfBirth}, {nextOfKin.Phone}, {nextOfKin.Email}, {nextOfKin.Address}, " +
-                    $"{nextOfKin.IsICE}."
-                    );
+                    $"{nextOfKin.DateOfBirth}, {nextOfKin.Phone}, {nextOfKin.Email}, {nextOfKin.Address}");
 
                 Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
 
@@ -513,13 +484,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     nextOfKin.Address = newAddress;
                 }
-
-                //Console.WriteLine("Uppdatera ICE-status:");
-                //string newIsIce = Console.ReadLine();
-                //if (!string.IsNullOrWhiteSpace(newIsIce))
-                //{
-                //    nextOfKin.IsICE = NewIsIce;
-                //}
 
                 context.SaveChanges();
                 Console.WriteLine("Informationen är uppdaterad!");
