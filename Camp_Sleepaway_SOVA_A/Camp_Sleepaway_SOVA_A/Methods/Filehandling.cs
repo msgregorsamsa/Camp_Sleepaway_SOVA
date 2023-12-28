@@ -213,6 +213,31 @@ namespace Camp_Sleepaway_SOVA.Methods
                     context.NextOfKins.Add(nextofKin);
                 }
 
+                context.SaveChanges(); // Spara för att få ID:n
+
+                // Hämta alla Campers och NextOfKins från databasen
+                var allCampers = context.Campers.ToList();
+                var allNextOfKins = context.NextOfKins.ToList();
+
+                // Loopa igenom NextOfKins och hitta matchande Camper för varje NextOfKin
+                foreach (var nextOfKin in allNextOfKins)
+                {
+                    // Anta att nextOfKin innehåller ett CampersId
+                    var camperId = nextOfKin.CamperId;
+
+                    // Hitta den matchande Camper baserat på camperId
+                    var matchingCamper = allCampers.FirstOrDefault(c => c.Id == camperId);
+
+                    if (matchingCamper != null)
+                    {
+                        // Skapa en relation mellan matchingCamper och nextOfKin
+                        matchingCamper.NextOfKins.Add(nextOfKin);
+
+                        // Använd Attach för att lägga till i context (om inte redan ägt)
+                        context.Attach(nextOfKin);
+                    }
+                }
+
                 foreach (var counselor in counselorFile)
                 {
                     context.Counselors.Add(counselor);
