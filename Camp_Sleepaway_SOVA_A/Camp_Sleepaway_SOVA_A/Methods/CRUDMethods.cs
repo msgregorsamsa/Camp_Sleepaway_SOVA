@@ -768,27 +768,41 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         public static void ReportForCampersWithNOK()
         {
-            CampContext context = new CampContext();
-
-            var campersWithNextOfKin = context.Campers
-                .Include(c => c.NextOfKins)
-                .Where(c => c.NextOfKins.Any())
-                .OrderBy(c => c.CabinId)
-                .ToList();
-
-            foreach (var camper in campersWithNextOfKin)
             {
-                Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}, Cabin: {camper.CabinId}");
-                Console.WriteLine("Next of Kin:");
-
-                foreach (var nextOfKin in camper.NextOfKins)
+                using (CampContext context = new CampContext())
                 {
-                    Console.WriteLine($"- Name: {nextOfKin.FirstName} {nextOfKin.LastName}");
-                    // Vi kan skriva ut mer info om NOK om vi vill
-                    Console.WriteLine("______________________________");
+                    var campersWithNextOfKin = context.Campers
+                        .Include(c => c.NextOfKins)
+                        .Where(c => c.NextOfKins.Any())
+                        .OrderBy(c => c.CabinName)
+                        .ToList();
+                    Console.Clear();
+
+                    const int camperColumnWidth = 25;
+                    const int nextOfKinColumnWidth = 25;
+                    const int cabinColumnWidth = 15;
+
+                    Console.WriteLine($"{"CAMPER".PadRight(camperColumnWidth)}{"NEXTOFKIN".PadRight(nextOfKinColumnWidth)}{"CABIN".PadRight(cabinColumnWidth)}");
+                    Console.WriteLine(new string('-', camperColumnWidth + nextOfKinColumnWidth + cabinColumnWidth));
+
+                    foreach (var camper in campersWithNextOfKin)
+                    {
+                        Console.Write($"{camper.FirstName} {camper.LastName}".PadRight(camperColumnWidth));
+
+                        if (camper.NextOfKins.Any())
+                        {
+                            Console.Write($"{camper.NextOfKins[0].FirstName} {camper.NextOfKins[0].LastName}".PadRight(nextOfKinColumnWidth));
+                        }
+                        else
+                        {
+                            Console.Write($"{"".PadRight(nextOfKinColumnWidth)}");
+                        }
+
+                        Console.WriteLine($"{camper.CabinName}".PadRight(cabinColumnWidth));
+                    }
+                    Console.ReadLine();
                 }
             }
         }
-
     }
 }
