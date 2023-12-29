@@ -30,26 +30,25 @@ public class Program
                     "lekstuga",
                     "Avsluta"
             });
-
             Console.Clear();
 
             if (option == 0) //Läs in data
             {
                 ReadData();
             }
-            else if (option == 1) // Meny för att lägga till
+            else if (option == 1) // Lägg till
             {
                 OptionMethods.AddingOptions();
             }
-            else if (option == 2) //Meny för att ta bort
+            else if (option == 2) // Ta bort
             {
                 OptionMethods.DeleteOptions();
             }
-            else if (option == 3) //Meny för att ändra
+            else if (option == 3) //Ändra
             {
                 OptionMethods.EditOptions();
             }
-            else if (option == 4) //Meny för att visa rapporter
+            else if (option == 4) //Visa rapporter
             {
                 OptionMethods.ShowReportsOptions();
             }

@@ -1,11 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Camp_Sleepaway_SOVA
 {
     public class Person
     {
-        //public int Id { get; set; }
         [Required]
         public string FirstName { get; set; }
 

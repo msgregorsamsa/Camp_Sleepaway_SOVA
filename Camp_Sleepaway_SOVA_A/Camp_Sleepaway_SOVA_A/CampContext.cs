@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Camp_Sleepaway_SOVA;
@@ -22,7 +21,6 @@ public class CampContext : DbContext
     public DbSet<Stay> Stays { get; set; }
 
 
-    //add more if we have more tables
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var configuration = new ConfigurationBuilder()
@@ -42,5 +40,4 @@ public class CampContext : DbContext
             .WithMany(n => n.Campers)
             .UsingEntity(junction => junction.ToTable("Campers_NextOfKins"));
     }
-
 }  
