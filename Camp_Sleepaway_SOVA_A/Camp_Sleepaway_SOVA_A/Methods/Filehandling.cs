@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Camp_Sleepaway_SOVA.Methods
 {
     public class Filehandling
     {
+        //Läser in grunddatan om Campers från csv-fil.
         static List<Camper> ReadCampers(string filePath)
         {
             var campers = new List<Camper>();
 
             using var reader = new StreamReader(filePath);
 
-            // Read the header line
             var headerLine = reader.ReadLine();
 
-            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+            while (!reader.EndOfStream) 
             {
-                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                var line = reader.ReadLine();
                 if (line == null)
                 {
-                    break; //Loopen avbryts
+                    break;
                 }
 
-                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+                var values = line.Split(',');
 
-                //line.Split returnerar en array av strängar:
                 if (values.Length == 10)
                 {
                     var firstName = values[0];
@@ -61,6 +55,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             return campers;
         }
 
+        //Läser in grunddatan om Next of Kins från csv-fil.
         static List<NextOfKin> ReadNOK(string filePath)
         {
             var nextOfKins = new List<NextOfKin>();
@@ -68,20 +63,18 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             using var reader = new StreamReader(filePath);
 
-            // Read the header line
             var headerLine = reader.ReadLine();
 
-            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+            while (!reader.EndOfStream)
             {
-                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                var line = reader.ReadLine();
                 if (line == null)
                 {
-                    break; //Loopen avbryts
+                    break;
                 }
 
-                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+                var values = line.Split(',');
 
-                //line.Split returnerar en array av strängar:
                 if (values.Length == 7)
                 {
                     var firstName = values[0];
@@ -105,31 +98,29 @@ namespace Camp_Sleepaway_SOVA.Methods
                     };
                     nextOfKins.Add(nextOfKin);
                 }
-
             }
             return nextOfKins;
         }
 
+        //Läser in grunddatan om Counselors från csv-fil.
         static List<Counselor> ReadCounselor(string filePath)
         {
             var counselors = new List<Counselor>();
 
             using var reader = new StreamReader(filePath);
 
-            // Read the header line
             var headerLine = reader.ReadLine();
 
-            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+            while (!reader.EndOfStream)
             {
-                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                var line = reader.ReadLine();
                 if (line == null)
                 {
-                    break; //Loopen avbryts
+                    break;
                 }
 
-                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+                var values = line.Split(',');
 
-                //line.Split returnerar en array av strängar:
                 if (values.Length == 9)
                 {
                     var firstName = values[0];
@@ -160,26 +151,25 @@ namespace Camp_Sleepaway_SOVA.Methods
             return counselors;
         }
 
+        //Läser in grunddatan om Cabins från csv-fil.
         static List<Cabin> ReadCabin(string filePath)
         {
             var cabins = new List<Cabin>();
 
             using var reader = new StreamReader(filePath);
 
-            // Read the header line
             var headerLine = reader.ReadLine();
 
-            while (!reader.EndOfStream) //Loopen pågår sålänge vi INTE nått slutet av filen
+            while (!reader.EndOfStream)
             {
-                var line = reader.ReadLine(); //Läser nästa rad i csv-filen
+                var line = reader.ReadLine();
                 if (line == null)
                 {
-                    break; //Loopen avbryts
+                    break;
                 }
 
-                var values = line.Split(','); //Lägger till ett kommatecken mellan varje rad i filen
+                var values = line.Split(',');
 
-                //line.Split returnerar en array av strängar:
                 if (values.Length == 1)
                 {
                     var name = values[0];
@@ -194,6 +184,8 @@ namespace Camp_Sleepaway_SOVA.Methods
             return cabins;
         }
 
+
+        //Läser in datan med hjälp av metoderna ovan
         public static void ReadAllCSVFiles()
         {
             var camperFile = ReadCampers("CamperData.csv");
@@ -201,6 +193,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             var counselorFile = ReadCounselor("CounselorData.csv");
             var cabinFile = ReadCabin("CabinData.csv");
 
+            //För junction table mellan camper och next of kin
             using (var context = new CampContext())
             {
                 foreach (var camper in camperFile)
@@ -213,7 +206,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     context.NextOfKins.Add(nextofKin);
                 }
 
-                context.SaveChanges(); // Spara för att få ID:n
+                context.SaveChanges();
 
                 // Hämta alla Campers och NextOfKins från databasen
                 var allCampers = context.Campers.ToList();
