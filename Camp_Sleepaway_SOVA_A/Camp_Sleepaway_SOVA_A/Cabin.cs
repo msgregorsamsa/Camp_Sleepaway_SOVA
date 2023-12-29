@@ -12,8 +12,6 @@ namespace Camp_Sleepaway_SOVA
 
         //public int? CounselorId { get; set; } - ta bort denna?
         public Counselor? Counselor { get; set; } = null;
-        
-        public List<Stay> Stays { get; set; } = new();
 
     }
 }
