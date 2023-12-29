@@ -674,7 +674,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     "Återgå"
                     });
 
-                    //Console.Clear();
+                    Console.Clear();
 
                     if (option == 0) //Visa campers baserat på cabin
                     {
@@ -765,7 +765,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
             }
         }
-
 
         public static void ReportForCampersWithNOK()
         {

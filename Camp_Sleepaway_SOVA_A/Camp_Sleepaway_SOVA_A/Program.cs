@@ -27,7 +27,6 @@ public class Program
                     "Ta bort",
                     "Ändra",
                     "Visa rapporter",
-                    "lekstuga",
                     "Avsluta"
             });
             Console.Clear();
@@ -52,27 +51,11 @@ public class Program
             {
                 OptionMethods.ShowReportsOptions();
             }
-            /*else if (option == 5) //lekstuga
-            {
-                using (var context = new CampContext())
-                {
-                    var NOK = context.NextOfKins.Where(n => n.Id == 5).FirstOrDefault();
-                    var camper= context.Campers.Where(c => c.Id == 7).FirstOrDefault();
-                    if (camper != null && NOK != null)
-                    {
-                        NOK.Campers.Add(camper);
-                        context.SaveChanges();
-                        Console.WriteLine("Nu är ni sammankopplade, FÖRALLTID :)");
-                    } else
-                    {
-                        Console.WriteLine("Går inte att koppla, FEL");
-                    }
-                }
-            }*/
             else
             {
                 running = false;
-                Console.WriteLine("Hejdå");
+                Console.WriteLine("Hejdå!");
+                Console.WriteLine();
             }
         }
     }

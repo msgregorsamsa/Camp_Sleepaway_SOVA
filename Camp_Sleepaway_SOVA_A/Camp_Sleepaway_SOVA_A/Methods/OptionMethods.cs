@@ -59,8 +59,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                     "Counselor",
                     "Next Of Kin",
                     "Cabin",
-                    "Avsluta"
+                    "Återgå till huvudmeny"
                 });
+
+                Console.Clear();
 
                 if (option == 0)
                 {
@@ -81,7 +83,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 else
                 {
                     running = false;
-                    Console.WriteLine("Hejdå");
                 }
             }
         }
@@ -97,8 +98,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                     "Counselor",
                     "Next Of Kin",
                     "Cabin",
-                    "Avsluta"
+                    "Återgå till huvudmeny"
                 });
+
+                Console.Clear();
 
                 if (option == 0)
                 {
@@ -119,7 +122,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 else
                 {
                     running = false;
-                    Console.WriteLine("Hejdå");
                 }
             }
         }
@@ -136,6 +138,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                     "Rapport för campers med NextOfKins",
                     "Återgå till huvudmeny"
                 });
+
+                Console.Clear();
 
                 if (option == 0)
                 {
