@@ -5,7 +5,6 @@ namespace Camp_Sleepaway_SOVA
     public class Camper : Person
     {
         public int Id { get; set; }
-        public int? CabinId { get; set; }
         public string CabinName { get; set; }   
         public Cabin Cabin { get; set; }
         public int NextOfKinId { get; set; }

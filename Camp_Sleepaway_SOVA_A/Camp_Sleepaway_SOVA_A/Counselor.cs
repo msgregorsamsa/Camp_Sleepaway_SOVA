@@ -7,8 +7,7 @@ namespace Camp_Sleepaway_SOVA
     {
         public int Id { get; set; }
         public string Title { get; set; } 
-        public int? CabinId { get; set; }
-        public string CabinName { get; set; }
+        public string? CabinName { get; set; }
         public virtual Cabin Cabin { get; set; }
 
         [DataType(DataType.Date)]

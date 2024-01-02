@@ -5,7 +5,7 @@ namespace Camp_Sleepaway_SOVA;
 
 public class CampContext : DbContext
 {
-    public CampContext() : base()
+    public void Populate()
     {
         foreach(var counselor in Counselors.ToList())
         {
@@ -37,5 +37,17 @@ public class CampContext : DbContext
             .HasMany(c => c.NextOfKins)
             .WithMany(n => n.Campers)
             .UsingEntity(junction => junction.ToTable("Campers_NextOfKins"));
+
+        modelBuilder.Entity<Camper>()
+            .HasOne(c => c.Cabin)
+            .WithMany(c => c.Campers)
+            .HasForeignKey(c => c.CabinName)
+            .HasPrincipalKey(c => c.Name);
+
+        modelBuilder.Entity<Counselor>()
+            .HasOne(c => c.Cabin)
+            .WithOne(c => c.Counselor)
+            .HasForeignKey<Counselor>(c => c.CabinName)
+            .HasPrincipalKey<Cabin>(c => c.Name);
     }
 }  

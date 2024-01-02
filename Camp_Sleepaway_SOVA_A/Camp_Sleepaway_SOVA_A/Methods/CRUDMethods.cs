@@ -672,6 +672,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             using (var context = new CampContext())
             {
+                context.Populate();
                 bool running = true;
                 while (running)
                 {

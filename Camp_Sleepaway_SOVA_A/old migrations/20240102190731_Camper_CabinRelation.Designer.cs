@@ -4,6 +4,7 @@ using Camp_Sleepaway_SOVA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Camp_Sleepaway_SOVA.Migrations
 {
     [DbContext(typeof(CampContext))]
-    partial class CampContextModelSnapshot : ModelSnapshot
+    [Migration("20240102190731_Camper_CabinRelation")]
+    partial class Camper_CabinRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,8 +102,12 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CabinId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CabinName")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly?>("Check_In")
                         .HasColumnType("date");
@@ -132,9 +139,9 @@ namespace Camp_Sleepaway_SOVA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CabinName")
+                    b.HasIndex("CabinId")
                         .IsUnique()
-                        .HasFilter("[CabinName] IS NOT NULL");
+                        .HasFilter("[CabinId] IS NOT NULL");
 
                     b.ToTable("Counselors");
                 });
@@ -207,8 +214,7 @@ namespace Camp_Sleepaway_SOVA.Migrations
                 {
                     b.HasOne("Camp_Sleepaway_SOVA.Cabin", "Cabin")
                         .WithOne("Counselor")
-                        .HasForeignKey("Camp_Sleepaway_SOVA.Counselor", "CabinName")
-                        .HasPrincipalKey("Camp_Sleepaway_SOVA.Cabin", "Name");
+                        .HasForeignKey("Camp_Sleepaway_SOVA.Counselor", "CabinId");
 
                     b.Navigation("Cabin");
                 });

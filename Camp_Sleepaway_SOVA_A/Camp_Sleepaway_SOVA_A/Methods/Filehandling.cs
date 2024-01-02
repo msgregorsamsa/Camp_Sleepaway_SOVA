@@ -34,6 +34,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var cabinName = values[7];
                     var checkIn = DateOnly.ParseExact(values[8], "M/d/yyyy", null);
                     var checkOut = DateOnly.ParseExact(values[9], "M/d/yyyy", null);
+                    //var cabinID = int.Parse(values[10]);
 
                     var camper = new Camper
                     {
@@ -46,7 +47,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         NextOfKinId = nextOfKin,
                         CabinName  = cabinName,
                         Check_In = checkIn,
-                        Check_Out = checkOut
+                        Check_Out = checkOut,
                     };
 
                     campers.Add(camper);
@@ -121,7 +122,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 var values = line.Split(',');
 
-                if (values.Length == 8)
+                if (values.Length == 10)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -130,7 +131,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var email = values[4];
                     var address = values[5];
                     var title = values[6];
-                    var cabinName = values[8];
+                    var cabinName = values[7];
+                    //var cabinID = int.Parse(values[8]);
+                    var checkIn = DateOnly.ParseExact(values[8], "M/d/yyyy", null);
+                    var checkOut = DateOnly.ParseExact(values[9], "M/d/yyyy", null);
 
                     var counselor = new Counselor
                     {
@@ -141,7 +145,9 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Email = email,
                         Address = address,
                         Title = title,
-                        CabinName = cabinName
+                        CabinName = cabinName,
+                        Check_In = checkIn,
+                        Check_Out = checkOut
                     };
                     counselors.Add(counselor);
                 }
@@ -203,8 +209,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     context.NextOfKins.Add(nextofKin);
                 }
-
-                context.SaveChanges();
 
                 // Hämta alla Campers och NextOfKins från databasen
                 var allCampers = context.Campers.ToList();
