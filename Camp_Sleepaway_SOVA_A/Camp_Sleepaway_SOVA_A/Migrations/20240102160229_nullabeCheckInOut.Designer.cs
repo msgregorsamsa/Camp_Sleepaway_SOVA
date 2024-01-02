@@ -4,6 +4,7 @@ using Camp_Sleepaway_SOVA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Camp_Sleepaway_SOVA.Migrations
 {
     [DbContext(typeof(CampContext))]
-    partial class CampContextModelSnapshot : ModelSnapshot
+    [Migration("20240102160229_nullabeCheckInOut")]
+    partial class nullabeCheckInOut
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,6 +131,9 @@ namespace Camp_Sleepaway_SOVA.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("OnCabinDuty")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Phone")
                         .IsRequired()

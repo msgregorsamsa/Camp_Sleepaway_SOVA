@@ -121,7 +121,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 var values = line.Split(',');
 
-                if (values.Length == 9)
+                if (values.Length == 8)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -130,7 +130,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var email = values[4];
                     var address = values[5];
                     var title = values[6];
-                    var onCabinDuty = values[7];
                     var cabinName = values[8];
 
                     var counselor = new Counselor
@@ -142,7 +141,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Email = email,
                         Address = address,
                         Title = title,
-                        OnCabinDuty = bool.Parse(onCabinDuty),
                         CabinName = cabinName
                     };
                     counselors.Add(counselor);

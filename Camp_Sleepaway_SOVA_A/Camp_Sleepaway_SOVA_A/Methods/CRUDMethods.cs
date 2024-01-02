@@ -35,6 +35,18 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit tilldelad cabin med namn {cabinChoice.Name}");
 
+                Console.Write("Ange incheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                string inputCheckIn = Console.ReadLine();
+                DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    parsedCheckIn : (DateOnly?)null : null;
+
+                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                string inputCheckOut = Console.ReadLine();
+                DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    parsedCheckOut : (DateOnly?)null : null;
+
                 Console.Write("Födelsedatum (M/d/yyyy): ");
                 if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
@@ -48,7 +60,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
-                        CabinName = cabinChoice.Name
+                        CabinName = cabinChoice.Name,
+                        Check_In = checkIn,
+                        Check_Out = checkOut
+
                     };
 
                     Console.Clear();
@@ -91,62 +106,55 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
                 Console.WriteLine($"Counselor {firstName} {lastName} har blivit tilldelad cabin med namn {cabinChoice.Name}.");
 
+                Console.Write($"Ange startdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
+                string inputCheckIn = Console.ReadLine();
+                DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    parsedCheckIn : (DateOnly?)null : null;
+
+                Console.Write($"Ange slutdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                string inputCheckOut = Console.ReadLine();
+                DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    parsedCheckOut : (DateOnly?)null : null;
+
                 Console.Write("Arbetstitel: ");
                 var title = Console.ReadLine();
-                while (true)
-                {
-                    Console.WriteLine("On duty; Ja/Nej: ");
-                    string dutyInput = Console.ReadLine(); // Läser in användarens inmatning
-
-                    bool onCabinDuty = false; // Förvalt värde
-
-                    if (dutyInput == "Ja")
-                    {
-                        onCabinDuty = true;
-                    }
-                    else if (dutyInput == "Nej")
-                    {
-                        onCabinDuty = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Felinmatning. Skriv antingen 'Ja' eller 'nej'");
-                        continue;
-                    }
+                
 
                     Console.Write("Födelsedatum (M/d/yyyy): ");
-                    if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                {
+
+                    // Skapa en ny Councelor-instans
+                    var newCounselor = new Counselor
                     {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        DateOfBirth = dateOfBirth,
+                        Phone = phone,
+                        Email = email,
+                        Address = address,
+                        CabinName = cabinChoice.Name,
+                        Title = title,
+                        Check_In = checkIn,
+                        Check_Out = checkOut
+                    };
 
-                        // Skapa en ny Councelor-instans
-                        var newCounselor = new Counselor
-                        {
-                            FirstName = firstName,
-                            LastName = lastName,
-                            DateOfBirth = dateOfBirth,
-                            Phone = phone,
-                            Email = email,
-                            Address = address,
-                            CabinName = cabinChoice.Name,
-                            Title = title,
-                            OnCabinDuty = onCabinDuty
-                        };
+                    Console.Clear();
+                    Console.WriteLine($"Counselor {firstName} {lastName} har blivit tillagd.");
 
-                        Console.Clear();
-                        Console.WriteLine($"Counselor {firstName} {lastName} har blivit tillagd.");
+                    context.Counselors.Add(newCounselor);
+                    context.SaveChanges();
+                }// Lägg till i databasen
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
 
-                        context.Counselors.Add(newCounselor);
-                        context.SaveChanges(); // Lägg till i databasen
-
-                        break;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
-                        break;
-                    }
                 }
+                
             }
         }
 
@@ -529,7 +537,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 Console.WriteLine($"Du ändrar nu: {counselor.FirstName} {counselor.LastName}, " +
                     $"{counselor.DateOfBirth}, {counselor.Phone}, {counselor.Email}, {counselor.Address}, " +
-                    $"{counselor.Title}, {counselor.OnCabinDuty}."
+                    $"{counselor.Title}."
                     );
 
                 Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");

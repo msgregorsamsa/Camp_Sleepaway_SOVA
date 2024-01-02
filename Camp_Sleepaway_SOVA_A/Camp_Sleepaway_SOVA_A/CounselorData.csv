@@ -1,6 +1,6 @@
 ﻿First Name,Last Name,Date of Birth,Phone,Email,Address,Title,On Cabin Duty,Cabin Name,CabinID,Check-In,Check-Out
-Harry,Potter,07/31/1980,1234567890,harry@example.com,4 Privet Drive,Head Counselor,true,Gryffindor House,01,01/01/2023,01/07/2023
-Hermione,Granger,09/19/1979,2345678901,hermione@example.com,12 Grimmauld Place,Senior Counselor,false,Ravenclaw Tower,02,01/01/2023,01/07/2023
-Ron,Weasley,03/01/1980,3456789012,ron@example.com,The Burrow,Counselor,true,Hufflepuff Common Room,03,01/01/2023,01/07/2023
-Luna,Lovegood,02/13/1981,4567890123,luna@example.com,Shell Cottage,Counselor,false,Slytherin Dungeon,04,01/01/2023,01/07/2023
-Neville,Longbottom,07/30/1980,5678901234,neville@example.com,Hogwarts,Counselor,true,The Leaky Cauldron,05,01/01/2023,01/07/2023
+Harry,Potter,07/31/1980,1234567890,harry@example.com,4 Privet Drive,Head Counselor,Gryffindor House,01,01/01/2023,01/07/2023
+Hermione,Granger,09/19/1979,2345678901,hermione@example.com,12 Grimmauld Place,Senior Counselor,Ravenclaw Tower,02,01/01/2023,01/07/2023
+Ron,Weasley,03/01/1980,3456789012,ron@example.com,The Burrow,Counselor,Hufflepuff Common Room,03,01/01/2023,01/07/2023
+Luna,Lovegood,02/13/1981,4567890123,luna@example.com,Shell Cottage,Counselor,Slytherin Dungeon,04,01/01/2023,01/07/2023
+Neville,Longbottom,07/30/1980,5678901234,neville@example.com,Hogwarts,Counselor,The Leaky Cauldron,05,01/01/2023,01/07/2023
