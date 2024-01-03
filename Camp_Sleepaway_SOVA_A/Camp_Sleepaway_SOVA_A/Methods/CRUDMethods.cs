@@ -331,20 +331,29 @@ namespace Camp_Sleepaway_SOVA.Methods
             using var context = new CampContext();
 
             var cabinToRemove = context.Cabins
+                .Include(c => c.Campers) // Inkludera campers för den specifika stugan
                 .FirstOrDefault(c => c.Name == cabinName);
 
             if (cabinToRemove != null)
             {
-                // Ta bort camper om den finns
-                context.Cabins.Remove(cabinToRemove);
-                context.SaveChanges();
-                Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
+                if (cabinToRemove.Campers.Any())
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Kan inte ta bort {cabinName} eftersom den innehåller campers.");
+                }
+                else
+                {
+                    context.Cabins.Remove(cabinToRemove);
+                    context.SaveChanges();
+                    Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
+                }
             }
             else
             {
                 Console.WriteLine($"Cabin {cabinName} hittades inte.");
             }
         }
+
 
         //Samtliga Edit-metoder
 
