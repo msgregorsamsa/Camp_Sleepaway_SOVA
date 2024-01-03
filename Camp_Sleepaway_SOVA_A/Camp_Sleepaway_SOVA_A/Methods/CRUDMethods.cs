@@ -347,13 +347,12 @@ namespace Camp_Sleepaway_SOVA.Methods
         }
 
         //Samtliga Edit-metoder
-
         public static void EditCamper()
         {
 
             using var context = new CampContext();
             {
-                Console.Write("Ange ID för den camper du vill ändra:");
+                Console.Write("Ange ID för den camper du vill ändra: ");
                 int id = int.Parse(Console.ReadLine());
 
                 var camper = context.Campers
@@ -363,8 +362,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     Console.WriteLine($"Du ändrar nu: {camper.FirstName} {camper.LastName}, " +
                         $"{camper.DateOfBirth}, {camper.Phone}, {camper.Email}, {camper.Address}.");
+                    Console.WriteLine();
 
                     Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank och tryck på 'Enter'.");
+                    Console.WriteLine();
 
                     Console.Write("Ange nytt förnamn:");
                     string newFirstName = Console.ReadLine();
@@ -433,9 +434,14 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
 
                     context.SaveChanges();
+                    Console.Clear();
+
                     Console.WriteLine("Informationen är uppdaterad!");
+                    Console.WriteLine();
                     Console.WriteLine("Tryck på enter för att återgå till menyn...");
+
                     Console.ReadLine();
+                    Console.Clear();
 
                 }
                 else
@@ -447,7 +453,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         public static void EditNextOfKin()
         {
-            Console.WriteLine("Ange ID för den Next Of Kin som du vill ändra:");
+            Console.Write("Ange ID för den Next Of Kin som du vill ändra: ");
             int id = int.Parse(Console.ReadLine());
 
             using var context = new CampContext();
@@ -459,24 +465,26 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 Console.WriteLine($"Du ändrar nu: {nextOfKin.FirstName} {nextOfKin.LastName}, " +
                     $"{nextOfKin.DateOfBirth}, {nextOfKin.Phone}, {nextOfKin.Email}, {nextOfKin.Address}.");
+                Console.WriteLine();
 
                 Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+                Console.WriteLine();
 
-                Console.WriteLine("Ange nytt förnamn:");
+                Console.Write("Ange nytt förnamn:");
                 string newFirstName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newFirstName))
                 {
                     nextOfKin.FirstName = newFirstName;
                 }
 
-                Console.WriteLine("Ange nytt efternamn:");
+                Console.Write("Ange nytt efternamn:");
                 string newLastName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newLastName))
                 {
                     nextOfKin.LastName = newLastName;
                 }
 
-                Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
+                Console.Write("Ange nytt födelsedatum (åååå-mm-dd):");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
@@ -490,21 +498,21 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
                 }
 
-                Console.WriteLine("Ange nytt telefonnummer:");
+                Console.Write("Ange nytt telefonnummer:");
                 string newPhone = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newPhone))
                 {
                     nextOfKin.Phone = newPhone;
                 }
 
-                Console.WriteLine("Ange ny emailadress:");
+                Console.Write("Ange ny emailadress:");
                 string newEmail = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newEmail))
                 {
                     nextOfKin.Email = newEmail;
                 }
 
-                Console.WriteLine("Ange ny adress:");
+                Console.Write("Ange ny adress:");
                 string newAddress = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newAddress))
                 {
@@ -512,21 +520,26 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
 
                 context.SaveChanges();
+                Console.Clear();
+
                 Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine();
                 Console.WriteLine("Tryck på enter för att återgå till menyn...");
+
                 Console.ReadLine();
+                Console.Clear();
 
             }
             else
             {
-                Console.WriteLine("Det finns ingen närstående med det ID du angivit.");
+                Console.WriteLine("Det finns ingen Next of kin med det ID du angivit.");
             }
         }
 
 
         public static void EditCounselor()
         {
-            Console.WriteLine("Ange ID för den counselor du vill ändra:");
+            Console.Write("Ange ID för den counselor du vill ändra: ");
             int id = int.Parse(Console.ReadLine());
 
             using var context = new CampContext();
@@ -540,24 +553,27 @@ namespace Camp_Sleepaway_SOVA.Methods
                     $"{counselor.DateOfBirth}, {counselor.Phone}, {counselor.Email}, {counselor.Address}, " +
                     $"{counselor.Title}."
                     );
+                Console.WriteLine();
 
                 Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+                Console.WriteLine();
 
-                Console.WriteLine("Ange nytt förnamn:");
+
+                Console.Write("Ange nytt förnamn: ");
                 string newFirstName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newFirstName))
                 {
                     counselor.FirstName = newFirstName;
                 }
 
-                Console.WriteLine("Ange nytt efternamn:");
+                Console.Write("Ange nytt efternamn: ");
                 string newLastName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newLastName))
                 {
                     counselor.LastName = newLastName;
                 }
 
-                Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd):");
+                Console.Write("Ange nytt födelsedatum (åååå-mm-dd): ");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
@@ -571,28 +587,28 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
                 }
 
-                Console.WriteLine("Ange nytt telefonnummer:");
+                Console.Write("Ange nytt telefonnummer: ");
                 string newPhone = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newPhone))
                 {
                     counselor.Phone = newPhone;
                 }
 
-                Console.WriteLine("Ange ny emailadress:");
+                Console.Write("Ange ny emailadress: ");
                 string newEmail = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newEmail))
                 {
                     counselor.Email = newEmail;
                 }
 
-                Console.WriteLine("Ange ny adress:");
+                Console.Write("Ange ny adress: ");
                 string newAddress = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newAddress))
                 {
                     counselor.Address = newAddress;
                 }
 
-                Console.WriteLine("Vill du byta cabin? Ja/Nej: ");
+                Console.Write("Vill du byta cabin? Ja/Nej: ");
                 string changeCabinChoice = Console.ReadLine();
                 if (changeCabinChoice == "Ja" || changeCabinChoice == "ja")
                 {
@@ -608,6 +624,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar för samma cabin som tidigare.");
                 }
+               
+                context.SaveChanges();
+
+                Console.Clear();
 
                 //Console.WriteLine("Ange om personen är ansvarig för någon stuga:");
                 //string newCabinDuty = Console.ReadLine();
@@ -616,10 +636,12 @@ namespace Camp_Sleepaway_SOVA.Methods
                 //    counselor.OnCabinDuty = newCabinDuty;
                 //}
 
-                context.SaveChanges();
                 Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine();
                 Console.WriteLine("Tryck på enter för att återgå till menyn...");
+
                 Console.ReadLine();
+                Console.Clear();
 
             }
             else
@@ -630,7 +652,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         public static void EditCabin()
         {
-            Console.WriteLine("Ange ID för den cabin du vill ändra:");
+            Console.Write("Ange ID för den cabin du vill ändra: ");
             int id = int.Parse(Console.ReadLine());
 
             using var context = new CampContext();
@@ -640,12 +662,14 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             if (cabin != null)
             {
-                Console.WriteLine($"Du ändrar nu cabin med namn: {cabin.Name} samt cabinID: {cabin.Id}."
+                Console.WriteLine($"Du ändrar nu cabin med namn {cabin.Name} samt cabinID {cabin.Id}."
                     );
 
+                Console.WriteLine();
                 Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank");
+                Console.WriteLine();
 
-                Console.WriteLine("Ange nytt namn på cabin: ");
+                Console.Write("Ange nytt namn på cabin: ");
                 string newName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newName))
                 {
@@ -653,9 +677,14 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
 
                 context.SaveChanges();
+                Console.Clear();
+
                 Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine();
                 Console.WriteLine("Tryck på enter för att återgå till menyn...");
+
                 Console.ReadLine();
+                Console.Clear();
 
             }
             else
