@@ -117,7 +117,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else if (option == 3)
                 {
-                    //Metod för cabin
+                    CRUDMethods.EditCabin();
                 }
                 else
                 {
