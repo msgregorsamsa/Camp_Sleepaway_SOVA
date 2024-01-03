@@ -22,7 +22,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 var values = line.Split(',');
 
-                if (values.Length == 10)
+                if (values.Length == 11)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -34,6 +34,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var cabinName = values[7];
                     var checkIn = DateOnly.ParseExact(values[8], "yyyy-mm-dd", null);
                     var checkOut = DateOnly.ParseExact(values[9], "yyyy-mm-dd", null);
+                    string participantTitle = values[10];
+
                     //var cabinID = int.Parse(values[10]);
 
                     var camper = new Camper
@@ -48,6 +50,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         CabinName = cabinName,
                         Check_In = checkIn,
                         Check_Out = checkOut,
+                        ParticipantTitle = participantTitle
+
                     };
 
                     campers.Add(camper);
@@ -76,7 +80,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 var values = line.Split(',');
 
-                if (values.Length == 7)
+                if (values.Length == 8)
                 {
                     var firstName = values[0];
                     var lastName = values[1];
@@ -85,6 +89,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var email = values[4];
                     var address = values[5];
                     int campersId = int.Parse(values[6]);
+                    string camperRelation = values[7];
 
                     var nextOfKin = new NextOfKin
                     {
@@ -94,7 +99,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
-                        CamperId = campersId
+                        CamperId = campersId,
+                        Relationship = camperRelation
 
                     };
                     nextOfKins.Add(nextOfKin);

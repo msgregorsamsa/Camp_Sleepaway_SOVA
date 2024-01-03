@@ -9,6 +9,8 @@ namespace Camp_Sleepaway_SOVA
 
         [NotMapped]
         public int CamperId { get; set; }
+
+        public string Relationship { get; set; }
         public List<Camper> Campers { get; set; } = new(); 
 
     }
