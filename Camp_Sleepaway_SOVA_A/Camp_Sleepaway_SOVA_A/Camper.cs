@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Camp_Sleepaway_SOVA
 {
@@ -7,6 +8,8 @@ namespace Camp_Sleepaway_SOVA
         public int Id { get; set; }
         public string CabinName { get; set; }   
         public Cabin Cabin { get; set; }
+
+        [NotMapped]
         public int NextOfKinId { get; set; }
         public List<NextOfKin> NextOfKins { get; set; } = new();  
 

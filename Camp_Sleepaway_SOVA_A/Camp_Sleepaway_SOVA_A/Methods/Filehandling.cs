@@ -12,7 +12,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             var headerLine = reader.ReadLine();
 
-            while (!reader.EndOfStream) 
+            while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
                 if (line == null)
@@ -45,7 +45,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Email = email,
                         Address = address,
                         NextOfKinId = nextOfKin,
-                        CabinName  = cabinName,
+                        CabinName = cabinName,
                         Check_In = checkIn,
                         Check_Out = checkOut,
                     };
@@ -197,7 +197,6 @@ namespace Camp_Sleepaway_SOVA.Methods
             var counselorFile = ReadCounselor("CounselorData.csv");
             var cabinFile = ReadCabin("CabinData.csv");
 
-            //För junction table mellan camper och next of kin
             using (var context = new CampContext())
             {
                 foreach (var camper in camperFile)
@@ -208,29 +207,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 foreach (var nextofKin in nextOfKinFile)
                 {
                     context.NextOfKins.Add(nextofKin);
-                }
-
-                // Hämta alla Campers och NextOfKins från databasen
-                var allCampers = context.Campers.ToList();
-                var allNextOfKins = context.NextOfKins.ToList();
-
-                // Loopa igenom NextOfKins och hitta matchande Camper för varje NextOfKin
-                foreach (var nextOfKin in allNextOfKins)
-                {
-                    // Anta att nextOfKin innehåller ett CampersId
-                    var camperId = nextOfKin.CamperId;
-
-                    // Hitta den matchande Camper baserat på camperId
-                    var matchingCamper = allCampers.FirstOrDefault(c => c.Id == camperId);
-
-                    if (matchingCamper != null)
-                    {
-                        // Skapa en relation mellan matchingCamper och nextOfKin
-                        matchingCamper.NextOfKins.Add(nextOfKin);
-
-                        // Använd Attach för att lägga till i context (om inte redan ägt)
-                        context.Attach(nextOfKin);
-                    }
                 }
 
                 foreach (var counselor in counselorFile)
@@ -244,7 +220,24 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
 
                 context.SaveChanges();
+
+                // Uppdatera NextOfKin-objekt med korrekta Camper-referenser baserat på CamperId
+                foreach (var nextOfKin in nextOfKinFile)
+                {
+                    var camperId = nextOfKin.CamperId;
+
+                    // Hitta matchande Camper
+                    var matchingCamper = context.Campers.FirstOrDefault(c => c.Id == camperId);
+
+                    if (matchingCamper != null)
+                    {
+                        // Lägg till nextOfKin i camperens lista över NextOfKins
+                        matchingCamper.NextOfKins.Add(nextOfKin);
+                    }
+                }
+                context.SaveChanges();
             }
+
         }
     }
 }
