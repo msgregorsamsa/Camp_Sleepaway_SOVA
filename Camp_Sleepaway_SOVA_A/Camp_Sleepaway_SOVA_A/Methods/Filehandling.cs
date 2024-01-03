@@ -26,14 +26,14 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "yyyy-mm-dd", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];
                     int nextOfKin = int.Parse(values[6]);
                     var cabinName = values[7];
-                    var checkIn = DateOnly.ParseExact(values[8], "M/d/yyyy", null);
-                    var checkOut = DateOnly.ParseExact(values[9], "M/d/yyyy", null);
+                    var checkIn = DateOnly.ParseExact(values[8], "yyyy-mm-dd", null);
+                    var checkOut = DateOnly.ParseExact(values[9], "yyyy-mm-dd", null);
                     //var cabinID = int.Parse(values[10]);
 
                     var camper = new Camper
@@ -80,7 +80,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "yyyy-mm-dd", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];
@@ -126,15 +126,15 @@ namespace Camp_Sleepaway_SOVA.Methods
                 {
                     var firstName = values[0];
                     var lastName = values[1];
-                    var dateofbirth = DateOnly.ParseExact(values[2], "M/d/yyyy", null);
+                    var dateofbirth = DateOnly.ParseExact(values[2], "yyyy-mm-dd", null);
                     var phone = values[3];
                     var email = values[4];
                     var address = values[5];
                     var title = values[6];
                     var cabinName = values[7];
                     //var cabinID = int.Parse(values[8]);
-                    var checkIn = DateOnly.ParseExact(values[8], "M/d/yyyy", null);
-                    var checkOut = DateOnly.ParseExact(values[9], "M/d/yyyy", null);
+                    var checkIn = DateOnly.ParseExact(values[8], "yyyy-mm-dd", null);
+                    var checkOut = DateOnly.ParseExact(values[9], "yyyy-mm-dd", null);
 
                     var counselor = new Counselor
                     {

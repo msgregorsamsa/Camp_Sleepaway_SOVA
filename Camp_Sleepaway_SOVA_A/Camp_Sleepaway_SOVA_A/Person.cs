@@ -10,8 +10,8 @@ namespace Camp_Sleepaway_SOVA
         [Required]
         public string LastName { get; set; }
 
-        [Range(typeof(DateOnly), "1/1/2010", "1/1/1940")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [Range(typeof(DateOnly), "2010-01-01", "1940-01-01")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-mm-dd}")]
         public DateOnly DateOfBirth { get; set; }
 
         [Required]

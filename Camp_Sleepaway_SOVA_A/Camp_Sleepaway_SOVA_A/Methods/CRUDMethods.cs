@@ -35,20 +35,20 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit tilldelad cabin med namn {cabinChoice.Name}");
 
-                Console.Write("Ange incheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange incheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckIn = Console.ReadLine();
                 DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
-                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
                     parsedCheckIn : (DateOnly?)null : null;
 
-                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange utcheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckOut = Console.ReadLine();
                 DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
-                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
                     parsedCheckOut : (DateOnly?)null : null;
 
-                Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
 
                     // Skapa en ny Camper-instans
@@ -109,22 +109,22 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write($"Ange startdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckIn = Console.ReadLine();
                 DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
-                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
                     parsedCheckIn : (DateOnly?)null : null;
 
                 Console.Write($"Ange slutdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
-                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange utcheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckOut = Console.ReadLine();
                 DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
-                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
                     parsedCheckOut : (DateOnly?)null : null;
 
                 Console.Write("Arbetstitel: ");
                 var title = Console.ReadLine();
                 
 
-                    Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                    Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
 
                     // Skapa en ny Councelor-instans
@@ -178,8 +178,8 @@ namespace Camp_Sleepaway_SOVA.Methods
             string address = Console.ReadLine();
             while (true)
             {
-                Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
+                Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
                 {
 
                     // Skapa ett nytt NextOfKin-objekt
@@ -251,10 +251,10 @@ namespace Camp_Sleepaway_SOVA.Methods
         //Samtliga Delete-metoder
         public static void DeleteCamper()
         {
-            Console.WriteLine("Ange förnamn på camper du vill ta bort:");
+            Console.Write("Ange förnamn på camper du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på camper du vill ta bort:");
+            Console.Write("Ange efternamn på camper du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -266,20 +266,22 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Campers.Remove(camperToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Camper {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteCounselor()
         {
-            Console.WriteLine("Ange förnamn på den counsolor du vill ta bort:");
+            Console.Write("Ange förnamn på den counsolor du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på den counsolor du vill ta bort:");
+            Console.Write("Ange efternamn på den counsolor du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -291,20 +293,22 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Counselors.Remove(counselorToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Counselor {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Counselor {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteNextOfKin()
         {
-            Console.WriteLine("Ange förnamn på den Next of Kin du vill ta bort:");
+            Console.Write("Ange förnamn på den Next of Kin du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på den Next of Kin du vill ta bort:");
+            Console.Write("Ange efternamn på den Next of Kin du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -316,35 +320,48 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.NextOfKins.Remove(nextOfKinToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Next Of Kin {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Next Of Kin {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteCabin()
         {
-            Console.WriteLine("Ange namn på den cabin du vill ta bort:");
+            Console.Write("Ange namn på den cabin du vill ta bort: ");
             var cabinName = Console.ReadLine();
             using var context = new CampContext();
 
             var cabinToRemove = context.Cabins
+                .Include(c => c.Campers) // Inkludera campers för den specifika stugan
                 .FirstOrDefault(c => c.Name == cabinName);
 
             if (cabinToRemove != null)
             {
-                // Ta bort camper om den finns
-                context.Cabins.Remove(cabinToRemove);
-                context.SaveChanges();
-                Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
+                if (cabinToRemove.Campers.Any())
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Kan inte ta bort {cabinName} eftersom den innehåller campers.");
+                }
+                else
+                {
+                    Console.Clear();
+                    context.Cabins.Remove(cabinToRemove);
+                    context.SaveChanges();
+                    Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
+                }
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Cabin {cabinName} hittades inte.");
             }
         }
+
 
         //Samtliga Edit-metoder
         public static void EditCamper()
@@ -382,7 +399,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         camper.LastName = newLastName;
                     }
 
-                    Console.Write("Ange nytt födelsedatum (åååå-mm-dd):");
+                    Console.Write("Ange nytt födelsedatum (yyyy-mm-dd):");
                     string newDateOfBirthInput = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                     {
@@ -516,7 +533,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     nextOfKin.LastName = newLastName;
                 }
 
-                Console.Write("Ange nytt födelsedatum (åååå-mm-dd):");
+                Console.Write("Ange nytt födelsedatum (yyyy-mm-dd):");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
@@ -612,7 +629,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     counselor.LastName = newLastName;
                 }
 
-                Console.Write("Ange nytt födelsedatum (åååå-mm-dd): ");
+                Console.Write("Ange nytt födelsedatum (yyyy-mm-dd): ");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
