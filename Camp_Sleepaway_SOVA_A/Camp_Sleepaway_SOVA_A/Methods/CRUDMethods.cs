@@ -211,6 +211,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                             Console.Clear();
                             Console.WriteLine($"NextOfKin {firstName} {lastName} blivit tillagd, samt länkats till Camper med ID: {camperId}.");
+                            break;
                         }
                         else
                         {
