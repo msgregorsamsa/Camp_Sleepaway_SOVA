@@ -1,20 +1,20 @@
-﻿First Name,Last Name,Date of Birth,Phone,Email,Address,NextOfKinID,Cabin Name,Check-in,Check-out
-Emma,Johnson,2015-10-15,1234567890,emma@example.com,123 Main St,1,Gryffindor House,2023-01-01,2023-01-07
-Liam,Williams,2013-12-05,2345678901,liam@example.com,456 Elm St,2,Gryffindor House,2023-01-01,2023-01-07
-Olivia,Brown,2014-09-20,3456789012,olivia@example.com,789 Oak St,3,Gryffindor House,2023-01-01,2023-01-07
-Noah,Jones,2012-08-08,4567890123,noah@example.com,1011 Pine St,4,Gryffindor House,2023-01-01,2023-01-07
-Ava,Garcia,2010-06-25,5678901234,ava@example.com,1213 Maple St,5,Ravenclaw Tower,2023-01-01,2023-01-07
-William,Martinez,2011-11-18,6789012345,william@example.com,1415 Cedar St,6,Ravenclaw Tower,2023-01-01,2023-01-07
-Sophia,Smith,2013-07-30,7890123456,sophia@example.com,1617 Birch St,7,Ravenclaw Tower,2023-01-01,2023-01-07
-James,Anderson,2010-05-12,8901234567,james@example.com,1819 Spruce St,8,Ravenclaw Tower,2023-01-01,2023-01-07
-Isabella,Hernandez,2012-04-03,9012345678,isabella@example.com,2021 Ash St,9,Hufflepuff Common Room,2023-01-01,2023-01-07
-Logan,Miller,2014-03-22,0123456789,logan@example.com,2223 Oakwood St,10,Hufflepuff Common Room,2023-01-01,2023-01-07
-Mia,Gonzalez,2016-01-14,1234509876,mia@example.com,2425 Walnut St,11,Hufflepuff Common Room,2023-01-01,2023-01-07
-Benjamin,Lee,2011-02-09,2345098765,benjamin@example.com,2627 Magnolia St,12,Hufflepuff Common Room,2023-01-01,2023-01-07
-Amelia,Chen,2015-08-31,3450987654,amelia@example.com,2829 Cedarwood St,13,Slytherin Dungeon,2023-01-01,2023-01-07
-Elijah,Wang,2013-09-28,4509876543,elijah@example.com,3031 Pinecrest St,14,Slytherin Dungeon,2023-01-01,2023-01-07
-Charlotte,Liu,2010-11-05,5098765432,charlotte@example.com,3233 Elmwood St,15,Slytherin Dungeon,2023-01-01,2023-01-07
-Harper,Nguyen,2012-12-20,0987654321,harper@example.com,3435 Maplewood St,16,Slytherin Dungeon,2023-01-01,2023-01-07
-Evelyn,Kim,2014-07-07,9876543210,evelyn@example.com,3637 Birchwood St,17,The Leaky Cauldron,2023-01-01,2023-01-07
-Michael,Patel,2016-06-02,8765432109,michael@example.com,3839 Oakhill St,18,The Leaky Cauldron,2023-01-01,2023-01-07
+﻿First Name,Last Name,Date of Birth,Phone,Email,Address,NextOfKinID,Cabin Name,Check-in,Check-out,Participant Title
+Emma,Johnson,2015-10-15,1234567890,emma@example.com,123 Main St,1,Gryffindor House,2023-01-01,2023-01-07,Knatte
+Liam,Williams,2013-12-05,2345678901,liam@example.com,456 Elm St,2,Gryffindor House,2023-01-01,2023-01-07,Junior
+Olivia,Brown,2014-09-20,3456789012,olivia@example.com,789 Oak St,3,Gryffindor House,2023-01-01,2023-01-07,Junior
+Noah,Jones,2012-08-08,4567890123,noah@example.com,1011 Pine St,4,Gryffindor House,2023-01-01,2023-01-07,Junior
+Ava,Garcia,2010-06-25,5678901234,ava@example.com,1213 Maple St,5,Ravenclaw Tower,2023-01-01,2023-01-07,Senior
+William,Martinez,2011-11-18,6789012345,william@example.com,1415 Cedar St,6,Ravenclaw Tower,2023-01-01,2023-01-07,Junior
+Sophia,Smith,2013-07-30,7890123456,sophia@example.com,1617 Birch St,7,Ravenclaw Tower,2023-01-01,2023-01-07,Junior
+James,Anderson,2010-05-12,8901234567,james@example.com,1819 Spruce St,8,Ravenclaw Tower,2023-01-01,2023-01-07,Senior
+Isabella,Hernandez,2012-04-03,9012345678,isabella@example.com,2021 Ash St,9,Hufflepuff Common Room,2023-01-01,2023-01-07,Junior
+Logan,Miller,2014-03-22,0123456789,logan@example.com,2223 Oakwood St,10,Hufflepuff Common Room,2023-01-01,2023-01-07,Senior
+Mia,Gonzalez,2016-01-14,1234509876,mia@example.com,2425 Walnut St,11,Hufflepuff Common Room,2023-01-01,2023-01-07,Knatte
+Benjamin,Lee,2011-02-09,2345098765,benjamin@example.com,2627 Magnolia St,12,Hufflepuff Common Room,2023-01-01,2023-01-07,Junior
+Amelia,Chen,2015-08-31,3450987654,amelia@example.com,2829 Cedarwood St,13,Slytherin Dungeon,2023-01-01,2023-01-07,Junior
+Elijah,Wang,2013-09-28,4509876543,elijah@example.com,3031 Pinecrest St,14,Slytherin Dungeon,2023-01-01,2023-01-07,Junior
+Charlotte,Liu,2010-11-05,5098765432,charlotte@example.com,3233 Elmwood St,15,Slytherin Dungeon,2023-01-01,2023-01-07,Senior
+Harper,Nguyen,2012-12-20,0987654321,harper@example.com,3435 Maplewood St,16,Slytherin Dungeon,2023-01-01,2023-01-07,Junior
+Evelyn,Kim,2014-07-07,9876543210,evelyn@example.com,3637 Birchwood St,17,The Leaky Cauldron,2023-01-01,2023-01-07,Junior
+Michael,Patel,2016-06-02,8765432109,michael@example.com,3839 Oakhill St,18,The Leaky Cauldron,2023-01-01,2023-01-07,Knatte
 

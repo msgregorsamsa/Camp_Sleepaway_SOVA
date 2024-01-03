@@ -11,6 +11,9 @@ namespace Camp_Sleepaway_SOVA
 
         [NotMapped]
         public int NextOfKinId { get; set; }
+
+        public string ParticipantTitle { get; set; }
+
         public List<NextOfKin> NextOfKins { get; set; } = new();  
 
         [DataType(DataType.Date)]
