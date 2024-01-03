@@ -11,11 +11,11 @@ namespace Camp_Sleepaway_SOVA
         public List<NextOfKin> NextOfKins { get; set; } = new();  
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-mm-dd}")]
         public  DateOnly? Check_In { get; set; }
         
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-mm-dd}")]
         public DateOnly? Check_Out { get; set; }
 
     }

@@ -35,20 +35,20 @@ namespace Camp_Sleepaway_SOVA.Methods
                 var cabinChoice = JunctionContext.chooseCabin(context); // Anropar JunctionContext som presenterar listan med befintliga cabins att välja från 
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit tilldelad cabin med namn {cabinChoice.Name}");
 
-                Console.Write("Ange incheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange incheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckIn = Console.ReadLine();
                 DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
-                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
                     parsedCheckIn : (DateOnly?)null : null;
 
-                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange utcheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckOut = Console.ReadLine();
                 DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
-                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
                     parsedCheckOut : (DateOnly?)null : null;
 
-                Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
 
                     // Skapa en ny Camper-instans
@@ -109,22 +109,22 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write($"Ange startdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckIn = Console.ReadLine();
                 DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
-                    DateOnly.TryParseExact(inputCheckIn, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                    DateOnly.TryParseExact(inputCheckIn, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
                     parsedCheckIn : (DateOnly?)null : null;
 
                 Console.Write($"Ange slutdatum som du är ansvarig över {cabinChoice.Name} (Tryck 'ENTER' för att ej ange ett datum: ");
-                Console.Write("Ange utcheckningsdatum (YYYY/MM/DD) Tryck 'ENTER' för att ej ange ett datum: ");
+                Console.Write("Ange utcheckningsdatum (yyyy-mm-dd) Tryck 'ENTER' för att ej ange ett datum: ");
                 string inputCheckOut = Console.ReadLine();
                 DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
-                    DateOnly.TryParseExact(inputCheckOut, "yyyy/MM/dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                    DateOnly.TryParseExact(inputCheckOut, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
                     parsedCheckOut : (DateOnly?)null : null;
 
                 Console.Write("Arbetstitel: ");
                 var title = Console.ReadLine();
                 
 
-                    Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                    Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
 
                     // Skapa en ny Councelor-instans
@@ -178,8 +178,8 @@ namespace Camp_Sleepaway_SOVA.Methods
             string address = Console.ReadLine();
             while (true)
             {
-                Console.Write("Födelsedatum (M/d/yyyy): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "M/d/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
+                Console.Write("Födelsedatum (yyyy-mm-dd): ");
+                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
                 {
 
                     // Skapa ett nytt NextOfKin-objekt
@@ -390,7 +390,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         camper.LastName = newLastName;
                     }
 
-                    Console.Write("Ange nytt födelsedatum (åååå-mm-dd):");
+                    Console.Write("Ange nytt födelsedatum (yyyy-mm-dd):");
                     string newDateOfBirthInput = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                     {
@@ -493,7 +493,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     nextOfKin.LastName = newLastName;
                 }
 
-                Console.Write("Ange nytt födelsedatum (åååå-mm-dd):");
+                Console.Write("Ange nytt födelsedatum (yyyy-mm-dd):");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
@@ -582,7 +582,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                     counselor.LastName = newLastName;
                 }
 
-                Console.Write("Ange nytt födelsedatum (åååå-mm-dd): ");
+                Console.Write("Ange nytt födelsedatum (yyyy-mm-dd): ");
                 string newDateOfBirthInput = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(newDateOfBirthInput))
                 {
