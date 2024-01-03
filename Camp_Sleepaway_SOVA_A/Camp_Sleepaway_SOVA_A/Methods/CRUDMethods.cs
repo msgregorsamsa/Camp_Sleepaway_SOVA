@@ -251,10 +251,10 @@ namespace Camp_Sleepaway_SOVA.Methods
         //Samtliga Delete-metoder
         public static void DeleteCamper()
         {
-            Console.WriteLine("Ange förnamn på camper du vill ta bort:");
+            Console.Write("Ange förnamn på camper du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på camper du vill ta bort:");
+            Console.Write("Ange efternamn på camper du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -266,20 +266,22 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Campers.Remove(camperToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Camper {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Camper {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteCounselor()
         {
-            Console.WriteLine("Ange förnamn på den counsolor du vill ta bort:");
+            Console.Write("Ange förnamn på den counsolor du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på den counsolor du vill ta bort:");
+            Console.Write("Ange efternamn på den counsolor du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -291,20 +293,22 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.Counselors.Remove(counselorToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Counselor {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Counselor {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteNextOfKin()
         {
-            Console.WriteLine("Ange förnamn på den Next of Kin du vill ta bort:");
+            Console.Write("Ange förnamn på den Next of Kin du vill ta bort: ");
             var firstName = Console.ReadLine();
 
-            Console.WriteLine("Ange efternamn på den Next of Kin du vill ta bort:");
+            Console.Write("Ange efternamn på den Next of Kin du vill ta bort: ");
             var lastName = Console.ReadLine();
 
             using var context = new CampContext();
@@ -316,17 +320,19 @@ namespace Camp_Sleepaway_SOVA.Methods
             {
                 context.NextOfKins.Remove(nextOfKinToRemove);
                 context.SaveChanges();
+                Console.Clear();
                 Console.WriteLine($"Next Of Kin {firstName} {lastName} har blivit borttagen.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Next Of Kin {firstName} {lastName} hittades inte.");
             }
         }
 
         public static void DeleteCabin()
         {
-            Console.WriteLine("Ange namn på den cabin du vill ta bort:");
+            Console.Write("Ange namn på den cabin du vill ta bort: ");
             var cabinName = Console.ReadLine();
             using var context = new CampContext();
 
@@ -343,6 +349,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                 }
                 else
                 {
+                    Console.Clear();
                     context.Cabins.Remove(cabinToRemove);
                     context.SaveChanges();
                     Console.WriteLine($"Cabin {cabinName} har blivit borttagen.");
@@ -350,6 +357,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine($"Cabin {cabinName} hittades inte.");
             }
         }
