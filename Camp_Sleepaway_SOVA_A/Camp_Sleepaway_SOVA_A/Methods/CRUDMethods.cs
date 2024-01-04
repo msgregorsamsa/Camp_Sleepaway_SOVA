@@ -32,7 +32,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Adress: ");
                 var address = Console.ReadLine();
 
-                Console.Write("Ange deltagartitel:");
                 var titleOptions = new string[] { "Knatte", "Junior", "Senior" };
                 int titleChoice = Program.ShowMenu("Välj deltagartitel:", titleOptions);
                 var participantTitle = titleOptions[titleChoice];
@@ -53,7 +52,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         }
                         else
                         {
-                            if (Program.ShowMenu("Angiven cabin har redan uppnått maxgränsen för antal campers.\nVälj på 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
+                            Console.Clear();
+                            if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVälj 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
                             {
                                 return;
                             }
@@ -106,7 +106,6 @@ namespace Camp_Sleepaway_SOVA.Methods
         {
             using (var context = new CampContext())
             {
-
                 Counselor counselor = new Counselor();
                 Console.WriteLine("Lägg till en ny Counselor:");
 
@@ -128,69 +127,88 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Arbetstitel: ");
                 var title = Console.ReadLine();
 
-                Console.Write("Födelsedatum (yyyy-MM-dd): ");
-                if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
-                {
-                    var validCabinChoice = false;
+                Console.Write("Önskar du tilldela denna counselor en cabin? (Ja/Nej): ");
+                var assignCabin = Console.ReadLine();
 
-                    while (!validCabinChoice)
+                if (assignCabin.ToLower() == "ja")
+                {
+                    Console.Write($"Ange namn på den cabin som {firstName} {lastName} ska ansvara för: ");
+                    var cabinName = Console.ReadLine();
+
+                    var existingCounselor = context.Counselors.FirstOrDefault(c => c.CabinName == cabinName);
+
+                    if (existingCounselor != null)
                     {
-                        var chooseCabin = JunctionContext.chooseCabin(context);
-                        if (chooseCabin != null)
+                        Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
+                        return;
+                        //Lägg till något som går tillbaka till där användaren matar in namn på stugan
+                    }
+
+                    Console.Write("Födelsedatum (yyyy-MM-dd): ");
+                    if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
+                    {
+                        Console.Write($"Ange startdatum som du är ansvarig över {cabinName} (Tryck 'ENTER' för att ej ange ett datum): ");
+                        string inputCheckIn = Console.ReadLine();
+                        DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
+                            DateOnly.TryParseExact(inputCheckIn, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
+                            parsedCheckIn : (DateOnly?)null : null;
+
+                        Console.Write($"Ange slutdatum som du är ansvarig över {cabinName} (Tryck 'ENTER' för att ej ange ett datum): ");
+                        string inputCheckOut = Console.ReadLine();
+                        DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
+                            DateOnly.TryParseExact(inputCheckOut, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
+                            parsedCheckOut : (DateOnly?)null : null;
+
+                        var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName); //Kontrollerar om stugan som användaren angivit finns eller ej
+                        if (existingCabin != null) //Om stugan finns så skapar den en ny counselor
                         {
-                            counselor.Cabin = chooseCabin;
-                            Console.WriteLine($"Counselor {firstName} {lastName} har blivit tilldelad cabin med namn {chooseCabin.Name}");
-                            validCabinChoice = true;
+                            var newCounselor = new Counselor
+                            {
+                                FirstName = firstName,
+                                LastName = lastName,
+                                DateOfBirth = dateOfBirth,
+                                Phone = phone,
+                                Email = email,
+                                Address = address,
+                                CabinName = cabinName,
+                                Title = title,
+                                Check_In = checkIn,
+                                Check_Out = checkOut
+                            };
+
+                            Console.Clear();
+                            Console.WriteLine($"Counselor {firstName} {lastName} har blivit skapad samt tilldelad ansvar för cabin {cabinName}.");
+
+                            existingCabin.Counselor = newCounselor; // Kopplar counselor till cabin
+                            context.Counselors.Add(newCounselor);
+                            context.SaveChanges();
                         }
                         else
                         {
-                            if (Program.ShowMenu("Angiven cabin har redan uppnått maxgränsen för antal campers.\nVälj på 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
-                            {
-                                return;
-                            }
-
+                            Console.Clear();
+                            Console.WriteLine($"Cabin {cabinName} existerar inte i systemet.");
                         }
                     }
-
-                    Console.Write($"Ange startdatum som du är ansvarig över {counselor.Cabin.Name} (Tryck 'ENTER' för att ej ange ett datum): ");
-                    string inputCheckIn = Console.ReadLine();
-                    DateOnly? checkIn = !string.IsNullOrWhiteSpace(inputCheckIn) ?
-                        DateOnly.TryParseExact(inputCheckIn, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckIn) ?
-                        parsedCheckIn : (DateOnly?)null : null;
-
-                    Console.Write($"Ange slutdatum som du är ansvarig över {counselor.Cabin.Name} (Tryck 'ENTER' för att ej ange ett datum): ");
-                    string inputCheckOut = Console.ReadLine();
-                    DateOnly? checkOut = !string.IsNullOrWhiteSpace(inputCheckOut) ?
-                        DateOnly.TryParseExact(inputCheckOut, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
-                        parsedCheckOut : (DateOnly?)null : null;
-
-                    var newCounselor = new Counselor
+                    else
                     {
-                        FirstName = firstName,
-                        LastName = lastName,
-                        DateOfBirth = dateOfBirth,
-                        Phone = phone,
-                        Email = email,
-                        Address = address,
-                        CabinName = counselor.Cabin?.Name,
-                        Title = title,
-                        Check_In = checkIn,
-                        Check_Out = checkOut
-                    };
-
-                    Console.Clear();
-                    Console.WriteLine($"Counselor {firstName} {lastName} har blivit tillagd.");
-
-                    context.Counselors.Add(newCounselor);
-                    context.SaveChanges();
+                        Console.Clear();
+                        Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
+                    }
+                }
+                else if (assignCabin.ToLower() == "nej")
+                {
+                    // If the user chooses not to assign a cabin, proceed without cabin assignment.
+                    Console.WriteLine("Ingen cabin kommer att tilldelas till denna counselor.");
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
+                    Console.WriteLine("Ogiltigt val. Vänligen välj 'ja' eller 'nej' för att tilldela en cabin eller inte.");
                 }
             }
         }
+
+
+
 
 
         public static void AddNextOfKin()
@@ -521,10 +539,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                                 }
                                 else
                                 {
-                                    if (Program.ShowMenu("Angiven cabin har redan uppnått maxgränsen för antal campers.\nVälj på 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
-                                    {
-                                        return;
-                                    }
+                                    Console.Clear();
+                            if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVälj 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
+                            {
+                                return;
+                            }
                                 }
                             }
                         }
