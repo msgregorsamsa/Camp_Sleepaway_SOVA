@@ -132,6 +132,8 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 if (assignCabin.ToLower() == "ja")
                 {
+                    Console.Clear();
+
                     Console.Write($"Ange namn på den cabin som {firstName} {lastName} ska ansvara för: ");
                     var cabinName = Console.ReadLine();
 
@@ -289,19 +291,33 @@ namespace Camp_Sleepaway_SOVA.Methods
             Console.Write("Ange namn på cabin: ");
             string cabinName = Console.ReadLine();
 
-            var newCabin = new Cabin
-            {
-                Name = cabinName
-            };
-
             using (var context = new CampContext())
             {
-                context.Cabins.Add(newCabin);
-                context.SaveChanges();
-            }
+                var cabins = context.Cabins.ToList();
 
-            Console.Clear();
-            Console.WriteLine($"{cabinName} har lagts till i databasen.");
+                var existingCabin = cabins.FirstOrDefault(c => string.Equals(c.Name, cabinName, StringComparison.OrdinalIgnoreCase));
+
+                if (existingCabin != null)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Det finns redan en stuga med namn {cabinName} i databasen.\nAnge ett annat namn.");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    var newCabin = new Cabin
+                    {
+                        Name = cabinName
+                    };
+
+                    context.Cabins.Add(newCabin);
+                    context.SaveChanges();
+
+                    Console.Clear();
+                    Console.WriteLine($"{cabinName} har lagts till i databasen.");
+                    Console.WriteLine();
+                }
+            }
         }
 
 
@@ -807,6 +823,10 @@ namespace Camp_Sleepaway_SOVA.Methods
                     break;
                 }
             }
+            else
+            {
+                Console.WriteLine("Det finns ingen counselor med det ID du angivit.");
+            }
         }
 
         public static void EditCabin()
@@ -821,7 +841,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             if (cabin != null)
             {
-                Console.WriteLine($"Du ändrar nu cabin med namn {cabin.Name} samt cabinID {cabin.Id}."
+                Console.WriteLine($"Du ändrar nu cabin med namn {cabin.Name}."
                     );
 
                 Console.WriteLine();
