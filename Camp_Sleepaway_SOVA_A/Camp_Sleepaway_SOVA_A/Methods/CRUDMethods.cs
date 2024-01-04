@@ -195,6 +195,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Console.WriteLine($"Ogiltigt datumformat. Counselor {firstName} {lastName} kunde inte läggas till.");
                     }
                 }
+
                 else if (assignCabin.ToLower() == "nej")
                 {
                     // If the user chooses not to assign a cabin, proceed without cabin assignment.
@@ -203,14 +204,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 else
                 {
                     Console.WriteLine("Ogiltigt val. Vänligen välj 'ja' eller 'nej' för att tilldela en cabin eller inte.");
-                    return;
+                    Console.WriteLine();
+
                 }
             }
         }
-
-
-
-
 
         public static void AddNextOfKin()
         {
@@ -760,249 +758,254 @@ namespace Camp_Sleepaway_SOVA.Methods
                     }
                 }
 
-
-                Console.Write("Vill du byta cabin? Ja/Nej: ");
-                var changeCabinChoice = Console.ReadLine()?.ToLower();
-
-                if (changeCabinChoice == "ja")
+                while (true)
                 {
-                    while (true)
+                    Console.Write("Vill du byta cabin? Ja/Nej: ");
+                    var changeCabinChoice = Console.ReadLine()?.ToLower();
+
+                    if (changeCabinChoice == "ja")
                     {
-                        Console.WriteLine("Skriv namn på den cabin du ska ansvara för: ");
-                        var cabinName = Console.ReadLine();
-                        var existingCounselor = context.Counselors.FirstOrDefault(c => c.CabinName == cabinName);
-
-                        if (existingCounselor != null)
+                        while (true)
                         {
-                            Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
-                            continue;
+                            Console.WriteLine("Skriv namn på den cabin du ska ansvara för: ");
+                            var cabinName = Console.ReadLine();
+                            var existingCounselor = context.Counselors.FirstOrDefault(c => c.CabinName == cabinName);
 
-                        }
-                        var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName);
-                        if (existingCabin == null)
-                        {
-                            Console.WriteLine($"Stugan {cabinName} existerar inte");
-                            // Fortsätt loopen om stugan inte existerar
-                            continue;
-                        }
+                            if (existingCounselor != null)
+                            {
+                                Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
+                                continue;
 
-                        counselor.CabinName = cabinName;
-                        Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar nu över stugan {cabinName}");
+                            }
+                            var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName);
+                            if (existingCabin == null)
+                            {
+                                Console.WriteLine($"Stugan {cabinName} existerar inte");
+                                // Fortsätt loopen om stugan inte existerar
+                                continue;
+                            }
+
+                            counselor.CabinName = cabinName;
+                            Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar nu över stugan {cabinName}");
+                            Console.ReadLine();
+                            break; // Bryt loopen när en giltig stuga har valts
+                        }
+                    }
+
+                    else if (changeCabinChoice == "nej")
+                    {
+                        Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar för samma cabin som tidigare.");
+                    }
+
+                    else if (!string.IsNullOrEmpty(changeCabinChoice))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ogiltig inmatning, fyll i antingen Ja eller Nej.");
                         Console.ReadLine();
-                        break; // Bryt loopen när en giltig stuga har valts
-                    }
-                }
-
-                else if (changeCabinChoice == "nej")
-                {
-                    Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar för samma cabin som tidigare.");
-                }
-
-                else if (!string.IsNullOrEmpty(changeCabinChoice))
-                {
-                    Console.WriteLine("Ogiltig inmatning, fyll i antingen Ja eller Nej.");
-                }
-
-                    context.SaveChanges();
-
-                    Console.Clear();
-                    Console.WriteLine();
-
-                }
-            }
-
-            public static void EditCabin()
-            {
-                Console.Write("Ange ID för den cabin du vill ändra: ");
-                int id = int.Parse(Console.ReadLine());
-
-                using var context = new CampContext();
-
-                var cabin = context.Cabins
-                    .FirstOrDefault(c => c.Id == id);
-
-                if (cabin != null)
-                {
-                    Console.WriteLine($"Du ändrar nu cabin med namn {cabin.Name} samt cabinID {cabin.Id}."
-                        );
-
-                    Console.WriteLine();
-                    Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank.");
-                    Console.WriteLine();
-
-                    Console.Write("Ange nytt namn på cabin: ");
-                    string newName = Console.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(newName))
-                    {
-                        cabin.Name = newName;
+                        
                     }
 
                     context.SaveChanges();
-                    Console.Clear();
 
-                    Console.WriteLine("Informationen är uppdaterad!");
+                    Console.Clear();
                     Console.WriteLine();
-                    Console.WriteLine("Tryck på enter för att återgå till menyn...");
-
-                    Console.ReadLine();
-                    Console.Clear();
-
-                }
-                else
-                {
-                    Console.WriteLine("Det finns ingen cabin med det ID du angivit.");
                 }
 
             }
+        }
 
+        public static void EditCabin()
+        {
+            Console.Write("Ange ID för den cabin du vill ändra: ");
+            int id = int.Parse(Console.ReadLine());
 
-            //Samtliga rapport-metoder
-            public static void ReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
+            using var context = new CampContext();
+
+            var cabin = context.Cabins
+                .FirstOrDefault(c => c.Id == id);
+
+            if (cabin != null)
             {
+                Console.WriteLine($"Du ändrar nu cabin med namn {cabin.Name} samt cabinID {cabin.Id}."
+                    );
+
+                Console.WriteLine();
+                Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank.");
+                Console.WriteLine();
+
+                Console.Write("Ange nytt namn på cabin: ");
+                string newName = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    cabin.Name = newName;
+                }
+
+                context.SaveChanges();
                 Console.Clear();
 
-                using (var context = new CampContext())
+                Console.WriteLine("Informationen är uppdaterad!");
+                Console.WriteLine();
+                Console.WriteLine("Tryck på enter för att återgå till menyn...");
+
+                Console.ReadLine();
+                Console.Clear();
+
+            }
+            else
+            {
+                Console.WriteLine("Det finns ingen cabin med det ID du angivit.");
+            }
+
+        }
+
+
+        //Samtliga rapport-metoder
+        public static void ReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
+        {
+            Console.Clear();
+
+            using (var context = new CampContext())
+            {
+                context.Populate();
+                bool running = true;
+                while (running)
                 {
-                    context.Populate();
-                    bool running = true;
-                    while (running)
+                    int option = Program.ShowMenu("Välj en sökkriterie för din rapport:", new[]
                     {
-                        int option = Program.ShowMenu("Välj en sökkriterie för din rapport:", new[]
-                        {
                     "Sortera rapport baserat på Cabin",
                     "Sortera rapport baserat på Counselor",
                     "Återgå"
                     });
 
-                        Console.Clear();
+                    Console.Clear();
 
-                        if (option == 0) //Visa campers baserat på cabin
+                    if (option == 0) //Visa campers baserat på cabin
+                    {
+                        Console.WriteLine("Ange namn på cabin för att visa campers:");
+                        string cabinName = (Console.ReadLine());
+
+                        var campersInCabin = context.Campers
+                            .Where(c => c.CabinName == cabinName)
+                            .ToList();
+
+                        if (campersInCabin.Any())
                         {
-                            Console.WriteLine("Ange namn på cabin för att visa campers:");
-                            string cabinName = (Console.ReadLine());
-
-                            var campersInCabin = context.Campers
-                                .Where(c => c.CabinName == cabinName)
-                                .ToList();
-
-                            if (campersInCabin.Any())
-                            {
-                                foreach (var camper in campersInCabin)
-                                {
-                                    Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
-                                }
-                                Console.WriteLine(); //Blankrad
-                            }
-                            else
-                            {
-                                Console.WriteLine("Inga campers finns i den cabin du angivit.");
-                            }
-                        }
-
-                        else if (option == 1) //Visa campers baserat på counselor
-                        {
-                            Console.WriteLine("Ange förnamn på önskad counselor för att visa campers:");
-                            string counselorFirstName = Console.ReadLine();
-
-                            Console.WriteLine("Ange efternamn på önskad counselor för att visa campers:");
-                            string counselorLastName = Console.ReadLine();
-
-                            Counselor? counselor = context.Counselors.Where(c => c.FirstName == counselorFirstName && c.LastName == counselorLastName).FirstOrDefault();
-
-                            if (counselor == null)
-                            {
-                                Console.WriteLine("Det finns ingen counselor med angivet namn.");
-                                return;
-                            }
-
-                            var counselorsCabin = counselor.CabinName;
-                            if (counselorsCabin == null)
-                            {
-                                Console.WriteLine($"Counselor med namn {counselorFirstName} {counselorLastName} är för tillfället inte tilldelad någon cabin");
-                                return;
-                            }
-
-                            var campersWithCounselor = context.Campers.Where(c => c.CabinName == counselorsCabin).ToList();
-                            if (!campersWithCounselor.Any())
-                            {
-                                Console.WriteLine("Angiven counselor är tilldelad en cabin men den innehåller inte några campers.");
-                                return;
-                            }
-
-                            foreach (var camper in campersWithCounselor)
+                            foreach (var camper in campersInCabin)
                             {
                                 Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
                             }
-
-                            //var cabinsWithoutCounselor = context.Cabins.Where(cabin => cabin.Counselor == null).ToList();
-
-                            List<Cabin> cabinsWithoutCounselor = new List<Cabin>();
-                            foreach (var cabin in context.Cabins)
-                            {
-                                if (cabin.Counselor == null)
-                                {
-                                    cabinsWithoutCounselor.Add(cabin);
-                                }
-                            }
-
-                            if (cabinsWithoutCounselor.Any())
-                            {
-                                //Skapar en röd varningstext
-                                Console.BackgroundColor = ConsoleColor.Black;
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Varning! Följande cabins saknar en counselor:");
-                                foreach (var cabin in cabinsWithoutCounselor)
-                                {
-                                    Console.WriteLine($"Cabin ID: {cabin.Id} - Namn: {cabin.Name}");
-                                }
-                                Console.ResetColor();
-                            }
+                            Console.WriteLine(); //Blankrad
                         }
                         else
                         {
-                            running = false; //Återgår till föregående meny
+                            Console.WriteLine("Inga campers finns i den cabin du angivit.");
                         }
                     }
-                }
-            }
 
-            public static void ReportForCampersWithNOK()
-            {
-                {
-                    using (CampContext context = new CampContext())
+                    else if (option == 1) //Visa campers baserat på counselor
                     {
-                        var campersWithNextOfKin = context.Campers
-                            .Include(c => c.NextOfKins)
-                            .Where(c => c.NextOfKins.Any())
-                            .OrderBy(c => c.CabinName)
-                            .ToList();
-                        Console.Clear();
+                        Console.WriteLine("Ange förnamn på önskad counselor för att visa campers:");
+                        string counselorFirstName = Console.ReadLine();
 
-                        const int camperColumnWidth = 25;
-                        const int nextOfKinColumnWidth = 25;
-                        const int cabinColumnWidth = 15;
+                        Console.WriteLine("Ange efternamn på önskad counselor för att visa campers:");
+                        string counselorLastName = Console.ReadLine();
 
-                        Console.WriteLine($"{"CAMPER".PadRight(camperColumnWidth)}{"NEXTOFKIN".PadRight(nextOfKinColumnWidth)}{"CABIN".PadRight(cabinColumnWidth)}");
-                        Console.WriteLine(new string('-', camperColumnWidth + nextOfKinColumnWidth + cabinColumnWidth));
+                        Counselor? counselor = context.Counselors.Where(c => c.FirstName == counselorFirstName && c.LastName == counselorLastName).FirstOrDefault();
 
-                        foreach (var camper in campersWithNextOfKin)
+                        if (counselor == null)
                         {
-                            Console.Write($"{camper.FirstName} {camper.LastName}".PadRight(camperColumnWidth));
-
-                            if (camper.NextOfKins.Any())
-                            {
-                                Console.Write($"{camper.NextOfKins[0].FirstName} {camper.NextOfKins[0].LastName}".PadRight(nextOfKinColumnWidth));
-                            }
-                            else
-                            {
-                                Console.Write($"{"".PadRight(nextOfKinColumnWidth)}");
-                            }
-
-                            Console.WriteLine($"{camper.CabinName}".PadRight(cabinColumnWidth));
+                            Console.WriteLine("Det finns ingen counselor med angivet namn.");
+                            return;
                         }
-                        Console.ReadLine();
+
+                        var counselorsCabin = counselor.CabinName;
+                        if (counselorsCabin == null)
+                        {
+                            Console.WriteLine($"Counselor med namn {counselorFirstName} {counselorLastName} är för tillfället inte tilldelad någon cabin");
+                            return;
+                        }
+
+                        var campersWithCounselor = context.Campers.Where(c => c.CabinName == counselorsCabin).ToList();
+                        if (!campersWithCounselor.Any())
+                        {
+                            Console.WriteLine("Angiven counselor är tilldelad en cabin men den innehåller inte några campers.");
+                            return;
+                        }
+
+                        foreach (var camper in campersWithCounselor)
+                        {
+                            Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
+                        }
+
+                        //var cabinsWithoutCounselor = context.Cabins.Where(cabin => cabin.Counselor == null).ToList();
+
+                        List<Cabin> cabinsWithoutCounselor = new List<Cabin>();
+                        foreach (var cabin in context.Cabins)
+                        {
+                            if (cabin.Counselor == null)
+                            {
+                                cabinsWithoutCounselor.Add(cabin);
+                            }
+                        }
+
+                        if (cabinsWithoutCounselor.Any())
+                        {
+                            //Skapar en röd varningstext
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Varning! Följande cabins saknar en counselor:");
+                            foreach (var cabin in cabinsWithoutCounselor)
+                            {
+                                Console.WriteLine($"Cabin ID: {cabin.Id} - Namn: {cabin.Name}");
+                            }
+                            Console.ResetColor();
+                        }
+                    }
+                    else
+                    {
+                        running = false; //Återgår till föregående meny
                     }
                 }
             }
         }
+
+        public static void ReportForCampersWithNOK()
+        {
+            {
+                using (CampContext context = new CampContext())
+                {
+                    var campersWithNextOfKin = context.Campers
+                        .Include(c => c.NextOfKins)
+                        .Where(c => c.NextOfKins.Any())
+                        .OrderBy(c => c.CabinName)
+                        .ToList();
+                    Console.Clear();
+
+                    const int camperColumnWidth = 25;
+                    const int nextOfKinColumnWidth = 25;
+                    const int cabinColumnWidth = 15;
+
+                    Console.WriteLine($"{"CAMPER".PadRight(camperColumnWidth)}{"NEXTOFKIN".PadRight(nextOfKinColumnWidth)}{"CABIN".PadRight(cabinColumnWidth)}");
+                    Console.WriteLine(new string('-', camperColumnWidth + nextOfKinColumnWidth + cabinColumnWidth));
+
+                    foreach (var camper in campersWithNextOfKin)
+                    {
+                        Console.Write($"{camper.FirstName} {camper.LastName}".PadRight(camperColumnWidth));
+
+                        if (camper.NextOfKins.Any())
+                        {
+                            Console.Write($"{camper.NextOfKins[0].FirstName} {camper.NextOfKins[0].LastName}".PadRight(nextOfKinColumnWidth));
+                        }
+                        else
+                        {
+                            Console.Write($"{"".PadRight(nextOfKinColumnWidth)}");
+                        }
+
+                        Console.WriteLine($"{camper.CabinName}".PadRight(cabinColumnWidth));
+                    }
+                    Console.ReadLine();
+                }
+            }
+        }
     }
+}
