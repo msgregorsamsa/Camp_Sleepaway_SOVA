@@ -675,6 +675,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                     $"\nStugansvarig: {counselor.Check_In} - {counselor.Check_Out}"
                 );
                 Console.WriteLine();
+                Console.WriteLine("Fyll i ny information. För att behålla befintlig information, lämna rutan blank.");
+                Console.WriteLine();
 
                 Console.Write("Ange nytt förnamn: ");
                 string newFirstName = Console.ReadLine();
@@ -765,52 +767,45 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                     if (changeCabinChoice == "ja")
                     {
-                        while (true)
+                        Console.WriteLine("Skriv namn på den cabin du ska ansvara för: ");
+                        var cabinName = Console.ReadLine();
+                        var existingCounselor = context.Counselors.FirstOrDefault(c => c.CabinName == cabinName);
+
+                        if (existingCounselor != null)
                         {
-                            Console.WriteLine("Skriv namn på den cabin du ska ansvara för: ");
-                            var cabinName = Console.ReadLine();
-                            var existingCounselor = context.Counselors.FirstOrDefault(c => c.CabinName == cabinName);
-
-                            if (existingCounselor != null)
-                            {
-                                Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
-                                continue;
-
-                            }
+                            Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
+                        }
+                        else
+                        {
                             var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName);
                             if (existingCabin == null)
                             {
-                                Console.WriteLine($"Stugan {cabinName} existerar inte");
-                                // Fortsätt loopen om stugan inte existerar
+                                Console.WriteLine($"Stugan {cabinName} existerar inte. Försök igen.");
                                 continue;
                             }
-
-                            counselor.CabinName = cabinName;
-                            Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar nu över stugan {cabinName}");
-                            Console.ReadLine();
-                            break; // Bryt loopen när en giltig stuga har valts
+                            else
+                            {
+                                Console.Clear();
+                                counselor.CabinName = cabinName;
+                                Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar nu över cabin med namn {cabinName}");
+                            }
                         }
                     }
-
                     else if (changeCabinChoice == "nej")
                     {
+                        Console.Clear();
                         Console.WriteLine($"Counselor {counselor.FirstName} {counselor.LastName} ansvarar för samma cabin som tidigare.");
                     }
-
-                    else if (!string.IsNullOrEmpty(changeCabinChoice))
+                    else
                     {
-                        Console.Clear();
                         Console.WriteLine("Ogiltig inmatning, fyll i antingen Ja eller Nej.");
-                        Console.ReadLine();
-                        
                     }
 
                     context.SaveChanges();
 
-                    Console.Clear();
-                    Console.WriteLine();
+                    Console.WriteLine("Informationen är uppdaterad!");
+                    break;
                 }
-
             }
         }
 
