@@ -32,6 +32,11 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Adress: ");
                 var address = Console.ReadLine();
 
+                Console.Write("Ange deltagartitel:");
+                var titleOptions = new string[] { "Knatte", "Junior", "Senior" };
+                int titleChoice = Program.ShowMenu("Välj deltagartitel:", titleOptions);
+                var participantTitle = titleOptions[titleChoice];
+
                 Console.Write("Födelsedatum (yyyy-MM-dd): ");
                 if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var dateOfBirth))
                 {
@@ -76,6 +81,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         Phone = phone,
                         Email = email,
                         Address = address,
+                        ParticipantTitle = participantTitle,
                         CabinName = camper.Cabin?.Name,
                         Check_In = checkIn,
                         Check_Out = checkOut
@@ -83,6 +89,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                     Console.Clear();
                     Console.WriteLine($"Camper {firstName} {lastName} har blivit tillagd.");
+                    Console.WriteLine();
 
                     context.Campers.Add(newCamper);
                     context.SaveChanges();
@@ -204,6 +211,10 @@ namespace Camp_Sleepaway_SOVA.Methods
 
             Console.Write("Adress: ");
             string address = Console.ReadLine();
+
+            Console.Write("Ange relation till camper: ");
+            string relation = Console.ReadLine();
+
             while (true)
             {
                 Console.Write("Födelsedatum (yyyy-mm-dd): ");
@@ -218,7 +229,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                         DateOfBirth = dateOfBirth,
                         Phone = phone,
                         Email = email,
-                        Address = address
+                        Address = address,
+                        Relationship = relation
                     };
 
                     Console.WriteLine("Ange ID för den camper du önskar bli kopplad till: ");
