@@ -43,7 +43,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                     while (!validCabinChoice)
                     {
-                        var cabinChoice = JunctionContext.chooseCabin(context);
+                        var cabinChoice = CabinChoice.chooseCabin(context);
                         if (cabinChoice != null)
                         {
                             camper.Cabin = cabinChoice;
@@ -143,7 +143,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                     {
                         Console.WriteLine($"Cabin {cabinName} har redan en counselor, vänligen välj en annan cabin.");
                         return;
-                        //Lägg till något som går tillbaka till där användaren matar in namn på stugan
                     }
 
                     Console.Write("Födelsedatum (yyyy-MM-dd): ");
@@ -161,8 +160,8 @@ namespace Camp_Sleepaway_SOVA.Methods
                             DateOnly.TryParseExact(inputCheckOut, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var parsedCheckOut) ?
                             parsedCheckOut : (DateOnly?)null : null;
 
-                        var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName); //Kontrollerar om stugan som användaren angivit finns eller ej
-                        if (existingCabin != null) //Om stugan finns så skapar den en ny counselor
+                        var existingCabin = context.Cabins.FirstOrDefault(c => c.Name == cabinName);
+                        if (existingCabin != null)
                         {
                             var newCounselor = new Counselor
                             {
@@ -181,7 +180,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Console.Clear();
                             Console.WriteLine($"Counselor {firstName} {lastName} har blivit skapad samt tilldelad ansvar för cabin {cabinName}.");
 
-                            existingCabin.Counselor = newCounselor; // Kopplar counselor till cabin
+                            existingCabin.Counselor = newCounselor;
                             context.Counselors.Add(newCounselor);
                             context.SaveChanges();
                         }
@@ -239,8 +238,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                 Console.Write("Födelsedatum (yyyy-mm-dd): ");
                 if (DateOnly.TryParseExact(Console.ReadLine(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out DateOnly dateOfBirth))
                 {
-
-                    // Skapa ett nytt NextOfKin-objekt
                     var nextOfKin = new NextOfKin
                     {
                         FirstName = firstName,
@@ -262,8 +259,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                         if (camper != null)
                         {
                             context.NextOfKins.Add(nextOfKin);
-
-                            // Länka NextOfKin till Camper
                             nextOfKin.Campers.Add(camper);
 
                             context.SaveChanges();
@@ -410,7 +405,7 @@ namespace Camp_Sleepaway_SOVA.Methods
             using var context = new CampContext();
 
             var cabinToRemove = context.Cabins
-                .Include(c => c.Campers) // Inkludera campers för den specifika stugan
+                .Include(c => c.Campers) 
                 .FirstOrDefault(c => c.Name == cabinName);
 
             if (cabinToRemove != null)
@@ -545,7 +540,7 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                             while (!validCabinChoice)
                             {
-                                var chooseCabin = JunctionContext.chooseCabin(context);
+                                var chooseCabin = CabinChoice.chooseCabin(context);
                                 if (chooseCabin != null)
                                 {
                                     camper.Cabin = chooseCabin;
@@ -873,9 +868,8 @@ namespace Camp_Sleepaway_SOVA.Methods
 
         }
 
-
         //Samtliga rapport-metoder
-        public static void ReportsForCampers() //Lägg till metod för att kunna söka på campers baserat på stuga eller counselor
+        public static void ReportsForCampers()
         {
             Console.Clear();
 
@@ -909,7 +903,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                             {
                                 Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
                             }
-                            Console.WriteLine(); //Blankrad
+                            Console.WriteLine();
                         }
                         else
                         {
@@ -952,8 +946,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                             Console.WriteLine($"Camper: {camper.FirstName} {camper.LastName}");
                         }
 
-                        //var cabinsWithoutCounselor = context.Cabins.Where(cabin => cabin.Counselor == null).ToList();
-
                         List<Cabin> cabinsWithoutCounselor = new List<Cabin>();
                         foreach (var cabin in context.Cabins)
                         {
@@ -965,7 +957,6 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                         if (cabinsWithoutCounselor.Any())
                         {
-                            //Skapar en röd varningstext
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Varning! Följande cabins saknar en counselor:");

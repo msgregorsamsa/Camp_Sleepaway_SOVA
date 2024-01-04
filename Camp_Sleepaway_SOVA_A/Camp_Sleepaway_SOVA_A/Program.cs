@@ -3,10 +3,11 @@ using Camp_Sleepaway_SOVA.Methods;
 using Microsoft.Identity.Client;
 using System.Globalization;
 
+//Grupp: Anna Brogren, Oskar Almhage, Sanna Wiklund & Veronica Steen
+//GitHub-Repo: https://github.com/msgregorsamsa/Camp_Sleepaway_SOVA 
+
 public class Program
 {
-    //Grupp: Anna Brogren, Oskar Almhage, Sanna Wiklund & Veronica Steen
-    //Länka githb-repo här? 
     public static void ReadData()
     {
         Filehandling.ReadAllCSVFiles();

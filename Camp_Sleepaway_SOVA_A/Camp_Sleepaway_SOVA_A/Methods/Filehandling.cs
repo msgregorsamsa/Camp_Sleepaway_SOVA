@@ -138,7 +138,6 @@ namespace Camp_Sleepaway_SOVA.Methods
                     var address = values[5];
                     var title = values[6];
                     var cabinName = values[7];
-                    //var cabinID = int.Parse(values[8]);
                     var checkIn = DateOnly.ParseExact(values[8], "yyyy-mm-dd", null);
                     var checkOut = DateOnly.ParseExact(values[9], "yyyy-mm-dd", null);
 
@@ -227,17 +226,13 @@ namespace Camp_Sleepaway_SOVA.Methods
 
                 context.SaveChanges();
 
-                // Uppdatera NextOfKin-objekt med korrekta Camper-referenser baserat på CamperId
                 foreach (var nextOfKin in nextOfKinFile)
                 {
                     var camperId = nextOfKin.CamperId;
-
-                    // Hitta matchande Camper
                     var matchingCamper = context.Campers.FirstOrDefault(c => c.Id == camperId);
 
                     if (matchingCamper != null)
                     {
-                        // Lägg till nextOfKin i camperens lista över NextOfKins
                         matchingCamper.NextOfKins.Add(nextOfKin);
                     }
                 }
