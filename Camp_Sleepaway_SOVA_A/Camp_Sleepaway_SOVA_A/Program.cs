@@ -5,6 +5,8 @@ using System.Globalization;
 
 public class Program
 {
+    //Grupp: Anna Brogren, Oskar Almhage, Sanna Wiklund & Veronica Steen
+    //Länka githb-repo här? 
     public static void ReadData()
     {
         Filehandling.ReadAllCSVFiles();
