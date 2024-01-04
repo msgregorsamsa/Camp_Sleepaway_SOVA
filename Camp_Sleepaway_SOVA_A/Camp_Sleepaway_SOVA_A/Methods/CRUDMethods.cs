@@ -53,7 +53,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                         else
                         {
                             Console.Clear();
-                            if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVälj 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
+                            if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVad vill du göra?.", new String[] { "Återgå till huvudmenyn", "Välj ny cabin" }) == 0)
                             {
                                 return;
                             }
@@ -555,7 +555,7 @@ namespace Camp_Sleepaway_SOVA.Methods
                                 else
                                 {
                                     Console.Clear();
-                                    if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVälj 'Ja' för att återgå till huvudmenyn eller 'Nej' för att välja en ny cabin.", new String[] { "Ja", "Nej" }) == 0)
+                                    if (Program.ShowMenu("Vald cabin har antingen uppnått maxgränsen för antal campers (4) eller har ingen counselor.\nVad vill du göra?.", new String[] { "Återgå till huvudmenyn", "Välj ny cabin" }) == 0)
                                     {
                                         return;
                                     }
